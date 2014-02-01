@@ -20,7 +20,7 @@ public class GLogic {
 
 	public GLogic() {
 		// 背景
-		haikei = new Haikei(WIDTH, HEIGHT, "../mediaResources/image.png");
+		haikei = new Haikei(WIDTH, HEIGHT, "../mediaResources/background.png");
 		// ボールを格納する配列を作成
 		ball = new ArrayList<>();
 		rainy = new Rainy();
@@ -48,7 +48,7 @@ public class GLogic {
 
 	public void gameRender(Graphics g) {
 		// 背景
-		// haikei.draw(g);
+		haikei.draw(g);
 		if(launcher != null) {
 			launcher.draw(g);
 		}

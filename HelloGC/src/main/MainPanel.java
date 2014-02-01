@@ -171,6 +171,7 @@ public class MainPanel extends JPanel implements Runnable {
 	/*
 	 * フォントの生成
 	 */
+	@SuppressWarnings("unused")
 	private Font createMyFont(String filename, float size) {
 		Font font = null;
 		InputStream is = null;

@@ -24,7 +24,7 @@ public class BallLauncher {
 	public Ball launch(Point point, int size) {
 		p2 = point;
 		return new BallGravity(p1.x - size / 2, p1.y - size / 2,
-				 (int)(p2.getX() - p1.getX()) / 3, (int)(p2.getY() - p1.getY()) / 3, size);
+				 (int)(p1.getX() - p2.getX()) / 3, (int)(p1.getY() - p2.getY()) / 3, size);
 	}
 
 }

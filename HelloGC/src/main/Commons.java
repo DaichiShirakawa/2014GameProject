@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 public class Commons {
 	public final static int WIDTH = 320;
 	public final static int HEIGHT = 240;
+	public final static int DEPTH = 100;
 	
 	public static JPanel mainPanel;
 	public static Mouse mouse;

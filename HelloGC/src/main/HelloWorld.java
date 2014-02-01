@@ -1,29 +1,63 @@
 //20140201
 
 package main;
-import java.awt.Container;
 
-import javax.swing.JFrame;
+import static main.Commons.*;
+import static org.lwjgl.opengl.GL11.*;
 
-public class HelloWorld extends JFrame {
-	private static final long serialVersionUID = 1L;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
-	public HelloWorld() {
-
-		// メインパネルを作成してフレームに追加
-		MainPanel panel = new MainPanel();
-		Container contentPane = getContentPane();
-		contentPane.add(panel);
-		setResizable(false);
-		setIgnoreRepaint(true);
-		
-		// パネルサイズに合わせてフレームサイズを自動設定
-		pack();
-	}
+public class HelloWorld {
 
 	public static void main(String[] args) {
-		HelloWorld frame = new HelloWorld();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		new HelloWorld().start();
+	}
+
+	public void start() {
+		try {
+			// ウインドウを生成する
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+			Display.setTitle("hello world!");
+			Display.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+			return;
+		}
+		try {
+			// OpenGL の初期設定
+
+			// ポリゴンの片面（表 or 裏）表示を有効にする
+			glEnable(GL_CULL_FACE);
+			// ポリゴンの表示面を表（裏を表示しない）のみに設定する
+			glCullFace(GL_BACK);
+
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			// 視体積（描画する領域）を定義する
+			glOrtho(0, WIDTH, 0, HEIGHT, 0, DEPTH);
+			glMatrixMode(GL_MODELVIEW);
+
+			while (!Display.isCloseRequested()) {
+				// オフスクリーンを初期化する
+				glClear(GL_COLOR_BUFFER_BIT);
+
+				// オフスクリーンに描画する
+				render();
+
+				// オフスクリーンをスクリーンに反映する
+				Display.update();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Display.destroy();
+		}
+	}
+
+	private void render() {
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 }
