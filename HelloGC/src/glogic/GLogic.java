@@ -20,7 +20,7 @@ public class GLogic {
 
 	public GLogic() {
 		// 背景
-		haikei = new Haikei(WIDTH, HEIGHT, "../mediaResources/background.png");
+		//haikei = new Haikei(WIDTH, HEIGHT, "media/background.png");
 		// ボールを格納する配列を作成
 		ball = new ArrayList<>();
 		rainy = new Rainy();

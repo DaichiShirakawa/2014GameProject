@@ -8,6 +8,8 @@ import io.Mouse;
 import javax.swing.JPanel;
 
 public class Commons {
+	public final static int WINDOW_WIDTH = 640;
+	public final static int WINDOW_HEIGHT = 480;
 	public final static int WIDTH = 320;
 	public final static int HEIGHT = 240;
 	public final static int DEPTH = 100;
