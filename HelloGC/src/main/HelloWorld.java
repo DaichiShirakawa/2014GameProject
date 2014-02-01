@@ -1,3 +1,5 @@
+//20140201
+
 package main;
 import java.awt.Container;
 
@@ -7,9 +9,6 @@ public class HelloWorld extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public HelloWorld() {
-		setTitle("たいとaー");
-		ここはメイン
-		そしてここは違うブランチ
 
 		// メインパネルを作成してフレームに追加
 		MainPanel panel = new MainPanel();
