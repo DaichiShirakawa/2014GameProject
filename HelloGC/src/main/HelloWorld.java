@@ -8,7 +8,7 @@ public class HelloWorld extends JFrame {
 
 	public HelloWorld() {
 		setTitle("たいとaー");
-		ここはメイン
+		そしてこっちは違うブランチ
 
 		// メインパネルを作成してフレームに追加
 		MainPanel panel = new MainPanel();
