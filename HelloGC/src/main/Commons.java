@@ -14,7 +14,8 @@ public class Commons {
 	public final static int DEPTH = 200;
 	
 	//リソースへのパス
-	public final static String IMAGE_FOLDER_STRING = "images/";
+	public final static String RESOURCE_FOLDER_STRING = "resources/";
+	public final static String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING + "images/";
 	
 	// FPS管理
 	public static final int FPS = 60;

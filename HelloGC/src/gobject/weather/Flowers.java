@@ -9,17 +9,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.lwjgl.input.Keyboard;
+
 import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
 public class Flowers implements GameObject {
 	private static final String imageFileName = "tokiIcon.png";
-	private static final float ROTATE_PER_SECOND = 0.6f;
-	private static final int TOKI_PER_SECOND = 30;
+	private static int tokiPerSecond = 20;
 
 	private static Texture texture;
 	private ArrayList<Flower> flowers;
+	private float wind = 0f;
+	private float vWind = 0f;
 
 	public Flowers() {
 		try {
@@ -33,16 +36,42 @@ public class Flowers implements GameObject {
 
 	@Override
 	public void update() {
-		if (frameCount % (FPS / TOKI_PER_SECOND) == 0) {
+		if (frameCount % (FPS / tokiPerSecond) == 0) {
 			flowers.add(new Flower());
 		}
 		for (Iterator<Flower> ite = flowers.iterator(); ite.hasNext();) {
 			Flower flower = ite.next();
-			flower.setVRotate(ROTATE_PER_SECOND);
-			flower.update();
+			flower.update(wind);
 			if (flower.doRelease()) {
 				ite.remove();
 			}
+		}
+
+			wind += vWind / FPS;
+			if(Math.abs(wind) > Math.abs(vWind)) {
+				wind = (wind * vWind < 0) ? wind + vWind : wind;
+			}
+
+		while (Keyboard.next()) {
+
+			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
+					&& (Keyboard.getEventKeyState())) {
+				if (tokiPerSecond < 60)
+					tokiPerSecond++;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
+					&& (Keyboard.getEventKeyState())) {
+				if (tokiPerSecond > 1)
+					tokiPerSecond--;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
+					&& (Keyboard.getEventKeyState())) {
+				vWind -= 1;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
+					&& (Keyboard.getEventKeyState())) {
+				vWind += 1;
+			} else {
+				continue;
+			}
+			break;
 		}
 	}
 
@@ -82,13 +111,15 @@ public class Flowers implements GameObject {
 			setWidth(DEFAULT_WIDTH);
 			setScale(random(0.2f, 1.0f));
 			setAngle(rnd.nextInt(360));
+			vRotate = 1f;
 			setHeight(DEFAULT_HEIGHT);
 			setX(rnd.nextInt(WIDTH + getWidth() * 2) - getWidth());
 			setY(-getHeight());
-			clR = random(0.7f, 1f);
-			clG = random(0.4f, 0.6f);
-			clB = random(0.7f, 0.9f);
-			float rand = random(0.3f, 1f);
+			float rand = random(0f, 1.4f);
+			clR = 1f;
+			clG = (1f < rand) ? rand - 1f : 0f;
+			clB = (rand <= 1f) ? rand : 0f;
+			rand = random(0.3f, 1f);
 			clR += ((1f - clR) * rand);
 			clG += ((1f - clG) * rand);
 			clB += ((1f - clB) * rand);
@@ -97,22 +128,34 @@ public class Flowers implements GameObject {
 			clR *= rand;
 			clG *= rand;
 			clB *= rand;
-			
+
 			setVx(random(-0.1f, 0.4f));
 			setVy(1f);
-		}
-
-		public void setVRotate(float rotateAngle) {
-			vRotate = rotateAngle;
 		}
 
 		@Override
 		public void update() {
 			setX(getX() + getVx());
-			setAngle(getAngle() + (360 / 60 * vRotate * (1.5f - getScale())));
+			setAngle(getAngle() + (360 / 60 * vRotate * (1.3f - getScale())));
 			setY(getY() + 1 + getVy() * (1f - getScale()));
 			if (getY() > HEIGHT + getHeight() / 2) {
 				release = true;
+			}
+		}
+
+		public void update(float wind) {
+			setX(getX() + getVx() + wind);
+			setAngle(getAngle() + (360 / 60 * vRotate * (1.3f - getScale())));
+			setY(getY() + 1 + getVy() * (1f - getScale()));
+			if (getY() > HEIGHT + getHeight() / 2) {
+				release = true;
+			}
+			float tmp;
+			if ((tmp = getX() + getWidth()) < 0) {
+				setX(WIDTH + getWidth() + tmp);
+			}
+			if ((tmp = getX() - WIDTH - getWidth()) > 0) {
+				setX(-getWidth() + tmp);
 			}
 		}
 
@@ -123,7 +166,7 @@ public class Flowers implements GameObject {
 			// 回転
 			glRotatef(getAngle(), 0, 0, 1);
 
-			glColor4f(clR, clG, clB, 1f);
+			glColor4f(clR, clG, clB, 0.8f);
 			texture.bind();
 
 			// 四角のポリゴンとする

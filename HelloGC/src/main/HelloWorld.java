@@ -66,7 +66,7 @@ public class HelloWorld implements Runnable {
         glEnable(GL_BLEND);
 
 		// でふぉると色
-		glClearColor(0.93f, 0.93f, 0.85f, 1f);
+		glClearColor(1f, 1f, 1f, 1f);
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
