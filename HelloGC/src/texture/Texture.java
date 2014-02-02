@@ -30,85 +30,89 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package texture;
- 
-import static org.lwjgl.opengl.GL11.glBindTexture;
-import static org.lwjgl.opengl.GL11.glDeleteTextures;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
- 
+
+import static org.lwjgl.opengl.GL11.*;
+
 public class Texture {
-    private int     target;
-    private int     textureID;
- 
-    private int     width;
-    private int     height;
- 
-    private int     texWidth;
-    private int     texHeight;
-     
-    private boolean isAlphaPremultiplied;
- 
-    public Texture(int target, int textureID) {
-        this.target = target;
-        this.textureID = textureID;
-        this.isAlphaPremultiplied = true;
-    }
-     
-    public void point(int srcX, int srcY) {
-        float   tx = 1.0f * srcX / texWidth;
-        float   ty = 1.0f * srcY / texHeight;
- 
-        glTexCoord2f(tx, ty);
-    }
- 
-    void setTextureHeight(int texHeight) {
-        this.texHeight = texHeight;
-    }
- 
-    void setTextureWidth(int texWidth) {
-        this.texWidth = texWidth;
-    }
-     
-    int getTextureWidth() {
-        return texWidth;
-    }
- 
-    int getTextureHeight() {
-        return texHeight;
-    }
- 
-    public int getWidth() {
-        return width;
-    }
- 
-    void setWidth(int width) {
-        this.width = width;
-    }
- 
-    public int getHeight() {
-        return height;
-    }
- 
-    void setHeight(int height) {
-        this.height = height;
-    }
- 
-    public boolean isAlphaPremultiplied() {
-        return isAlphaPremultiplied;
-    }
- 
-    void setAlphaPremultiplied(boolean isAlphaPremultiplied) {
-        this.isAlphaPremultiplied = isAlphaPremultiplied;
-    }
- 
-    public void dispose() {
-        if (0 < textureID) {
-            glDeleteTextures(textureID);
-            textureID = -1;
-        }
-    }
- 
-    public void bind() {
-        glBindTexture(target, textureID);
-    }
-     
+	private int target;
+	private int textureID;
+
+	private int width;
+	private int height;
+
+	private int texWidth;
+	private int texHeight;
+
+	private boolean isAlphaPremultiplied;
+
+	public Texture(int target, int textureID) {
+		this.target = target;
+		this.textureID = textureID;
+		this.isAlphaPremultiplied = true;
+	}
+
+	public void point(int srcX, int srcY) {
+		float tx = 1.0f * srcX / texWidth;
+		float ty = 1.0f * srcY / texHeight;
+
+		glTexCoord2f(tx, ty);
+	}
+
+	public int getTextureID() {
+		return textureID;
+	}
+
+	void setTextureHeight(int texHeight) {
+		this.texHeight = texHeight;
+	}
+
+	void setTextureWidth(int texWidth) {
+		this.texWidth = texWidth;
+	}
+
+	int getTextureWidth() {
+		return texWidth;
+	}
+
+	int getTextureHeight() {
+		return texHeight;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	void setHeight(int height) {
+		this.height = height;
+	}
+
+	public boolean isAlphaPremultiplied() {
+		return isAlphaPremultiplied;
+	}
+
+	void setAlphaPremultiplied(boolean isAlphaPremultiplied) {
+		this.isAlphaPremultiplied = isAlphaPremultiplied;
+	}
+
+	public void dispose() {
+		if (0 < textureID) {
+			glDeleteTextures(textureID);
+			textureID = -1;
+		}
+	}
+
+	public void bind() {
+		glBindTexture(target, textureID);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	}
+
 }

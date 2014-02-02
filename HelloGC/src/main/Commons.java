@@ -1,30 +1,43 @@
 package main;
 
-import java.util.Random;
-
 import io.Keyboard;
 import io.Mouse;
 
-import javax.swing.JPanel;
+import java.util.Random;
 
 public class Commons {
+	//ウィンドウ・描写領域
 	public final static int WINDOW_WIDTH = 640;
 	public final static int WINDOW_HEIGHT = 480;
 	public final static int WIDTH = 320;
 	public final static int HEIGHT = 240;
-	public final static int DEPTH = 100;
+	public final static int DEPTH = 200;
 	
-	public static JPanel mainPanel;
-	public static Mouse mouse;
+	//リソースへのパス
+	public final static String IMAGE_FOLDER_STRING = "images/";
+	
+	// FPS管理
+	public static final int FPS = 60;
+	public static long frameCount = 0;
+	
+	//IO
 	public static Keyboard keyboard;
+	public static Mouse mouse;
+	
+	//ゲーム利用
 	public static Random rnd;
 	
-	public static void initializeCommons(JPanel panel, Mouse mouse, Keyboard keyboard) {
-		Commons.mainPanel = panel;
-		Commons.mouse = mouse;
-		Commons.keyboard = keyboard;
+	/**
+	 * 初期化
+	 */
+	public static void initializeCommons() {
 		Commons.rnd = new Random(System.nanoTime());
 	}
 	
-	public static long frameCount = 0;
+    public static float random(float min, float max) {
+        //  min から max までの間で乱数を生成して返す
+        float   dist = max - min;
+        return (float)(Math.random() * dist + min);
+    }
+	
 }

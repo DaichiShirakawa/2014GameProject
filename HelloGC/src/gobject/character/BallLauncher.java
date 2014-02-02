@@ -1,4 +1,4 @@
-package gobject;
+package gobject.character;
 
 import java.awt.Color;
 import java.awt.Graphics;

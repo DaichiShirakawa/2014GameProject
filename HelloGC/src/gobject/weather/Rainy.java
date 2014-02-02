@@ -1,4 +1,4 @@
-package gobject;
+package gobject.weather;
 
 import static main.Commons.*;
 
