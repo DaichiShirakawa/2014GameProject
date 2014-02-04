@@ -1,4 +1,4 @@
-package dottest;
+package gobject.dottest;
 
 import static main.Commons.*;
 import static org.lwjgl.opengl.GL11.*;

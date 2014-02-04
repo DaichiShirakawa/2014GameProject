@@ -55,7 +55,8 @@ public class HelloWorld implements Runnable {
 		// OpenGL の初期設定効化する
 
 		// でふぉると色
-		glClearColor(1f, 1f, 1f, 1f);
+		//glClearColor(1f, 1f, 1f, 1f);
+		glClearColor(0, 0, 0, 1);
 
 		// テクスチャーを有効に
 		glEnable(GL_TEXTURE_2D);

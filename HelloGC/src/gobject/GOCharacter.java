@@ -1,6 +1,7 @@
 package gobject;
 
 import static org.lwjgl.opengl.GL11.*;
+import static main.Commons.*;
 import texture.Texture;
 
 public abstract class GOCharacter implements GameObject {
@@ -23,28 +24,13 @@ public abstract class GOCharacter implements GameObject {
 
 	protected void draw(Texture texture) {
         //  設定を初期化する
-//        glLoadIdentity();
-		
+        glLoadIdentity();
 		// 原点の指定
 		glTranslatef(getX(), getY(), 0);
 		// 回転
 		glRotatef(getAngle(), 0, 0, 1);
-
-		getTexture().bind();
 		
-		// 四角のポリゴンとする
-		glBegin(GL_QUADS);
-
-		texture.point(texture.getWidth(), 0);
-		glVertex3f(getWidth() / 2, getHeight() / 2, 0);
-		texture.point(0, 0);
-		glVertex3f(-getWidth() / 2, getHeight() / 2, 0);
-		texture.point(0, texture.getHeight());
-		glVertex3f(-getWidth() / 2, -getHeight() / 2, 0);
-		texture.point(texture.getWidth(), texture.getHeight());
-		glVertex3f(getWidth() / 2, -getHeight() / 2, 0);
-
-		glEnd();
+		drawTexture(texture, getWidth(), getHeight());
 	}
 
 	protected void draw() {

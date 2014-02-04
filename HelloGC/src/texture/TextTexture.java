@@ -13,22 +13,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class TextTexture {
-	private static Font font = null;
-	private static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
-			+ "Ricty.ttf";
-	private static final int FONT_HEIGHT = 24;
-
 	/**
 	 * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
 	 */
-	public Texture createTextTexture(String str, int width, int height) {
+	public Texture createTextTexture(String str, int width, int height, Color color) {
 
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			if (font == null)
-				createFont();
-			image = new TextureLoader().createImageData(width * 2, height * 2);
+			image = new TextureLoader().createImageData(width, height);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
 			g = image.createGraphics();
@@ -37,7 +30,7 @@ public class TextTexture {
 			g.setFont(font);
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 					RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(Color.black);
+			g.setColor(color);
 
 			// 表示する文字列の位置を計算する
 			String message = str;
@@ -57,7 +50,7 @@ public class TextTexture {
 				}
 
 				if (isDrawed) {
-					g.drawString(message.substring(0, count), 0, FONT_HEIGHT);
+					g.drawString(message.substring(0, count), 0, FONT_HEIGHT + y);
 					message = message.substring(count);
 					y += FONT_HEIGHT + 6;
 					count = 0;
@@ -78,16 +71,5 @@ public class TextTexture {
 			}
 		}
 		return null;
-	}
-
-	private void createFont() {
-		try {
-			InputStream is = new FileInputStream(FONT_FILEPATH);
-			font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
-					(float) FONT_HEIGHT);
-			is.close();
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
