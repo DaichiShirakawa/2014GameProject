@@ -8,7 +8,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -16,29 +16,28 @@ public class TextTexture {
 	private static Font font = null;
 	private static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
 			+ "Ricty.ttf";
-	private static final int TRUE_TYPE_FONT_HEIGHT = 10;
+	private static final int FONT_HEIGHT = 24;
 
 	/**
 	 * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
 	 */
-	public Texture createTextTexture(String str) {
+	public Texture createTextTexture(String str, int width, int height) {
 
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			if(font == null) createFont();
-			image = new TextureLoader().createImageData(WIDTH, HEIGHT);
+			if (font == null)
+				createFont();
+			image = new TextureLoader().createImageData(width * 2, height * 2);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
 			g = image.createGraphics();
-			g.setColor(new Color(0f, 0f, 0f, 0f));
-			g.fillRect(0, 0, WIDTH, HEIGHT);
 
 			// 外部フォントを使う準備をする
 			g.setFont(font);
 			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 					RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(new Color(1f, 1f, 1f, 1f));
+			g.setColor(Color.black);
 
 			// 表示する文字列の位置を計算する
 			String message = str;
@@ -51,16 +50,16 @@ public class TextTexture {
 					isDrawed = true;
 				} else {
 					// メッセージウインドウの右端まで文字を書き込んだら、改行する
-					int width = g.getFontMetrics().stringWidth(
+					int awidth = g.getFontMetrics().stringWidth(
 							message.substring(0, count + 1));
 
-					isDrawed = (WIDTH - 200 < width);
+					isDrawed = (width < awidth);
 				}
 
 				if (isDrawed) {
-					g.drawString(message.substring(0, count), 100, 40 + y);
+					g.drawString(message.substring(0, count), 0, FONT_HEIGHT);
 					message = message.substring(count);
-					y += TRUE_TYPE_FONT_HEIGHT + 6;
+					y += FONT_HEIGHT + 6;
 					count = 0;
 				} else {
 					count++;
@@ -83,9 +82,9 @@ public class TextTexture {
 
 	private void createFont() {
 		try {
-			System.out.println(new File(FONT_FILEPATH).exists());
-			InputStream is = this.getClass().getResourceAsStream(FONT_FILEPATH);
-			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			InputStream is = new FileInputStream(FONT_FILEPATH);
+			font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
+					(float) FONT_HEIGHT);
 			is.close();
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();

@@ -10,9 +10,9 @@ public abstract class GOCharacter implements GameObject {
 	private float vy;
 	private int width;
 	private int height;
-	private float scale;
-	private float angle;
-	private float alpha;
+	private float scale = 1;
+	private float angle = 0;
+	private float alpha = 1;
 	private Texture texture;
 
 	@Override
@@ -22,7 +22,10 @@ public abstract class GOCharacter implements GameObject {
 	public abstract void render();
 
 	protected void draw(Texture texture) {
-		// xy原点の指定
+        //  設定を初期化する
+//        glLoadIdentity();
+		
+		// 原点の指定
 		glTranslatef(getX(), getY(), 0);
 		// 回転
 		glRotatef(getAngle(), 0, 0, 1);

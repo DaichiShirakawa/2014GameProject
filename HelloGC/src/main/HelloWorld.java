@@ -52,21 +52,21 @@ public class HelloWorld implements Runnable {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-
 		// OpenGL の初期設定効化する
-		// ポリゴンの片面（表 or 裏）表示を有効にする
-		glEnable(GL_CULL_FACE);
-		// ポリゴンの表示面を表（裏を表示しない）のみに設定する
-		glCullFace(GL_BACK);
+
+		// でふぉると色
+		glClearColor(1f, 1f, 1f, 1f);
 
 		// テクスチャーを有効に
 		glEnable(GL_TEXTURE_2D);
 
-		// アルファブレンド
+		// アルファブレンドを有効に
 		glEnable(GL_BLEND);
+		
+		// ポリゴンの片面のみを表示
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 
-		// でふぉると色
-		glClearColor(1f, 1f, 1f, 1f);
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();

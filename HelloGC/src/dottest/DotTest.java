@@ -21,7 +21,6 @@ public class DotTest extends GOCharacter {
 		}
 		setX(WIDTH / 2);
 		setY(HEIGHT / 2);
-		setScale(1f);
 		setWidth(getTexture().getWidth());
 		setHeight(getTexture().getHeight());
 	}
@@ -48,7 +47,7 @@ public class DotTest extends GOCharacter {
 			break;
 		}
 		
-		setAngle(getAngle() + 1);;
+		setAngle(getAngle() + 1);
 	}
 
 	@Override
