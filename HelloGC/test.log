@@ -1,0 +1,10 @@
+java.lang.NoClassDefFoundError: org/lwjgl/LWJGLException
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Unknown Source)
+	at PackLoader.initialize(PackLoader.java:79)
+Caused by: java.lang.ClassNotFoundException: org.lwjgl.LWJGLException
+	at PackLoader.findClass(PackLoader.java:96)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 3 more
+java -cp .;res;jar\lwjgl.jar;D:\development\git\2014Game\HelloGC\test.jar;jar\lwjgl_util.jar;jar\jinput.jar; -Djava.library.path=native\windows org.lwjgl.test.WindowCreationTest

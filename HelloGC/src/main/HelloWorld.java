@@ -16,8 +16,8 @@ public class HelloWorld implements Runnable {
 
 	// ゲーム管理
 	private GLogic logic;
-	
-	//FPS管理
+
+	// FPS管理
 	private static final long PERIOD = (long) (1.0 / (long) FPS * 1000000000L);
 	private static long MAX_STATS_INTERVAL = 1000000000L;
 	private long calcInterval = 0L;
@@ -43,7 +43,7 @@ public class HelloWorld implements Runnable {
 	 * ロジック生成、ウィンドウ生成、openGLの初期化
 	 */
 	private void DisplayItialize() {
-		
+
 		// ウインドウを生成する
 		try {
 			Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -63,7 +63,7 @@ public class HelloWorld implements Runnable {
 		glEnable(GL_TEXTURE_2D);
 
 		// アルファブレンド
-        glEnable(GL_BLEND);
+		glEnable(GL_BLEND);
 
 		// でふぉると色
 		glClearColor(1f, 1f, 1f, 1f);
@@ -73,12 +73,13 @@ public class HelloWorld implements Runnable {
 		// 視体積（描画する領域）を定義する
 		glOrtho(0, WIDTH, 0, HEIGHT, -DEPTH / 2, DEPTH / 2);
 		glMatrixMode(GL_MODELVIEW);
-		
+
 		logic = new GLogic();
 	}
 
 	private void terminate() {
-		logic.terminate();
+		if (logic != null)
+			logic.terminate();
 	}
 
 	public void run() {
@@ -90,14 +91,14 @@ public class HelloWorld implements Runnable {
 			logic.gameRender();
 			// オフスクリーンをスクリーンに反映する
 			Display.update();
-			
+
 			calcFPS();
 			Display.setTitle("FRAME:" + String.valueOf(frameCount) + "FPS:"
 					+ df.format(actualFPS));
 			Display.sync(FPS);
 		}
 	}
-	
+
 	/**
 	 * FPS計算
 	 */

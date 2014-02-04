@@ -13,6 +13,7 @@ public abstract class GOCharacter implements GameObject {
 	private float scale;
 	private float angle;
 	private float alpha;
+	private Texture texture;
 
 	@Override
 	public abstract void update();
@@ -21,6 +22,16 @@ public abstract class GOCharacter implements GameObject {
 	public abstract void render();
 
 	protected void draw(Texture texture) {
+		// xy原点の指定
+		glTranslatef(getX(), getY(), 0);
+		// 回転
+		glRotatef(getAngle(), 0, 0, 1);
+
+		getTexture().bind();
+		
+		// 四角のポリゴンとする
+		glBegin(GL_QUADS);
+
 		texture.point(texture.getWidth(), 0);
 		glVertex3f(getWidth() / 2, getHeight() / 2, 0);
 		texture.point(0, 0);
@@ -30,11 +41,24 @@ public abstract class GOCharacter implements GameObject {
 		texture.point(texture.getWidth(), texture.getHeight());
 		glVertex3f(getWidth() / 2, -getHeight() / 2, 0);
 
+		glEnd();
+	}
+
+	protected void draw() {
+		draw(getTexture());
 	}
 
 	@Override
 	public void terminate() {
 		//
+	}
+
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
 	}
 
 	public float getX() {

@@ -9,25 +9,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.lwjgl.input.Keyboard;
-
 import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
 public class Flowers implements GameObject {
-	private static final String imageFileName = "tokiIcon.png";
+	private static final String imageFileName = "dotTokiIcon.png";
 	private static int tokiPerSecond = 20;
 
-	private static Texture texture;
+	private static Texture flowerTexture;
 	private ArrayList<Flower> flowers;
 	private float wind = 0f;
 	private float vWind = 0f;
 
 	public Flowers() {
 		try {
-			texture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+			flowerTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 					+ imageFileName);
+			// アルファブレンドで表示する
+			AlphaBlend.AlphaBlend.config(flowerTexture);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class Flowers implements GameObject {
 	@Override
 	public void update() {
 		if (frameCount % (FPS / tokiPerSecond) == 0) {
-			flowers.add(new Flower());
+			flowers.add(new Flower(flowerTexture));
 		}
 		for (Iterator<Flower> ite = flowers.iterator(); ite.hasNext();) {
 			Flower flower = ite.next();
@@ -52,35 +52,33 @@ public class Flowers implements GameObject {
 				wind = (wind * vWind < 0) ? wind + vWind : wind;
 			}
 
-		while (Keyboard.next()) {
-
-			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
-					&& (Keyboard.getEventKeyState())) {
-				if (tokiPerSecond < 60)
-					tokiPerSecond++;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
-					&& (Keyboard.getEventKeyState())) {
-				if (tokiPerSecond > 1)
-					tokiPerSecond--;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
-					&& (Keyboard.getEventKeyState())) {
-				vWind -= 1;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
-					&& (Keyboard.getEventKeyState())) {
-				vWind += 1;
-			} else {
-				continue;
-			}
-			break;
-		}
+//		while (Keyboard.next()) {
+//
+//			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
+//					&& (Keyboard.getEventKeyState())) {
+//				if (tokiPerSecond < 60)
+//					tokiPerSecond++;
+//			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
+//					&& (Keyboard.getEventKeyState())) {
+//				if (tokiPerSecond > 1)
+//					tokiPerSecond--;
+//			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
+//					&& (Keyboard.getEventKeyState())) {
+//				vWind -= 1;
+//			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
+//					&& (Keyboard.getEventKeyState())) {
+//				vWind += 1;
+//			} else {
+//				continue;
+//			}
+//			break;
+//		}
 	}
 
 	@Override
 	public void render() {
 		// 設定を初期化する
 		glLoadIdentity();
-		// アルファブレンドで表示する
-		AlphaBlend.AlphaBlend.config(texture);
 		for (Flower flower : flowers) {
 			// 行列スタックに現在の行列を退避させ、新しい行列に対してモデルビュー変換を開始する
 			glPushMatrix();
@@ -92,7 +90,7 @@ public class Flowers implements GameObject {
 
 	@Override
 	public void terminate() {
-		texture.dispose();
+		flowerTexture.dispose();
 	}
 
 	private class Flower extends GOCharacter {
@@ -107,7 +105,8 @@ public class Flowers implements GameObject {
 			return release;
 		}
 
-		public Flower() {
+		public Flower(Texture texture) {
+			setTexture(texture);
 			setWidth(DEFAULT_WIDTH);
 			setScale(random(0.2f, 1.0f));
 			setAngle(rnd.nextInt(360));
@@ -161,20 +160,8 @@ public class Flowers implements GameObject {
 
 		@Override
 		public void render() {
-			// xy原点の指定
-			glTranslatef(getX(), getY(), 0);
-			// 回転
-			glRotatef(getAngle(), 0, 0, 1);
-
 			glColor4f(clR, clG, clB, 0.8f);
-			texture.bind();
-
-			// 四角のポリゴンとする
-			glBegin(GL_QUADS);
-
-			draw(texture);
-
-			glEnd();
+			draw();
 		}
 
 	}

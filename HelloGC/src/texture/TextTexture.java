@@ -8,13 +8,15 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class TextTexture {
 	private static Font font = null;
 	private static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
-			+ "Ricty-Regular.ttf";
+			+ "Ricty.ttf";
+	private static final int TRUE_TYPE_FONT_HEIGHT = 10;
 
 	/**
 	 * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
@@ -24,14 +26,13 @@ public class TextTexture {
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			image = textureLoader.createImageData(textureWindow.getWidth(),
-					textureWindow.getHeight());
+			if(font == null) createFont();
+			image = new TextureLoader().createImageData(WIDTH, HEIGHT);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
 			g = image.createGraphics();
 			g.setColor(new Color(0f, 0f, 0f, 0f));
-			g.fillRect(0, 0, textureWindow.getWidth(),
-					textureWindow.getHeight());
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 
 			// 外部フォントを使う準備をする
 			g.setFont(font);
@@ -40,7 +41,7 @@ public class TextTexture {
 			g.setColor(new Color(1f, 1f, 1f, 1f));
 
 			// 表示する文字列の位置を計算する
-			String message = divergence.getMessage();
+			String message = str;
 			int count = 0;
 			int y = 0;
 			while (0 < message.length()) {
@@ -53,7 +54,7 @@ public class TextTexture {
 					int width = g.getFontMetrics().stringWidth(
 							message.substring(0, count + 1));
 
-					isDrawed = (textureWindow.getWidth() - 200 < width);
+					isDrawed = (WIDTH - 200 < width);
 				}
 
 				if (isDrawed) {
@@ -66,7 +67,9 @@ public class TextTexture {
 				}
 			}
 
-			return textureLoader.loadTexture(image);
+			return new TextureLoader().loadTexture(image);
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			if (g != null) {
 				g.dispose();
@@ -75,11 +78,13 @@ public class TextTexture {
 				image.flush();
 			}
 		}
+		return null;
 	}
 
 	private void createFont() {
 		try {
-			InputStream is = getClass().getResourceAsStream(FONT_FILEPATH);
+			System.out.println(new File(FONT_FILEPATH).exists());
+			InputStream is = this.getClass().getResourceAsStream(FONT_FILEPATH);
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
 			is.close();
 		} catch (FontFormatException | IOException e) {
