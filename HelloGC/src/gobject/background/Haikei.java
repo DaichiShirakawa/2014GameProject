@@ -1,7 +1,5 @@
 package gobject.background;
 
-import static main.Commons.*;
-
 import java.awt.Graphics;
 import java.awt.Image;
 

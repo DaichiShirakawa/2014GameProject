@@ -1,6 +1,5 @@
 package main;
 
-import static main.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import io.Keyboard;
 import io.Mouse;
@@ -12,15 +11,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
 
-import texture.TextTexture;
 import texture.Texture;
 
 public class Commons {
 	// ウィンドウ・描写領域
-	public final static int WINDOW_WIDTH = 640;
-	public final static int WINDOW_HEIGHT = 480;
-	public final static int WIDTH = 320;
-	public final static int HEIGHT = 240;
+	public final static int WINDOW_WIDTH = 800;
+	public final static int WINDOW_HEIGHT = 600;
+	public final static int WIDTH = 400;
+	public final static int HEIGHT = 300;
+//	public final static int WINDOW_WIDTH = 640;
+//	public final static int WINDOW_HEIGHT = 320;
+//	public final static int WIDTH = 320;
+//	public final static int HEIGHT = 240;
 	public final static int DEPTH = 200;
 
 	// リソースへのパス
@@ -43,7 +45,7 @@ public class Commons {
 	public static Font font = null;
 	public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
 			+ "Ricty.ttf";
-	public static final int FONT_HEIGHT = 20;
+	public static final int FONT_HEIGHT = 60;
 
 	/**
 	 * 初期化

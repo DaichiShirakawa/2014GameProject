@@ -3,14 +3,10 @@ package texture;
 import static main.Commons.*;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class TextTexture {
 	/**
@@ -21,10 +17,12 @@ public class TextTexture {
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			image = new TextureLoader().createImageData(width, height);
+			image = new TextureLoader().createImageData(width, FONT_HEIGHT);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
 			g = image.createGraphics();
+//            g.setColor(new Color(1f, 1f, 1f, 1f));
+//            g.fillRect(0, 0, width, height);
 
 			// 外部フォントを使う準備をする
 			g.setFont(font);
@@ -50,7 +48,7 @@ public class TextTexture {
 				}
 
 				if (isDrawed) {
-					g.drawString(message.substring(0, count), 0, FONT_HEIGHT + y);
+					g.drawString(message.substring(0, count), 0, FONT_HEIGHT - 6 + y);
 					message = message.substring(count);
 					y += FONT_HEIGHT + 6;
 					count = 0;
