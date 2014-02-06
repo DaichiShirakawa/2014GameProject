@@ -22,24 +22,25 @@ public abstract class GOCharacter implements GameObject {
 	@Override
 	public abstract void render();
 
+	@Override
+	public void terminate() {
+		if (getTexture() != null)
+			getTexture().dispose();
+	}
+	
 	protected void draw(Texture texture) {
-        //  設定を初期化する
-        glLoadIdentity();
+		// 設定を初期化する
+		glLoadIdentity();
 		// 原点の指定
 		glTranslatef(getX(), getY(), 0);
 		// 回転
 		glRotatef(getAngle(), 0, 0, 1);
-		
+
 		drawTexture(texture, getWidth(), getHeight());
 	}
 
 	protected void draw() {
 		draw(getTexture());
-	}
-
-	@Override
-	public void terminate() {
-		//
 	}
 
 	public Texture getTexture() {

@@ -48,8 +48,8 @@ public class Star extends GOCharacter {
 
 	@Override
 	public void update() {
-		jAngle += 365 * FPS / jiten * TIME_SCALE;
-		kAngle += FPS / koten * TIME_SCALE;
+		jAngle += 365 * FPS / jiten * timeScale;
+		kAngle += FPS / koten * timeScale;
 		// setAngle(getAngle() - koten / FPS * 360);
 	}
 

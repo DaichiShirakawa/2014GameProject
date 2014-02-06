@@ -9,7 +9,8 @@ public class GLogic {
 	private ArrayList<GameObject> gameObjects;
 
 	public GLogic() {
-		gameObjects = new ArrayList<>(); 
+		gameObjects = new ArrayList<>();
+		gameObjects.add(e)
 //		addObject(new Flowers());
 //		addObject(new DotTest());
 //		addObject(new TextTest());

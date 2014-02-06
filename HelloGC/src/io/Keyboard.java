@@ -1,10 +1,12 @@
 package io;
+import gobject.GameObject;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 
-public class Keyboard implements KeyListener{
+public class Keyboard implements KeyListener, GameObject{
 	protected HashMap<Integer, Integer> keyStatus;
 	
 	public Keyboard() {

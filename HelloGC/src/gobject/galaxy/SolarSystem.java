@@ -5,17 +5,23 @@ import static org.lwjgl.opengl.GL11.*;
 import gobject.GOCharacter;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.lwjgl.input.Keyboard;
 
 import texture.TextTexture;
 import texture.Texture;
+import texture.TextureLoader;
 
 public class SolarSystem extends GOCharacter {
 	private ArrayList<Star> stars;
-	public static final float TIME_SCALE = 0.0005f;
+	public static float timeScale = 0.001f;
 
+	private Texture tokiTexture;
 	private Texture fontTexture;
 	private float keika = 0;
+	private float tokiy, tokix;
 
 	public SolarSystem() {
 		Star star;
@@ -47,6 +53,13 @@ public class SolarSystem extends GOCharacter {
 		stars.add(sun.makeChild("天", 0.4f, 210, Color.white, 84.01f, 0.7181f));
 		fontTexture = new TextTexture().createTextTexture(keika + "日経過",
 				FONT_HEIGHT, FONT_HEIGHT, Color.white);
+		try {
+			tokiTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+					+ "dotTokiIcon.png");
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -54,11 +67,33 @@ public class SolarSystem extends GOCharacter {
 		for (Star star : stars) {
 			star.update();
 		}
-		keika += 365 * FPS / 360 * TIME_SCALE;
+		keika += 365 * FPS / 360 * timeScale;
 		fontTexture.dispose();
-		fontTexture = new TextTexture().createTextTexture((int)keika + "日経過", 300,
-				FONT_HEIGHT, Color.white);
+		fontTexture = new TextTexture().createTextTexture((int) keika + "日経過",
+				300, FONT_HEIGHT, Color.white);
 
+		while (Keyboard.next()) {
+
+			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
+					&& (Keyboard.getEventKeyState())) {
+				timeScale += 0.0001;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
+					&& (Keyboard.getEventKeyState())) {
+				timeScale -= 0.0001;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
+					&& (Keyboard.getEventKeyState())) {
+				tokix = WIDTH;
+				tokiy = HEIGHT;
+			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
+					&& (Keyboard.getEventKeyState())) {
+			} else {
+				continue;
+			}
+			break;
+		}
+
+		tokix -= 3;
+		tokiy -= 2;
 	}
 
 	@Override
@@ -70,6 +105,16 @@ public class SolarSystem extends GOCharacter {
 		glLoadIdentity();
 		glTranslatef(60, HEIGHT - 10, 0);
 		drawTexture(fontTexture, 100, 10);
+		glLoadIdentity();
+		glTranslatef(tokix, tokiy, 0);
+		drawTexture(tokiTexture, 20, 20);
+	}
+
+	@Override
+	public void terminate() {
+		tokiTexture.dispose();
+		fontTexture.dispose();
+		super.terminate();
 	}
 
 }
