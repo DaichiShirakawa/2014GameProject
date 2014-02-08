@@ -2,7 +2,7 @@
 
 package main;
 
-import static main.Commons.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import glogic.GLogic;
 
@@ -27,7 +27,6 @@ public class HelloWorld implements Runnable {
 
 	public static void main(String[] args) {
 		HelloWorld loop = new HelloWorld();
-		initializeCommons();
 		try {
 			loop.DisplayItialize();
 			loop.run();
@@ -55,7 +54,7 @@ public class HelloWorld implements Runnable {
 		// OpenGL の初期設定効化する
 
 		// でふぉると色
-//		glClearColor(1f, 1f, 1f, 1f);
+		// glClearColor(1f, 1f, 1f, 1f);
 		glClearColor(0, 0, 0, 1);
 
 		// テクスチャーを有効に
@@ -63,11 +62,10 @@ public class HelloWorld implements Runnable {
 
 		// アルファブレンドを有効に
 		glEnable(GL_BLEND);
-		
+
 		// ポリゴンの片面のみを表示
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -94,8 +92,8 @@ public class HelloWorld implements Runnable {
 			Display.update();
 
 			calcFPS();
-			Display.setTitle("FRAME:" + String.valueOf(frameCount) + "FPS:"
-					+ df.format(actualFPS));
+			Display.setTitle("FRAME:" + String.valueOf(getFrameCount())
+					+ "FPS:" + df.format(actualFPS));
 			Display.sync(FPS);
 		}
 	}
@@ -104,7 +102,7 @@ public class HelloWorld implements Runnable {
 	 * FPS計算
 	 */
 	private void calcFPS() {
-		frameCount++;
+		incFrameCount();
 		calcInterval += PERIOD;
 
 		// 1秒おきにFPSを再計算する
@@ -115,9 +113,9 @@ public class HelloWorld implements Runnable {
 
 			// FPSを計算
 			// realElapsedTimeの単位はnsなのでsに変換する
-			actualFPS = ((double) frameCount / realElapsedTime) * 1000000000L;
+			actualFPS = ((double) getFrameCount() / realElapsedTime) * 1000000000L;
 
-			frameCount = 0L;
+			resetFrameCount();
 			calcInterval = 0L;
 			prevCalcTime = timeNow;
 		}

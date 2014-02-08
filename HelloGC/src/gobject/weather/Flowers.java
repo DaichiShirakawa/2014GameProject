@@ -1,22 +1,21 @@
 package gobject.weather;
 
-import static main.Commons.*;
+import static common.CommonLogic.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GOCharacter;
+import gobject.GCharacterObect;
 import gobject.GameObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.lwjgl.input.Keyboard;
-
 import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
 public class Flowers implements GameObject {
-	private static final String imageFileName = "tokiIcon.png";
+	private static final String imageFileName = "flower.png";
 	private static int tokiPerSecond = 20;
 
 	private static Texture flowerTexture;
@@ -38,7 +37,7 @@ public class Flowers implements GameObject {
 
 	@Override
 	public void update() {
-		if (frameCount % (FPS / tokiPerSecond) == 0) {
+		if (getFrameCount() % (FPS / tokiPerSecond) == 0) {
 			flowers.add(new Flower(flowerTexture));
 		}
 		for (Iterator<Flower> ite = flowers.iterator(); ite.hasNext();) {
@@ -49,31 +48,21 @@ public class Flowers implements GameObject {
 			}
 		}
 
-			wind += vWind / FPS;
-			if(Math.abs(wind) > Math.abs(vWind)) {
-				wind = (wind * vWind < 0) ? wind + vWind : wind;
-			}
+		wind += vWind / FPS;
+		if (Math.abs(wind) > Math.abs(vWind)) {
+			wind = (wind * vWind < 0) ? wind + vWind : wind;
+		}
 
-		while (Keyboard.next()) {
-
-			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
-					&& (Keyboard.getEventKeyState())) {
-				if (tokiPerSecond < 60)
-					tokiPerSecond++;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
-					&& (Keyboard.getEventKeyState())) {
-				if (tokiPerSecond > 1)
-					tokiPerSecond--;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
-					&& (Keyboard.getEventKeyState())) {
-				vWind -= 1;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
-					&& (Keyboard.getEventKeyState())) {
-				vWind += 1;
-			} else {
-				continue;
-			}
-			break;
+		if (keyboard.isPress(KEY_UP)){
+			if (tokiPerSecond < 60)
+				tokiPerSecond++;
+		} else if (keyboard.isPress(KEY_DOWN)) {
+			if (tokiPerSecond > 1)
+				tokiPerSecond--;
+		} else if (keyboard.isPress(KEY_LEFT)) {
+			vWind -= 1;
+		} else if (keyboard.isPress(KEY_UP)) {
+			vWind += 1;
 		}
 	}
 
@@ -95,7 +84,7 @@ public class Flowers implements GameObject {
 		flowerTexture.dispose();
 	}
 
-	private class Flower extends GOCharacter {
+	private class Flower extends GCharacterObect {
 		private static final int DEFAULT_WIDTH = 64;
 		private static final int DEFAULT_HEIGHT = 64;
 		private float vRotate;

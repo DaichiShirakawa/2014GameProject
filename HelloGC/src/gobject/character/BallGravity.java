@@ -1,6 +1,6 @@
 package gobject.character;
 
-import static main.Commons.*;
+import static common.Commons.*;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

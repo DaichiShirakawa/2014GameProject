@@ -1,20 +1,19 @@
 package gobject.galaxy;
 
-import static main.Commons.*;
+import static common.CommonLogic.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GOCharacter;
+import gobject.GCharacterObect;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.lwjgl.input.Keyboard;
-
 import texture.TextTexture;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class SolarSystem extends GOCharacter {
+public class SolarSystem extends GCharacterObect {
 	private ArrayList<Star> stars;
 	public static float timeScale = 0.001f;
 
@@ -72,24 +71,13 @@ public class SolarSystem extends GOCharacter {
 		fontTexture = new TextTexture().createTextTexture((int) keika + "日経過",
 				300, FONT_HEIGHT, Color.white);
 
-		while (Keyboard.next()) {
-
-			if ((Keyboard.getEventKey() == Keyboard.KEY_UP)
-					&& (Keyboard.getEventKeyState())) {
-				timeScale += 0.0001;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_DOWN)
-					&& (Keyboard.getEventKeyState())) {
-				timeScale -= 0.0001;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_LEFT)
-					&& (Keyboard.getEventKeyState())) {
-				tokix = WIDTH;
-				tokiy = HEIGHT;
-			} else if ((Keyboard.getEventKey() == Keyboard.KEY_RIGHT)
-					&& (Keyboard.getEventKeyState())) {
-			} else {
-				continue;
-			}
-			break;
+		if (keyboard.isPress(KEY_UP)) {
+			timeScale += 0.0001;
+		} else if (keyboard.isPress(KEY_DOWN)) {
+			timeScale -= 0.0001;
+		} else if (keyboard.isPress(KEY_LEFT)) {
+			tokix = WIDTH;
+			tokiy = HEIGHT;
 		}
 
 		tokix -= 3;

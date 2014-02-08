@@ -1,10 +1,10 @@
 package gobject;
 
+import static common.CommonLogic.*;
 import static org.lwjgl.opengl.GL11.*;
-import static main.Commons.*;
 import texture.Texture;
 
-public abstract class GOCharacter implements GameObject {
+public abstract class GCharacterObect implements GameObject {
 	private float x;
 	private float y;
 	private float vx;

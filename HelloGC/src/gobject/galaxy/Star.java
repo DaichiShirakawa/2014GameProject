@@ -1,15 +1,16 @@
 package gobject.galaxy;
 
-import static main.Commons.*;
+import static common.CommonLogic.*;
+import static common.Commons.*;
 import static gobject.galaxy.SolarSystem.*;
 import static org.lwjgl.opengl.GL11.*;
+import gobject.GCharacterObect;
 
 import java.awt.Color;
 
 import texture.TextTexture;
-import gobject.GOCharacter;
 
-public class Star extends GOCharacter {
+public class Star extends GCharacterObect {
 	private Star parentStar;
 	private String caption;
 	private float kAngle = 0;
@@ -39,7 +40,7 @@ public class Star extends GOCharacter {
 
 	public Star makeChild(String caption, float scale, float hankei,
 			Color color, float koten, float jiten) {
-		Star childStar = new Star(this, caption, scale, Color.white, koten,
+		Star childStar = new Star(this, caption, scale, color, koten,
 				jiten);
 		childStar.setX(0);
 		childStar.setY(hankei);

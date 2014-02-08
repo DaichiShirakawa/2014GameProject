@@ -1,8 +1,8 @@
 package gobject.dottest;
 
-import static main.Commons.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GOCharacter;
+import gobject.GCharacterObect;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 
 import texture.TextureLoader;
 
-public class DotTest extends GOCharacter {
+public class DotTest extends GCharacterObect {
 
 	public DotTest() {
 		try {

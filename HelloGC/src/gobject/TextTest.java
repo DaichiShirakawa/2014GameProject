@@ -1,13 +1,13 @@
 package gobject;
 
-import static main.Commons.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 
 import texture.TextTexture;
 
-public class TextTest extends GOCharacter {
+public class TextTest extends GCharacterObect {
 
 	public TextTest() {
 		setX(0);
@@ -21,7 +21,7 @@ public class TextTest extends GOCharacter {
 	@Override
 	public void update() {
 		getTexture().dispose();
-		setTexture(new TextTexture().createTextTexture("ときtoki" + frameCount,
+		setTexture(new TextTexture().createTextTexture("ときtoki" + getFrameCount(),
 				getWidth(), getHeight(), Color.black));
 	}
 

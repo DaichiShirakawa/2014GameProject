@@ -1,6 +1,6 @@
 package gobject.character;
 
-import static main.Commons.*;
+import static common.Commons.*;
 
 import java.applet.Applet;
 import java.applet.AudioClip;

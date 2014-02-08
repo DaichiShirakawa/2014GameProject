@@ -1,16 +1,19 @@
 package glogic;
 
+import static common.Commons.*;
 import gobject.GameObject;
 import gobject.galaxy.SolarSystem;
+import gobject.weather.Flowers;
 
 import java.util.ArrayList;
+
 
 public class GLogic {
 	private ArrayList<GameObject> gameObjects;
 
 	public GLogic() {
 		gameObjects = new ArrayList<>();
-		gameObjects.add(e)
+		gameObjects.add(keyboard);
 //		addObject(new Flowers());
 //		addObject(new DotTest());
 //		addObject(new TextTest());
