@@ -49,9 +49,12 @@ public class Star extends GCharacterObect {
 
 	@Override
 	public void update() {
+	}
+	
+	public void update(float timeScale) {
 		jAngle += 365 * FPS / jiten * timeScale;
 		kAngle += FPS / koten * timeScale;
-		// setAngle(getAngle() - koten / FPS * 360);
+		
 	}
 
 	@Override
@@ -74,5 +77,6 @@ public class Star extends GCharacterObect {
 			glRotatef(-star.kAngle, 0, 0, 1);
 		}
 	}
+
 
 }

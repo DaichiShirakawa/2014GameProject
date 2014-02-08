@@ -15,7 +15,9 @@ import texture.TextureLoader;
 
 public class SolarSystem extends GCharacterObect {
 	private ArrayList<Star> stars;
-	public static float timeScale = 0.001f;
+	private float timeScale = 0.0001f;
+	private int inputScale = 1;
+	private static final int INPUT_INTERVAL = 5;
 
 	private Texture tokiTexture;
 	private Texture fontTexture;
@@ -50,7 +52,7 @@ public class SolarSystem extends GCharacterObect {
 				29.46f, 0.4264f));
 
 		stars.add(sun.makeChild("天", 0.4f, 210, Color.white, 84.01f, 0.7181f));
-		fontTexture = new TextTexture().createTextTexture(keika + "日経過",
+		fontTexture = new TextTexture().createTextTexture(keika + "日経過/speed:" + inputScale,
 				FONT_HEIGHT, FONT_HEIGHT, Color.white);
 		try {
 			tokiTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
@@ -64,20 +66,24 @@ public class SolarSystem extends GCharacterObect {
 	@Override
 	public void update() {
 		for (Star star : stars) {
-			star.update();
+			star.update(getTimeScale());
 		}
-		keika += 365 * FPS / 360 * timeScale;
+		keika += 365 * FPS / 360 * getTimeScale();
 		fontTexture.dispose();
-		fontTexture = new TextTexture().createTextTexture((int) keika + "日経過",
-				300, FONT_HEIGHT, Color.white);
+		fontTexture = new TextTexture().createTextTexture((int)keika + "日経過/speed:" + inputScale,
+				600, FONT_HEIGHT, Color.white);
 
-		if (keyboard.isPress(KEY_UP)) {
-			timeScale += 0.0001;
-		} else if (keyboard.isPress(KEY_DOWN)) {
-			timeScale -= 0.0001;
-		} else if (keyboard.isPress(KEY_LEFT)) {
-			tokix = WIDTH;
-			tokiy = HEIGHT;
+		if (keyboard.getPressLength(KEY_UP) % INPUT_INTERVAL == 0) {
+			inputScale++;
+		}
+		if (keyboard.getPressLength(KEY_DOWN) % INPUT_INTERVAL == 0) {
+			inputScale--;
+		}
+		if (keyboard.getPressLength(KEY_LEFT) % INPUT_INTERVAL == 0) {
+			inputScale -= 10;
+		}
+		if(keyboard.getPressLength(KEY_RIGHT) % INPUT_INTERVAL == 0) {
+			inputScale += 10;
 		}
 
 		tokix -= 3;
@@ -105,4 +111,7 @@ public class SolarSystem extends GCharacterObect {
 		super.terminate();
 	}
 
+	public float getTimeScale() {
+		return (float)inputScale * timeScale;
+	}
 }

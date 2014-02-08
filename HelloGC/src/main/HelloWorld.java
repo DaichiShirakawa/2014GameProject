@@ -83,17 +83,19 @@ public class HelloWorld implements Runnable {
 
 	public void run() {
 		while (!Display.isCloseRequested()) {
-			// オフスクリーンを初期化する
-			glClear(GL_COLOR_BUFFER_BIT);
-			// メイン処理/オフスクリーンに描画
-			logic.gameUpdate();
-			logic.gameRender();
+			if (Display.isActive()) {
+				// オフスクリーンを初期化する
+				glClear(GL_COLOR_BUFFER_BIT);
+				// メイン処理/オフスクリーンに描画
+				logic.gameUpdate();
+				logic.gameRender();
+				Display.setTitle("FRAME:" + String.valueOf(getFrameCount())
+						+ "FPS:" + df.format(actualFPS));
+
+				calcFPS();
+			}
 			// オフスクリーンをスクリーンに反映する
 			Display.update();
-
-			calcFPS();
-			Display.setTitle("FRAME:" + String.valueOf(getFrameCount())
-					+ "FPS:" + df.format(actualFPS));
 			Display.sync(FPS);
 		}
 	}
