@@ -17,7 +17,6 @@ public class MyKeyboard extends GLogicObject {
 	private static MyKeyboard instance = new MyKeyboard();
 	private HashMap<Integer, Integer> keyStatus = new HashMap<>();
 
-
 	protected MyKeyboard() {
 		return;
 	}
@@ -57,8 +56,8 @@ public class MyKeyboard extends GLogicObject {
 			int key = Keyboard.getEventKey();
 			if (Keyboard.getEventKeyState()) {
 				// 押したとき
-				//ループで+1されるので-1しておく
-				keyStatus.put(key, KEYSTATE_MOMENT_PRESSED-1);
+				// ループで+1されるので-1しておく
+				keyStatus.put(key, KEYSTATE_MOMENT_PRESSED - 1);
 			} else {
 				// 離したとき
 				keyStatus.put(key, KEYSTATE_MOMENT_RELEASED);
@@ -72,5 +71,10 @@ public class MyKeyboard extends GLogicObject {
 				keyStatus.put(key, keyStatus.get(key) + 1);
 			}
 		}
+	}
+
+	@Override
+	public void render() {
+		return;
 	}
 }

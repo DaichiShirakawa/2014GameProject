@@ -15,6 +15,7 @@ import static org.lwjgl.opengl.GL11.glTexParameteri;
 
 
 
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.color.ColorSpace;
@@ -26,6 +27,7 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -35,8 +37,10 @@ import java.util.Hashtable;
 
 
 
+
 import javax.imageio.ImageIO;
  
+
 
 
 
@@ -71,8 +75,15 @@ public class TextureLoader {
     /**
      *  指定されたパスの画像ファイルをテクスチャーに変換して返す
      */
-    public Texture loadTexture(String imagePath) throws IOException {
-        return loadTexture(ImageIO.read(new FileInputStream(imagePath)));
+    public Texture loadTexture(String imagePath) {
+        try {
+			return loadTexture(ImageIO.read(new FileInputStream(imagePath)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
     }
  
     /**

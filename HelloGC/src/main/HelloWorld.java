@@ -2,11 +2,10 @@
 
 package main;
 
+import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import glogic.GLogic;
-
-import java.text.DecimalFormat;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
@@ -18,12 +17,11 @@ public class HelloWorld implements Runnable {
 	private GLogic logic;
 
 	// FPS管理
-	private static final long PERIOD = (long) (1.0 / (long) FPS * 1000000000L);
-	private static long MAX_STATS_INTERVAL = 1000000000L;
-	private long calcInterval = 0L;
-	private long prevCalcTime;
-	private double actualFPS = 0.0;
-	private DecimalFormat df = new DecimalFormat("0.0");
+	private final static long PERIOD = (long) (1.0 / (long) FPS * 1000000000L);
+	private final static long MAX_STATS_INTERVAL = 1000000000L;
+	private long calcInterval_ = 0L;
+	private long prevCalcTime_;
+	private double actualFPS_ = 0.0;
 
 	public static void main(String[] args) {
 		HelloWorld loop = new HelloWorld();
@@ -47,19 +45,19 @@ public class HelloWorld implements Runnable {
 		try {
 			Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
 			Display.setTitle("hello world!");
+//		//  マルチサンプリングのバッファ数を 16 に指定して、ウインドウを生成する
+//			Display.create(new PixelFormat(0, 8, 0, 16));
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		// OpenGL の初期設定効化する
-
-		// でふぉると色
-		// glClearColor(1f, 1f, 1f, 1f);
+		//デフォルト背景色
+//		 glClearColor(1f, 1f, 1f, 1f);
 		glClearColor(0, 0, 0, 1);
 
 		// テクスチャーを有効に
 		glEnable(GL_TEXTURE_2D);
-
+		
 		// アルファブレンドを有効に
 		glEnable(GL_BLEND);
 
@@ -67,11 +65,30 @@ public class HelloWorld implements Runnable {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
+		//  カメラ用の設定変更を宣言する
 		glMatrixMode(GL_PROJECTION);
+        //  設定を初期化する
 		glLoadIdentity();
 		// 視体積（描画する領域）を定義する
 		glOrtho(0, WIDTH, 0, HEIGHT, -DEPTH / 2, DEPTH / 2);
+		
+        //  物体モデル用の設定変更を宣言する
 		glMatrixMode(GL_MODELVIEW);
+		
+//		//深度有効?
+//        glEnable(GL_DEPTH_TEST);
+//        
+//        if ((1 <= glGetInteger(GL_SAMPLE_BUFFERS)) && (2 <= glGetInteger(GL_SAMPLES))) {
+//            //  マルチサンプリングを有効にする
+//            glEnable(GL_MULTISAMPLE);
+//            //  Alpha to coverage を有効にする
+//            glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+//        } else {
+//            //  アルファテストを有効にする
+//            glEnable(GL_ALPHA_TEST);
+//            //  アルファテストの条件を設定する
+//            glAlphaFunc(GL_GREATER, 0.7f);
+//        }
 
 		logic = new GLogic();
 	}
@@ -83,14 +100,16 @@ public class HelloWorld implements Runnable {
 
 	public void run() {
 		while (!Display.isCloseRequested()) {
-			if (Display.isActive()) {
+			//ディスプレイがアクティブのときだけ処理を行う
+			// if (Display.isActive()) {
+			if (true) {
 				// オフスクリーンを初期化する
-				glClear(GL_COLOR_BUFFER_BIT);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				// メイン処理/オフスクリーンに描画
-				logic.gameUpdate();
-				logic.gameRender();
+				logic.update();
+				logic.render();
 				Display.setTitle("FRAME:" + String.valueOf(getFrameCount())
-						+ "FPS:" + df.format(actualFPS));
+						+ "FPS:" + formatDouble0d0(actualFPS_));
 
 				calcFPS();
 			}
@@ -105,21 +124,21 @@ public class HelloWorld implements Runnable {
 	 */
 	private void calcFPS() {
 		incFrameCount();
-		calcInterval += PERIOD;
+		calcInterval_ += PERIOD;
 
 		// 1秒おきにFPSを再計算する
-		if (calcInterval >= MAX_STATS_INTERVAL) {
+		if (calcInterval_ >= MAX_STATS_INTERVAL) {
 			long timeNow = System.nanoTime();
 			// 実際の経過時間を測定
-			long realElapsedTime = timeNow - prevCalcTime; // 単位: ns
+			long realElapsedTime = timeNow - prevCalcTime_; // 単位: ns
 
 			// FPSを計算
 			// realElapsedTimeの単位はnsなのでsに変換する
-			actualFPS = ((double) getFrameCount() / realElapsedTime) * 1000000000L;
+			actualFPS_ = ((double) getFrameCount() / realElapsedTime) * 1000000000L;
 
 			resetFrameCount();
-			calcInterval = 0L;
-			prevCalcTime = timeNow;
+			calcInterval_ = 0L;
+			prevCalcTime_ = timeNow;
 		}
 	}
 }

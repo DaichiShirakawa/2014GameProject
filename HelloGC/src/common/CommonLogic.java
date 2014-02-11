@@ -3,6 +3,7 @@ package common;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.FileInputStream;
@@ -57,5 +58,19 @@ public class CommonLogic {
 		glVertex3f(width / 2, -height / 2, 0);
 
 		glEnd();
+	}
+
+	/**
+	 * floatフォーマット用
+	 */
+	public static String formatDouble0d0(double val) {
+		return FORMAT_FOR_FLOAT_0d0.format(val);
+	}
+
+	/**
+	 * Color→LWJGLご寛容
+	 */
+	public static void setGlColor4f(Color color, float alpha){
+		glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue()/ 255f, alpha);
 	}
 }

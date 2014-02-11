@@ -4,46 +4,39 @@ import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import gobject.GCharacterObect;
+import gobject.GLogicObject;
 import gobject.GameObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class Flowers implements GameObject {
+public class Flowers extends GLogicObject {
 	private static final String imageFileName = "flower.png";
 	private static int tokiPerSecond = 20;
 
 	private static Texture flowerTexture;
-	private ArrayList<Flower> flowers;
 	private float wind = 0f;
 	private float vWind = 0f;
 
 	public Flowers() {
-		try {
-			flowerTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
-					+ imageFileName);
-			// アルファブレンドで表示する
-			AlphaBlend.AlphaBlend.config(flowerTexture);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		flowers = new ArrayList<>();
+		flowerTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+				+ imageFileName);
+		// アルファブレンドで表示する
+		AlphaBlend.AlphaBlend.config(flowerTexture);
 	}
 
 	@Override
 	public void update() {
 		if (getFrameCount() % (FPS / tokiPerSecond) == 0) {
-			flowers.add(new Flower(flowerTexture));
+			addChild(new Flower(flowerTexture));
 		}
-		for (Iterator<Flower> ite = flowers.iterator(); ite.hasNext();) {
-			Flower flower = ite.next();
+		for (Iterator<GameObject> ite = children_.iterator(); ite.hasNext();) {
+			Flower flower = (Flower) ite.next();
 			flower.update(wind);
-			if (flower.doRelease()) {
+			if (flower.canDispose()) {
 				ite.remove();
 			}
 		}
@@ -59,9 +52,9 @@ public class Flowers implements GameObject {
 		} else if (keyboard.isPress(KEY_DOWN)) {
 			if (tokiPerSecond > 1)
 				tokiPerSecond--;
-		} else if (keyboard.isPress(KEY_LEFT)) {
+		} else if (keyboard.isPressed(KEY_LEFT)) {
 			vWind -= 1;
-		} else if (keyboard.isPress(KEY_UP)) {
+		} else if (keyboard.isPressed(KEY_RIGHT)) {
 			vWind += 1;
 		}
 	}
@@ -70,10 +63,10 @@ public class Flowers implements GameObject {
 	public void render() {
 		// 設定を初期化する
 		glLoadIdentity();
-		for (Flower flower : flowers) {
+		for (GameObject flower : children_) {
 			// 行列スタックに現在の行列を退避させ、新しい行列に対してモデルビュー変換を開始する
 			glPushMatrix();
-			flower.render();
+			((Flower)flower).render();
 			// 行列スタックからもとの行列を取り出す
 			glPopMatrix();
 		}
@@ -89,12 +82,6 @@ public class Flowers implements GameObject {
 		private static final int DEFAULT_HEIGHT = 64;
 		private float vRotate;
 		private float clR, clG, clB;
-
-		private boolean release = false;
-
-		public boolean doRelease() {
-			return release;
-		}
 
 		public Flower(Texture texture) {
 			setTexture(texture);
@@ -129,7 +116,7 @@ public class Flowers implements GameObject {
 			setAngle(getAngle() + (360 / 60 * vRotate * (1.3f - getScale())));
 			setY(getY() + 1 + getVy() * (1f - getScale()));
 			if (getY() > HEIGHT + getHeight() / 2) {
-				release = true;
+				setDispose(true);
 			}
 		}
 
@@ -138,7 +125,7 @@ public class Flowers implements GameObject {
 			setAngle(getAngle() + (360 / 60 * vRotate * (1.3f - getScale())));
 			setY(getY() + 1 + getVy() * (1f - getScale()));
 			if (getY() > HEIGHT + getHeight() / 2) {
-				release = true;
+				setDispose(true);
 			}
 			float tmp;
 			if ((tmp = getX() + getWidth()) < 0) {

@@ -1,7 +1,8 @@
-package gobject;
+package gobject.hello;
 
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
+import gobject.GCharacterObect;
 
 import java.awt.Color;
 

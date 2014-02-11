@@ -1,44 +1,37 @@
 package glogic;
 
 import static common.Commons.*;
+import gobject.GLogicObject;
 import gobject.GameObject;
-import gobject.galaxy.SolarSystem;
-import gobject.weather.Flowers;
+import gobject.hello.shooting.ShootingLogic;
 
-import java.util.ArrayList;
-
-
-public class GLogic {
-	private ArrayList<GameObject> gameObjects;
+public class GLogic extends GLogicObject {
 
 	public GLogic() {
-		gameObjects = new ArrayList<>();
-		gameObjects.add(keyboard);
-//		addObject(new Flowers());
-//		addObject(new DotTest());
-//		addObject(new TextTest());
-		addObject(new SolarSystem());
-	}
-	
-	private GameObject addObject(GameObject gameObject) {
-		gameObjects.add(gameObject);
-		return gameObject;
+		addChild(keyboard);
+		// addObject(new Flowers());
+		// addObject(new DotTest());
+		// addObject(new TextTest());
+		// addObject(new SolarSystem());
+		addChild(ShootingLogic.GetInstance());
 	}
 
-	public void gameUpdate() {
-		for(GameObject gameObject: gameObjects) {
+	@Override
+	public void update() {
+		for (GameObject gameObject : children_) {
 			gameObject.update();
 		}
 	}
 
-	public void gameRender() {
-		for(GameObject gameObject: gameObjects) {
+	@Override
+	public void render() {
+		for (GameObject gameObject : children_) {
 			gameObject.render();
 		}
 	}
-	
+
 	public void terminate() {
-		for(GameObject gameObject:gameObjects) {
+		for (GameObject gameObject : children_) {
 			gameObject.terminate();
 		}
 	}

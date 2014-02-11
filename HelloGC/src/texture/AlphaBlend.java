@@ -1,6 +1,6 @@
 package texture;
 import static org.lwjgl.opengl.GL11.*;
-import texture.Texture;;
+import texture.Texture;
  
 public enum AlphaBlend {
     AlphaBlend {
