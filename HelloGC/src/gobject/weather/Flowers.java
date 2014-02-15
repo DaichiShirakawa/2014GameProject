@@ -97,7 +97,9 @@ public class Flowers extends GameUnitManager {
 			setScale(random(0.2f, 1.0f));
 			setAngle(rnd.nextInt(360));
 			setAlpha(0.8f);
-			setColor(randomCosmosColor());
+			setColor(generateColorCosmos());
+			setXMoveMode(MOVEMODE.LOOP);
+			setYMoveMode(MOVEMODE.LOOP);
 			
 			setVx(random(-0.1f, 0.4f));
 			setVy(1 + (1 - getScale()));

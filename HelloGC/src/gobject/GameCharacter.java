@@ -6,7 +6,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.util.EnumSet;
 
 import texture.Texture;
 
@@ -145,7 +144,7 @@ public abstract class GameCharacter implements GameObject {
 				if (p + characterSize / 2 < 0)
 					p = displayBorder - p;
 				if (p - characterSize / 2 > displayBorder)
-					p = -p + displayBorder;
+					p = displayBorder - p;
 				return p;
 			}
 		},

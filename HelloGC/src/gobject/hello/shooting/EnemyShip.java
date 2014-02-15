@@ -2,7 +2,6 @@ package gobject.hello.shooting;
 
 import static common.CommonLogic.*;
 import static common.Commons.*;
-import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 
@@ -14,7 +13,7 @@ public class EnemyShip extends GStgCharacter{
 	private int speed_ = 1;
 
 	public EnemyShip() {
-		division_ = DIV_ENEMY;
+		setDivision(DIVISION.ENEMY);
 		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 				+ "DotTokiIcon.png"));
 		setWidth(size_);
@@ -22,19 +21,19 @@ public class EnemyShip extends GStgCharacter{
 		setX(WIDTH / 2);
 		setY(HEIGHT - getHeight());
 		color_ = new Color(1f, 0.6f, 0.6f);
-		setMoveMode(MOVEMODE.LIMITED_REFRECTION);
 		setVx(speed_);
 		setVy(speed_);
+		setXMoveMode(MOVEMODE.LOOP);
+		setYMoveMode(MOVEMODE.LOOP);
 	}
 
 	@Override
 	public void update() {
-		move();
+		super.update();
 	}
 
 	@Override
 	public void render() {
-		glLoadIdentity();
 		setGlColor4f(color_, getAlpha());
 		draw();
 	}

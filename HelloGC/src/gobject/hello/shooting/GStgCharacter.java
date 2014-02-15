@@ -4,16 +4,26 @@ import gobject.GameCharacter;
 
 public abstract class GStgCharacter extends GameCharacter {
 	protected enum DIVISION{
-	DIV_FRIENDLY,
-	DIV_NEUTRAL,
-	DIV_ENEMY}
+	FRIENDLY,
+	NEUTRAL,
+	ENEMY}
 
-	protected int division_;
+	private DIVISION division_;
 
 	@Override
-	public abstract void update();
+	public void update() {
+		super.update();
+	}
 
 	@Override
 	public abstract void render();
+
+	public DIVISION getDivision() {
+		return division_;
+	}
+
+	public void setDivision(DIVISION division) {
+		this.division_ = division;
+	}
 
 }

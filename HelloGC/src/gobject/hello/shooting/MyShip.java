@@ -16,7 +16,7 @@ public class MyShip extends GStgCharacter{
 	private int size_ = 32;
 
 	public MyShip() {
-		division_ = DIV_FRIENDLY;
+		setDivision(DIVISION.FRIENDLY);
 		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 				+ "tokiIcon.png"));
 		setWidth(size_);
@@ -24,7 +24,8 @@ public class MyShip extends GStgCharacter{
 		setX(WIDTH / 2);
 		setY(getHeight());
 		color_ = new Color(0.6f, 0.6f, 1f);
-		setMoveMode(MOVEMODE.LIMITED_DISPLAY);
+		setXMoveMode(MOVEMODE.REFRECTION);
+		setYMoveMode(MOVEMODE.REFRECTION);
 	}
 
 	@Override
@@ -46,12 +47,11 @@ public class MyShip extends GStgCharacter{
 		if (keyboard.getPressLength(KEY_Z) % 5 == 0) {
 			ShootingLogic.GetInstance().shoot(new NormalBullet(this)); 
 		}
-		move();
+		super.update();
 	}
 
 	@Override
 	public void render() {
-		glLoadIdentity();
 		setGlColor4f(color_, getAlpha());
 		draw();
 	}

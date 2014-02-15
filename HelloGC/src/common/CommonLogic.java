@@ -78,7 +78,7 @@ public class CommonLogic {
 	/**
 	 * きれいなコスモスいろをつくる
 	 */
-	public static Color randomCosmosColor() {
+	public static Color generateColorCosmos() {
 		float rand = random(0f, 1.4f);
 		float r = 1f;
 		float g = (1f < rand) ? rand - 1f : 0f;
