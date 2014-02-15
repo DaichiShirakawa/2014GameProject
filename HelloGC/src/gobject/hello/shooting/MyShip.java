@@ -3,26 +3,28 @@ package gobject.hello.shooting;
 import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
+import gobject.GameObject;
 import gobject.hello.shooting.bullet.NormalBullet;
 
 import java.awt.Color;
 
 import texture.TextureLoader;
 
-public class MyShip extends GShootingCharacterObect{
+public class MyShip extends GStgCharacter{
 	private Color color_;
 	private float speed_ = 2;
 	private int size_ = 32;
 
 	public MyShip() {
+		division_ = DIV_FRIENDLY;
 		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 				+ "tokiIcon.png"));
 		setWidth(size_);
 		setHeight(size_);
 		setX(WIDTH / 2);
 		setY(getHeight());
-		color_ = new Color(0.6f, 1f, 0.6f);
-		setMoveMode(MOVEMODE_LIMITED_DISPLAY);
+		color_ = new Color(0.6f, 0.6f, 1f);
+		setMoveMode(MOVEMODE.LIMITED_DISPLAY);
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class MyShip extends GShootingCharacterObect{
 		if (keyboard.isPress(KEY_RIGHT)) {
 			setVx(speed_);
 		}
-		if (keyboard.isPress(KEY_SPACE) && keyboard.getPressLength(KEY_SPACE) % 1 == 0) {
+		if (keyboard.getPressLength(KEY_Z) % 5 == 0) {
 			ShootingLogic.GetInstance().shoot(new NormalBullet(this)); 
 		}
 		move();

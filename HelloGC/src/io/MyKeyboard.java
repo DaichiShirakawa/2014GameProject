@@ -1,6 +1,6 @@
 package io;
 
-import gobject.GLogicObject;
+import gobject.GameObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * keyStatus n==-2:離された瞬間 n==-1:おされてない n>=0:押されてからnフレームたった
  */
-public class MyKeyboard extends GLogicObject {
+public class MyKeyboard implements GameObject{
 	private static final int KEYSTATE_MOMENT_RELEASED = -3;
 	private static final int KEYSTATE_NOT_PRESSED = -2;
 	private static final int KEYSTATE_MOMENT_PRESSED = 0;
@@ -45,10 +45,6 @@ public class MyKeyboard extends GLogicObject {
 		return (keyStatus.get(key) != null && keyStatus.get(key) == KEYSTATE_MOMENT_RELEASED);
 	}
 
-	@Override
-	public void terminate() {
-		return;
-	}
 
 	@Override
 	public void update() {
@@ -76,5 +72,15 @@ public class MyKeyboard extends GLogicObject {
 	@Override
 	public void render() {
 		return;
+	}
+
+	@Override
+	public void dispose() {
+		return;
+	}
+
+	@Override
+	public boolean canDispose() {
+		return false;
 	}
 }

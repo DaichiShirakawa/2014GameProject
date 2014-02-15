@@ -1,22 +1,32 @@
 package gobject.hello.shooting;
 
-import gobject.GLogicObject;
 import gobject.GameObject;
-import gobject.hello.shooting.bullet.GSBulletObject;
-import gobject.hello.shooting.bullet.NormalBullet;
+import gobject.GameUnitManager;
+import gobject.hello.shooting.bullet.GStgBullet;
 
-public class ShootingLogic extends GLogicObject {
-	private static ShootingLogic instance;
+import java.util.ArrayList;
+import java.util.List;
 
+public class ShootingLogic extends GameUnitManager {
+	private static ShootingLogic instance_;
+	private List<GStgCharacter> friendlies_;
+	private List<GStgCharacter> enemies_;
+	private List<GStgCharacter> bullets_;
+
+	@SuppressWarnings("unchecked")
 	private ShootingLogic() {
-		addChild(new MyShip());
+		friendlies_ = addControlList(new ArrayList<GStgCharacter>());
+		enemies_ = addControlList(new ArrayList<GStgCharacter>());
+		bullets_ = addControlList(new ArrayList<GStgBullet>());
+		friendlies_.add(new MyShip());
+		enemies_.add(new EnemyShip());
 	}
 
 	public static ShootingLogic GetInstance() {
-		if (instance == null) {
-			instance = new ShootingLogic();
+		if (instance_ == null) {
+			instance_ = new ShootingLogic();
 		}
-		return instance;
+		return instance_;
 	}
 
 	public void shoot(GSBulletObject bullet) {
@@ -43,9 +53,17 @@ public class ShootingLogic extends GLogicObject {
 	}
 
 	@Override
-	public void terminate() {
+	public void dispose() {
 		for (GameObject go : children_) {
-			go.terminate();
+			go.dispose();
 		}
+	}
+
+	public GStgCharacter checkHit(GStgCharacter me) {
+		for (GameObject go : children_) {
+			if (me.checkHitWith((GStgCharacter) go))
+				return (GStgCharacter) go;
+		}
+		return null;
 	}
 }

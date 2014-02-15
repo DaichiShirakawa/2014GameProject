@@ -4,7 +4,8 @@ import static common.CommonLogic.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.hello.shooting.GShootingCharacterObect;
+import gobject.hello.shooting.GStgCharacter;
+import gobject.hello.shooting.ShootingLogic;
 
 import java.awt.Color;
 
@@ -12,7 +13,7 @@ import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class NormalBullet extends GSBulletObject {
+public class NormalBullet extends GStgBullet {
 	private static final int BULLET_SIZE = 10;
 	private static final int RANGE = 200;
 
@@ -24,11 +25,12 @@ public class NormalBullet extends GSBulletObject {
 	private static Texture TEXTURE = new TextureLoader()
 			.loadTexture(IMAGE_FOLDER_STRING + "flower.png");
 
-	public NormalBullet(GShootingCharacterObect shooter) {
+	public NormalBullet(GStgCharacter shooter) {
 		super();
+		division_ = DIV_FRIENDLY;
 		sX_ = shooter.getX();
 		sY_ = shooter.getY();
-		xSpeed_ = random(-1, 1);
+		xSpeed_ = random(-0.5f, 0.5f);
 		setX(sX_);
 		setY(sY_);
 		float rand = random(0f, 1.4f);
@@ -58,7 +60,11 @@ public class NormalBullet extends GSBulletObject {
 		setAngle(getAngle() + 12);
 		if (sqrt(pow((float) (sX_ - getX()), 2f)
 				+ pow((float) (sY_ - getY()), 2f)) > RANGE) {
-			setDispose(true);
+			setDispose();
+		}
+		GStgCharacter target = ShootingLogic.GetInstance().checkHit(this);
+		if(target != null) {
+			setDispose();
 		}
 	}
 

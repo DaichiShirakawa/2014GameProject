@@ -68,9 +68,30 @@ public class CommonLogic {
 	}
 
 	/**
-	 * Color→LWJGLご寛容
+	 * Color→LWJGL互換用
 	 */
-	public static void setGlColor4f(Color color, float alpha){
-		glColor4f(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue()/ 255f, alpha);
+	public static void setGlColor4f(Color color, float alpha) {
+		glColor4f(color.getRed() / 255f, color.getGreen() / 255f,
+				color.getBlue() / 255f, alpha);
+	}
+
+	/**
+	 * きれいなコスモスいろをつくる
+	 */
+	public static Color randomCosmosColor() {
+		float rand = random(0f, 1.4f);
+		float r = 1f;
+		float g = (1f < rand) ? rand - 1f : 0f;
+		float b = (rand <= 1f) ? rand : 0f;
+		rand = random(0.3f, 1f);
+		r += ((1f - r) * rand);
+		g += ((1f - g) * rand);
+		b += ((1f - b) * rand);
+		// ランダムで、色を黒に近づける
+		rand = random(0.95f, 1f);
+		r *= rand;
+		g *= rand;
+		b *= rand;
+		return new Color(r, g, b);
 	}
 }

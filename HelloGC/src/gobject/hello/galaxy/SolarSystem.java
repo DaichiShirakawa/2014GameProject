@@ -3,7 +3,7 @@ package gobject.hello.galaxy;
 import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GCharacterObect;
+import gobject.GameCharacter;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import texture.TextTexture;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class SolarSystem extends GCharacterObect {
+public class SolarSystem extends GameCharacter {
 	private ArrayList<Star> stars_;
 	private double timeScale_ = 0.0001f;
 	private int inputScale_ = 1;
@@ -131,10 +131,10 @@ public class SolarSystem extends GCharacterObect {
 	}
 
 	@Override
-	public void terminate() {
+	public void dispose() {
 		tokiTexture_.dispose();
 		fontTexture_.dispose();
-		super.terminate();
+		super.dispose();
 	}
 
 	public double getTimeScale() {

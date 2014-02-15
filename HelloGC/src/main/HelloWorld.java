@@ -45,19 +45,19 @@ public class HelloWorld implements Runnable {
 		try {
 			Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
 			Display.setTitle("hello world!");
-//		//  マルチサンプリングのバッファ数を 16 に指定して、ウインドウを生成する
-//			Display.create(new PixelFormat(0, 8, 0, 16));
+			// // マルチサンプリングのバッファ数を 16 に指定して、ウインドウを生成する
+			// Display.create(new PixelFormat(0, 8, 0, 16));
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		//デフォルト背景色
-//		 glClearColor(1f, 1f, 1f, 1f);
+		// デフォルト背景色
+		// glClearColor(1f, 1f, 1f, 1f);
 		glClearColor(0, 0, 0, 1);
 
 		// テクスチャーを有効に
 		glEnable(GL_TEXTURE_2D);
-		
+
 		// アルファブレンドを有効に
 		glEnable(GL_BLEND);
 
@@ -65,46 +65,49 @@ public class HelloWorld implements Runnable {
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
-		//  カメラ用の設定変更を宣言する
+		// カメラ用の設定変更を宣言する
 		glMatrixMode(GL_PROJECTION);
-        //  設定を初期化する
+		// 設定を初期化する
 		glLoadIdentity();
 		// 視体積（描画する領域）を定義する
 		glOrtho(0, WIDTH, 0, HEIGHT, -DEPTH / 2, DEPTH / 2);
-		
-        //  物体モデル用の設定変更を宣言する
+
+		// 物体モデル用の設定変更を宣言する
 		glMatrixMode(GL_MODELVIEW);
-		
-//		//深度有効?
-//        glEnable(GL_DEPTH_TEST);
-//        
-//        if ((1 <= glGetInteger(GL_SAMPLE_BUFFERS)) && (2 <= glGetInteger(GL_SAMPLES))) {
-//            //  マルチサンプリングを有効にする
-//            glEnable(GL_MULTISAMPLE);
-//            //  Alpha to coverage を有効にする
-//            glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-//        } else {
-//            //  アルファテストを有効にする
-//            glEnable(GL_ALPHA_TEST);
-//            //  アルファテストの条件を設定する
-//            glAlphaFunc(GL_GREATER, 0.7f);
-//        }
+
+		// //深度有効?
+		// glEnable(GL_DEPTH_TEST);
+		//
+		// if ((1 <= glGetInteger(GL_SAMPLE_BUFFERS)) && (2 <=
+		// glGetInteger(GL_SAMPLES))) {
+		// // マルチサンプリングを有効にする
+		// glEnable(GL_MULTISAMPLE);
+		// // Alpha to coverage を有効にする
+		// glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
+		// } else {
+		// // アルファテストを有効にする
+		// glEnable(GL_ALPHA_TEST);
+		// // アルファテストの条件を設定する
+		// glAlphaFunc(GL_GREATER, 0.7f);
+		// }
 
 		logic = new GLogic();
 	}
 
 	private void terminate() {
 		if (logic != null)
-			logic.terminate();
+			logic.dispose();
 	}
 
 	public void run() {
 		while (!Display.isCloseRequested()) {
-			//ディスプレイがアクティブのときだけ処理を行う
+			// ディスプレイがアクティブのときだけ処理を行う
 			// if (Display.isActive()) {
 			if (true) {
 				// オフスクリーンを初期化する
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				// IO状態更新
+				keyboard.update();
 				// メイン処理/オフスクリーンに描画
 				logic.update();
 				logic.render();

@@ -1,38 +1,45 @@
 package glogic;
 
-import static common.Commons.*;
-import gobject.GLogicObject;
 import gobject.GameObject;
-import gobject.hello.shooting.ShootingLogic;
+import gobject.GameUnitManager;
+import gobject.weather.Flowers;
 
-public class GLogic extends GLogicObject {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GLogic implements GameObject {
+	private List<GameUnitManager> units_ = new ArrayList<>();
 
 	public GLogic() {
-		addChild(keyboard);
-		// addObject(new Flowers());
-		// addObject(new DotTest());
-		// addObject(new TextTest());
-		// addObject(new SolarSystem());
-		addChild(ShootingLogic.GetInstance());
+		units_.add(new Flowers());
+		// units_.add(new DotTest());
+		// units_.add(new TextTest());
+		// units_.add(new SolarSystem());
+		// units_.add(ShootingLogic.GetInstance());
 	}
 
 	@Override
 	public void update() {
-		for (GameObject gameObject : children_) {
-			gameObject.update();
+		for (GameUnitManager unit : units_) {
+			unit.update();
 		}
 	}
 
 	@Override
 	public void render() {
-		for (GameObject gameObject : children_) {
-			gameObject.render();
+		for (GameUnitManager unit : units_) {
+			unit.render();
 		}
 	}
 
-	public void terminate() {
-		for (GameObject gameObject : children_) {
-			gameObject.terminate();
+	public void dispose() {
+		for (GameUnitManager unit : units_) {
+			unit.dispose();
 		}
+	}
+
+	@Override
+	public boolean canDispose() {
+		return false;
 	}
 }

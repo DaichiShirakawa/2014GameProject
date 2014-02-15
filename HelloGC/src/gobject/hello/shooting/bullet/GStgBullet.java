@@ -1,9 +1,9 @@
 package gobject.hello.shooting.bullet;
 
-import gobject.hello.shooting.GShootingCharacterObect;
+import gobject.hello.shooting.GStgCharacter;
 
-public abstract class GSBulletObject extends GShootingCharacterObect{
-	public GSBulletObject() {
+public abstract class GStgBullet extends GStgCharacter{
+	public GStgBullet() {
 		setMoveMode(MOVEMODE_DISPOSE_WHEN_FADEOUT);
 	}
 
@@ -14,7 +14,7 @@ public abstract class GSBulletObject extends GShootingCharacterObect{
 	public abstract void render();
 
 	@Override
-	public void terminate() {
+	public void dispose() {
 		return;
 	}
 }

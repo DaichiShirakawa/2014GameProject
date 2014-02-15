@@ -2,13 +2,13 @@ package gobject.hello.dottest;
 
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GCharacterObect;
+import gobject.GameCharacter;
 
 import org.lwjgl.input.Keyboard;
 
 import texture.TextureLoader;
 
-public class DotTest extends GCharacterObect {
+public class DotTest extends GameCharacter {
 
 	public DotTest() {
 		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING

@@ -2,13 +2,13 @@ package gobject.hello;
 
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GCharacterObect;
+import gobject.GameCharacter;
 
 import java.awt.Color;
 
 import texture.TextTexture;
 
-public class TextTest extends GCharacterObect {
+public class TextTest extends GameCharacter {
 
 	public TextTest() {
 		setX(0);

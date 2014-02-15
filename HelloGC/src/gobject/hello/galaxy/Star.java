@@ -3,13 +3,13 @@ package gobject.hello.galaxy;
 import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.GCharacterObect;
+import gobject.GameCharacter;
 
 import java.awt.Color;
 
 import texture.TextTexture;
 
-public class Star extends GCharacterObect {
+public class Star extends GameCharacter {
 	private Star parentStar;
 	private String caption_;
 	private double kAngle_ = 0;
