@@ -37,5 +37,6 @@ public class EnemyShip extends GStgCharacter{
 		setGlColor4f(color_, getAlpha());
 		draw();
 	}
+	
 
 }

@@ -34,6 +34,14 @@ public class HelloWorld implements Runnable {
 			loop.terminate();
 			Display.destroy();
 		}
+		/**
+		 * 謎のエラー防止用
+		 * ERROR: JDWP Unable to get JNI 1.2 environment, jvm->GetEnv() return
+		 * code = -2
+		 * JDWP exit error AGENT_ERROR_NO_JNI_ENV(183):
+		 * [../../../src/share/back/util.c:838]
+		 */
+		 System.exit(0);
 	}
 
 	/**

@@ -39,38 +39,38 @@ public class ShootingLogic extends GameUnitManager {
 		for(List<GameObject> list : getControlLists()) {
 			for(Iterator<GameObject> ite = list.iterator(); ite.hasNext(); ) {
 				GameObject go = ite.next();
-				go.
-			}
-		}
-		for (int i = 0; i < children_.size(); i++) {
-			GameObject go = children_.get(i);
-			go.update();
-			if (go.canDispose()) {
-				disposeChild(go);
-				i--;
+				go.update();
+				if(go.canDispose()) {
+					go.dispose();
+					ite.remove();
+				}
 			}
 		}
 	}
 
 	@Override
 	public void render() {
-		for (GameObject go : children_) {
-			go.render();
+		for(List<GameObject> list : getControlLists()) {
+			for(GameObject go : list) {
+				go.render();
+			}
 		}
 	}
 
 	@Override
 	public void dispose() {
-		for (GameObject go : children_) {
-			go.dispose();
+		for(List<GameObject> list : getControlLists()) {
+			for(GameObject go : list) {
+				go.dispose();
+			}
 		}
 	}
-
-	public GStgCharacter checkHit(GStgCharacter me) {
-		for (GameObject go : children_) {
-			if (me.checkHitWith((GStgCharacter) go))
-				return (GStgCharacter) go;
-		}
-		return null;
+	
+	public List<GStgCharacter> getFriendries() {
+		return friendlies_;
+	}
+	
+	public List<GStgCharacter> getEnemies(){
+		return enemies_;
 	}
 }

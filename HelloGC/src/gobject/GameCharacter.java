@@ -143,7 +143,7 @@ public abstract class GameCharacter implements GameObject {
 				p += vp;
 				if (p + characterSize / 2 < 0)
 					p = displayBorder - p;
-				if (p - characterSize / 2 > displayBorder)
+				else if (p - characterSize / 2 > displayBorder)
 					p = displayBorder - p;
 				return p;
 			}

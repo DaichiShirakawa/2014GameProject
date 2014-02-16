@@ -7,13 +7,14 @@ import gobject.GameCharacter;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import texture.TextTexture;
 import texture.Texture;
 import texture.TextureLoader;
 
 public class SolarSystem extends GameCharacter {
-	private ArrayList<Star> stars_;
+	private List<Star> stars_;
 	private double timeScale_ = 0.0001f;
 	private int inputScale_ = 1;
 	private static final int INPUT_INTERVAL = 5;
@@ -25,7 +26,7 @@ public class SolarSystem extends GameCharacter {
 
 	public SolarSystem() {
 		Star star;
-		stars_ = new ArrayList<>();
+		stars_ = new ArrayList<Star>();
 		Star sun = new Star(null, "太", 1f, Color.orange, 0, 27.275);
 		stars_.add(sun);
 		stars_.add(sun.makeChild("水", 0.4f, 15, new Color(0.5f, 0.5f, 1f),

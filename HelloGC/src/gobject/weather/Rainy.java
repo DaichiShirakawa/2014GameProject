@@ -7,9 +7,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Rainy {
-	private ArrayList<Rain> rain = new ArrayList<>();
+	private List<Rain> rain = new ArrayList<Rain>();
 	private int frame = 0;
 	private int interval = 2;
 	private int nabiki = -1;

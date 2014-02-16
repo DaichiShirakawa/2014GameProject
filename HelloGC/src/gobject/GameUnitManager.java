@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class GameUnitManager implements GameObject {
-	private List<List<GameObject>> controlLists_ = new ArrayList<>();
+	private List<List<GameObject>> controlLists_ = new ArrayList<List<GameObject>>();
 
 	@Override
 	public abstract void dispose();

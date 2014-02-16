@@ -2,8 +2,6 @@ package gobject.hello.shooting;
 
 import static common.CommonLogic.*;
 import static common.Commons.*;
-import static org.lwjgl.opengl.GL11.*;
-import gobject.GameObject;
 import gobject.hello.shooting.bullet.NormalBullet;
 
 import java.awt.Color;
@@ -24,8 +22,8 @@ public class MyShip extends GStgCharacter{
 		setX(WIDTH / 2);
 		setY(getHeight());
 		color_ = new Color(0.6f, 0.6f, 1f);
-		setXMoveMode(MOVEMODE.REFRECTION);
-		setYMoveMode(MOVEMODE.REFRECTION);
+		setXMoveMode(MOVEMODE.LOOP);
+		setYMoveMode(MOVEMODE.LOOP);
 	}
 
 	@Override
