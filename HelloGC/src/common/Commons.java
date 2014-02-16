@@ -2,13 +2,12 @@ package common;
 
 import io.MyKeyboard;
 
-import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.Random;
 
 public class Commons {
 	/**
-	 *  ウィンドウ・描写領域
+	 * ウィンドウ・描写領域
 	 */
 	public static final int WINDOW_WIDTH = 1200;
 	public static final int WINDOW_HEIGHT = 900;
@@ -21,46 +20,47 @@ public class Commons {
 	public static final int DEPTH = 200;
 
 	/**
-	 *  リソースへのパス
+	 * リソースへのパス
 	 */
-	public static final String RESOURCE_FOLDER_STRING = "resources/";
-	public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING
-			+ "images/";
+	public static final String RESOURCE_FOLDER_STRING = "./resources/";
+	public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING + "image/";
+	public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
 
 	/**
-	 *  FPS管理
+	 * FPS管理
 	 */
 	public static final int FPS = 60;
 	private static int frameCount = 0;
+
 	public static void resetFrameCount() {
 		frameCount = 0;
 	}
+
 	public static void incFrameCount() {
 		frameCount++;
 	}
+
 	public static int getFrameCount() {
 		return frameCount;
 	}
 
 	/**
-	 *  IO
+	 * IO
 	 */
 	public static final MyKeyboard keyboard = MyKeyboard.getInstance();
 
 	/**
-	 *  ゲーム利用
+	 * ゲーム利用
 	 */
 	public static final Random rnd = new Random(System.nanoTime());
 
 	/**
-	 *  文字描写
+	 * 文字描写
 	 */
-	public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
-			+ "Ricty.ttf";
-	public static final Font font = CommonLogic.createFont(FONT_FILEPATH);
+	public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING + "font/Ricty.ttf";
 	public static final int FONT_HEIGHT = 60;
-	public static final DecimalFormat FORMAT_FOR_FLOAT_0d0 = new DecimalFormat("0.0");
-	
+	public static final DecimalFormat FORMAT_FOR_FLOAT_0d0 = new DecimalFormat(
+			"0.0");
 
 	/**
 	 * キーボード識別子

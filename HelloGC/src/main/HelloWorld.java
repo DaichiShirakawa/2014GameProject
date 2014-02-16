@@ -5,6 +5,9 @@ package main;
 import static common.CommonLogic.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
+
+import java.io.File;
+
 import glogic.GLogic;
 
 import org.lwjgl.LWJGLException;
@@ -24,6 +27,8 @@ public class HelloWorld implements Runnable {
 	private double actualFPS_ = 0.0;
 
 	public static void main(String[] args) {
+		System.setProperty("org.lwjgl.librarypath", new File(WINDOWS_NATIVE_FOLDER_STRING).getAbsolutePath());
+//		System.setProperty("org.lwjgl.librarypath", getClass().getResource(WINDOWS_NATIVE_FOLDER_STRING).getPath());
 		HelloWorld loop = new HelloWorld();
 		try {
 			loop.DisplayItialize();

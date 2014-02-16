@@ -10,7 +10,9 @@ public abstract class GStgBullet extends GStgCharacter{
 	}
 
 	@Override
-	public abstract void render();
+	public void render() {
+		super.render();
+	}
 
 	@Override
 	public void dispose() {

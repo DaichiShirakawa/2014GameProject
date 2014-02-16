@@ -3,20 +3,26 @@ package texture;
 import static common.Commons.*;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class TextTexture {
 	/**
 	 * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
 	 */
+	private static Font font = null;
+	
 	public Texture createTextTexture(String str, int width, int height, Color color) {
 
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
+			if(font == null) font = createFont(FONT_FILEPATH);
 			image = new TextureLoader().createImageData(width, FONT_HEIGHT);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
@@ -69,5 +75,21 @@ public class TextTexture {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Font生成
+	 */
+	private Font createFont(String filepath) {
+		try {
+			InputStream is = getClass().getClassLoader().getResourceAsStream(filepath);
+			Font font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
+					(float) FONT_HEIGHT);
+			is.close();
+			return font;
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

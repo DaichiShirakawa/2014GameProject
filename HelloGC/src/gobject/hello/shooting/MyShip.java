@@ -10,7 +10,7 @@ import texture.TextureLoader;
 
 public class MyShip extends GStgCharacter{
 	private Color color_;
-	private float speed_ = 2;
+	private float speed_ = 2.5f;
 	private int size_ = 32;
 
 	public MyShip() {
@@ -53,5 +53,6 @@ public class MyShip extends GStgCharacter{
 		setGlColor4f(color_, getAlpha());
 		draw();
 	}
+
 
 }

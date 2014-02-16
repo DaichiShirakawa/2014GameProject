@@ -4,11 +4,6 @@ import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import texture.Texture;
 
@@ -21,22 +16,6 @@ public class CommonLogic {
 
 		float dist = max - min;
 		return (float) (Math.random() * dist + min);
-	}
-
-	/**
-	 * Font生成
-	 */
-	public static Font createFont(String filepath) {
-		try {
-			InputStream is = new FileInputStream(filepath);
-			Font font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
-					(float) FONT_HEIGHT);
-			is.close();
-			return font;
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	/**

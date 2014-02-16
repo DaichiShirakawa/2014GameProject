@@ -11,6 +11,9 @@ import texture.Texture;
 
 public abstract class GameCharacter implements GameObject {
 	private boolean disposeFlag_ = false;
+	private int disposeTimer_ = -1;
+	private boolean enableFlag_ = true;
+	private boolean visibleFlag_ = true;
 	private float x_;
 	private float vx_;
 	private float y_;
@@ -41,6 +44,14 @@ public abstract class GameCharacter implements GameObject {
 
 	@Override
 	public void update() {
+		if (disposeTimer_ > 0)
+			disposeTimer_--;
+		if (disposeTimer_ == 0)
+			setDispose();
+		if (!isEnable()) {
+			return;
+		}
+		
 		scale_ += vScale_;
 		angle_ += vAngle_;
 		alpha_ += vAlpha_;
@@ -53,20 +64,6 @@ public abstract class GameCharacter implements GameObject {
 			vAlpha_ = 0f;
 		}
 		move();
-	}
-
-	@Override
-	public abstract void render();
-
-	@Override
-	public void dispose() {
-		if (getTexture() != null)
-			getTexture().dispose();
-	}
-
-	@Override
-	public boolean canDispose() {
-		return disposeFlag_;
 	}
 
 	protected void move() {
@@ -159,7 +156,27 @@ public abstract class GameCharacter implements GameObject {
 				float p, float vp);
 	}
 
+	@Override
+	public void render() {
+		if (!isEnable())
+			return;
+		draw();
+	}
+
+	@Override
+	public void dispose() {
+		if (getTexture() != null)
+			getTexture().dispose();
+	}
+
+	@Override
+	public boolean canDispose() {
+		return disposeFlag_;
+	}
+
 	protected void draw(final Texture texture) {
+		if (!isVisible())
+			return;
 		// 設定を初期化する
 		glLoadIdentity();
 		// 原点の指定
@@ -174,7 +191,7 @@ public abstract class GameCharacter implements GameObject {
 		draw(getTexture());
 	}
 
-	protected Texture getTexture() {
+	public Texture getTexture() {
 		return texture_;
 	}
 
@@ -294,6 +311,43 @@ public abstract class GameCharacter implements GameObject {
 
 	public void setDispose() {
 		disposeFlag_ = true;
+		disable();
+	}
+
+	/**
+	 * seconds秒経過後に破棄する。いまのところ1/FPS秒の精度
+	 */
+	public void setDisposeTimer(float seconds) {
+		disposeTimer_ = (int) (FPS * seconds);
+	}
+
+	public int getDisposeTimer() {
+		return disposeTimer_;
+	}
+
+	public void show() {
+		visibleFlag_ = true;
+	}
+
+	public void hide() {
+		visibleFlag_ = false;
+	}
+
+	protected boolean isVisible() {
+		return visibleFlag_;
+	}
+
+	public void enable() {
+		enableFlag_ = true;
+	}
+
+	public void disable() {
+		enableFlag_ = false;
+		hide();
+	}
+
+	protected boolean isEnable() {
+		return enableFlag_;
 	}
 
 	public Color getColor() {
@@ -316,7 +370,7 @@ public abstract class GameCharacter implements GameObject {
 		Point targP3 = new Point(targP1.x, targP1.y - target.getHeight());
 
 		if (selfP2.x >= targP1.x && selfP1.x <= targP2.x) {
-			if (selfP3.y >= targP1.y && selfP1.y <= targP3.y) {
+			if (selfP3.y <= targP1.y && selfP1.y >= targP3.y) {
 				return true;
 			}
 		}

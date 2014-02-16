@@ -5,7 +5,6 @@ import gobject.GameUnitManager;
 import gobject.hello.shooting.bullet.GStgBullet;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ShootingLogic extends GameUnitManager {
@@ -37,12 +36,12 @@ public class ShootingLogic extends GameUnitManager {
 	@Override
 	public void update() {
 		for(List<GameObject> list : getControlLists()) {
-			for(Iterator<GameObject> ite = list.iterator(); ite.hasNext(); ) {
-				GameObject go = ite.next();
+			for(int i=0; i<list.size(); i++) {
+				GameObject go = list.get(i);
 				go.update();
 				if(go.canDispose()) {
 					go.dispose();
-					ite.remove();
+					list.remove(i);
 				}
 			}
 		}

@@ -16,7 +16,9 @@ public abstract class GStgCharacter extends GameCharacter {
 	}
 
 	@Override
-	public abstract void render();
+	public void render() {
+		super.render();
+	}
 
 	public DIVISION getDivision() {
 		return division_;
@@ -26,4 +28,7 @@ public abstract class GStgCharacter extends GameCharacter {
 		this.division_ = division;
 	}
 
+	public void damage() {
+		return;
+	}
 }

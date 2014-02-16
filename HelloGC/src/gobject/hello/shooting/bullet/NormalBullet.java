@@ -21,6 +21,7 @@ public class NormalBullet extends GStgBullet {
 	private float ySpeed_ = 5;
 	private static Texture TEXTURE = new TextureLoader()
 			.loadTexture(IMAGE_FOLDER_STRING + "flower.png");
+	private GStgCharacter target_ = null;
 
 	public NormalBullet(GStgCharacter shooter) {
 		super();
@@ -31,9 +32,10 @@ public class NormalBullet extends GStgBullet {
 		setY(startY_);
 		setColor(generateColorCosmos());
 		setTexture(TEXTURE);
+		AlphaBlend.AlphaBlend.config(getTexture());
 		setWidth(BULLET_SIZE);
 		setHeight(BULLET_SIZE);
-		
+
 		setVx(random(-0.5f, 0.5f));
 		setVy(ySpeed_);
 		setvAngle(12);
@@ -41,6 +43,13 @@ public class NormalBullet extends GStgBullet {
 
 	@Override
 	public void update() {
+		if(!isEnable()) {
+			if(target_ != null && getDisposeTimer() % (FPS / 2) == 0) {
+				ShootingLogic.GetInstance().shoot(new Effect(target_));
+			}
+			super.update();
+			return;
+		}
 		if (sqrt(pow((float) (startX_ - getX()), 2f)
 				+ pow((float) (startY_ - getY()), 2f)) > RANGE) {
 			setDispose();
@@ -51,14 +60,13 @@ public class NormalBullet extends GStgBullet {
 
 	@Override
 	public void render() {
-		AlphaBlend.AlphaBlend.config(getTexture());
 		setGlColor4f(getColor(), getAlpha());
-		draw();
+		super.render();
 	}
 
 	protected void checkHit() {
 		List<GStgCharacter> list = null;
-		switch(getDivision()) {
+		switch (getDivision()) {
 		case FRIENDLY:
 			list = ShootingLogic.GetInstance().getEnemies();
 			break;
@@ -66,11 +74,11 @@ public class NormalBullet extends GStgBullet {
 			list = ShootingLogic.GetInstance().getFriendries();
 			break;
 		default:
-			break;
+			return;
 		}
-		
-		for(GStgCharacter target : list) {
-			if(checkHit(target)) {
+
+		for (GStgCharacter target : list) {
+			if (checkHit(target)) {
 				hitEffect(target);
 			}
 		}
@@ -78,6 +86,53 @@ public class NormalBullet extends GStgBullet {
 
 	@Override
 	protected void hitEffect(GStgCharacter target) {
-		setDispose();
+		for (int i = 0; i < 3; i++)
+			ShootingLogic.GetInstance().shoot(new Effect(this));
+		setDisposeTimer(1);
+		target_ = target;
+		disable();
+		target.damage();
+	}
+
+	protected class Effect extends GStgBullet {
+		protected Effect(GStgCharacter target_) {
+			setX(target_.getX());
+			setY(target_.getY());
+			setTexture(target_.getTexture());
+			setWidth(target_.getWidth() / 3);
+			setHeight(target_.getHeight() / 3);
+			setScale(random(0.5f, 2f));
+			setColor(target_.getColor());
+			
+			float tmp = rnd.nextInt(361);
+			setVx(4 * (float)sin(tmp) * random(0.2f, 1f));
+			setVy(4 * (float)cos(tmp) * random(0.2f, 1f));
+			setAngle(tmp);
+			setDisposeTimer(0.8f * random(0.5f, 1.5f));
+		}
+
+		@Override
+		public void update() {
+			setVx(getVx() * 0.95f);
+			setVy(getVy() * 0.95f);
+			super.update();
+		}
+
+		@Override
+		public void render() {
+			setGlColor4f(getColor(), getAlpha());
+			super.render();
+		}
+
+		@Override
+		protected void checkHit() {
+			return;
+		}
+
+		@Override
+		protected void hitEffect(GStgCharacter target) {
+			return;
+		}
+
 	}
 }
