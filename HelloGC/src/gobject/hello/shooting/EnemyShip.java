@@ -8,57 +8,61 @@ import java.awt.Color;
 
 import texture.TextureLoader;
 
-public class EnemyShip extends GStgCharacter{
-	private int size_ = 32;
-//	private int speed_ = 1;
-	private float thita = 0;
-	private boolean damaging_ = false;
-	private float dmgVibMove_ = 0;
-	private float dmgVibThita_ = 0;
+public class EnemyShip extends GStgCharacter {
+    private int size = 32;
+    //private int speed_ = 1;
+    private float thita = 0;
+    private boolean damaging = false;
+    private float dmgVibMove = 0;
+    private float dmgVibThita = 0;
 
-	public EnemyShip() {
-		setDivision(DIVISION.ENEMY);
-		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
-				+ "DotTokiIcon.png"));
-		setWidth(size_);
-		setHeight(size_);
-		setX(WIDTH / 2);
-		setY(HEIGHT - getHeight());
-		setColor(new Color(1f, 0.6f, 0.6f));
-//		setVx(speed_);
-//		setVy(speed_);
-		setXMoveMode(MOVEMODE.LOOP);
-		setYMoveMode(MOVEMODE.LOOP);
-	}
+    public EnemyShip() {
+        setDivision(DIVISION.ENEMY);
+        setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+                + "DotTokiIcon.png"));
+        setWidth(size);
+        setHeight(size);
+        setX(WIDTH / 2);
+        setY(HEIGHT - getHeight());
+        setColor(new Color(1f, 0.6f, 0.6f));
+        //setVx(speed_);
+        //setVy(speed_);
+        setXMoveMode(MOVEMODE.LOOP);
+        setYMoveMode(MOVEMODE.LOOP);
+    }
 
-	@Override
-	public void update() {
-		thita += 1 / (float)FPS;
-		setX(WIDTH / 2 + 100 * (float)sin(thita));
-		setY(HEIGHT / 2 + 100 * (float)cos(thita));
-		damageUpdate();
-		super.update();
-	}
+    @Override
+    public void update() {
+        thita += 1 / (float) FPS;
+        setX(WIDTH / 2 + 100 * (float) sin(thita));
+        setY(HEIGHT / 2 + 100 * (float) cos(thita));
+        damageUpdate();
+        super.update();
+    }
 
-	@Override
-	public void render() {
-		setGlColor4f(getColor(), getAlpha());
-		draw();
-	}
+    @Override
+    public void render() {
+        setGlColor4f(getColor(), getAlpha());
+        draw();
+    }
 
-	@Override
-	public void damage() {
-		damaging_ = true;
-		dmgVibMove_ = 5;
-		dmgVibThita_ = 0;
-		super.damage();
-	}
-	
-	public void damageUpdate() {
-		if(!damaging_) return;
-		dmgVibMove_ *= 0.95f;
-		dmgVibThita_ += 1;
-		setX(getX() + dmgVibMove_ * (float)sin(dmgVibThita_));
-		if(dmgVibMove_ < 0.5) damaging_ = false;
-	}
+    @Override
+    public void damage() {
+        damaging = true;
+        dmgVibMove = 5;
+        dmgVibThita = 0;
+        super.damage();
+    }
+
+    public void damageUpdate() {
+        if (!damaging) {
+            return;
+        }
+        dmgVibMove *= 0.95f;
+        dmgVibThita += 1;
+        setX(getX() + dmgVibMove * (float) sin(dmgVibThita));
+        if (dmgVibMove < 0.5) {
+            damaging = false;
+        }
+    }
 }
