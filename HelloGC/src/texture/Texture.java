@@ -34,85 +34,85 @@ package texture;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Texture {
-	private int target;
-	private int textureID;
+    private int target;
+    private int textureID;
 
-	private int width;
-	private int height;
+    private int width;
+    private int height;
 
-	private int texWidth;
-	private int texHeight;
+    private int texWidth;
+    private int texHeight;
 
-	private boolean isAlphaPremultiplied;
+    private boolean isAlphaPremultiplied;
 
-	public Texture(int target, int textureID) {
-		this.target = target;
-		this.textureID = textureID;
-		this.isAlphaPremultiplied = true;
-	}
+    public Texture(final int target, final int textureID) {
+        this.target = target;
+        this.textureID = textureID;
+        this.isAlphaPremultiplied = true;
+    }
 
-	public void point(int srcX, int srcY) {
-		float tx = 1.0f * srcX / texWidth;
-		float ty = 1.0f * srcY / texHeight;
+    public final void point(final int srcX, final int srcY) {
+        float tx = 1.0f * srcX / texWidth;
+        float ty = 1.0f * srcY / texHeight;
 
-		glTexCoord2f(tx, ty);
-	}
+        glTexCoord2f(tx, ty);
+    }
 
-	public int getTextureID() {
-		return textureID;
-	}
+    public final int getTextureID() {
+        return textureID;
+    }
 
-	void setTextureHeight(int texHeight) {
-		this.texHeight = texHeight;
-	}
+    public final void setTextureHeight(final int texHeight) {
+        this.texHeight = texHeight;
+    }
 
-	void setTextureWidth(int texWidth) {
-		this.texWidth = texWidth;
-	}
+    public final void setTextureWidth(final int texWidth) {
+        this.texWidth = texWidth;
+    }
 
-	int getTextureWidth() {
-		return texWidth;
-	}
+    public final int getTextureWidth() {
+        return texWidth;
+    }
 
-	int getTextureHeight() {
-		return texHeight;
-	}
+    public final int getTextureHeight() {
+        return texHeight;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public final int getWidth() {
+        return width;
+    }
 
-	void setWidth(int width) {
-		this.width = width;
-	}
+    public final void setWidth(final int width) {
+        this.width = width;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    public final int getHeight() {
+        return height;
+    }
 
-	void setHeight(int height) {
-		this.height = height;
-	}
+    public final void setHeight(final int height) {
+        this.height = height;
+    }
 
-	public boolean isAlphaPremultiplied() {
-		return isAlphaPremultiplied;
-	}
+    public final boolean isAlphaPremultiplied() {
+        return isAlphaPremultiplied;
+    }
 
-	void setAlphaPremultiplied(boolean isAlphaPremultiplied) {
-		this.isAlphaPremultiplied = isAlphaPremultiplied;
-	}
+    public final void setAlphaPremultiplied(final boolean isAlphaPremultiplied) {
+        this.isAlphaPremultiplied = isAlphaPremultiplied;
+    }
 
-	public void dispose() {
-		if (0 < textureID) {
-			glDeleteTextures(textureID);
-			textureID = -1;
-		}
-	}
+    public final void dispose() {
+        if (0 < textureID) {
+            glDeleteTextures(textureID);
+            textureID = -1;
+        }
+    }
 
-	public void bind() {
-		glBindTexture(target, textureID);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	}
+    public final void bind() {
+        glBindTexture(target, textureID);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    }
 
 }

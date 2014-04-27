@@ -104,7 +104,7 @@ public class NormalBullet extends GStgBullet {
 			setScale(random(0.5f, 2f));
 			setColor(target_.getColor());
 			
-			float tmp = rnd.nextInt(361);
+			float tmp = RND.nextInt(361);
 			setVx(4 * (float)sin(tmp) * random(0.2f, 1f));
 			setVy(4 * (float)cos(tmp) * random(0.2f, 1f));
 			setAngle(tmp);

@@ -14,13 +14,13 @@ public class BallKeyMove extends Ball{
 	}
 	
 	public void move() {
-		if (keyboard.isPress(KeyEvent.VK_UP))
+		if (KEYBOARD.isPress(KeyEvent.VK_UP))
 			vy -= accele;
-		if (keyboard.isPress(KeyEvent.VK_DOWN))
+		if (KEYBOARD.isPress(KeyEvent.VK_DOWN))
 			vy += accele;
-		if (keyboard.isPress(KeyEvent.VK_LEFT))
+		if (KEYBOARD.isPress(KeyEvent.VK_LEFT))
 			vx -= accele;
-		if (keyboard.isPress(KeyEvent.VK_RIGHT))
+		if (KEYBOARD.isPress(KeyEvent.VK_RIGHT))
 			vx += accele;
 		super.move();
 	}

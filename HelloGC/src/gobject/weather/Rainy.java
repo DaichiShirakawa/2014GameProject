@@ -19,7 +19,7 @@ public class Rainy {
 
 	public void update() {
 		if (frame++ % interval == 0) {
-			rain.add(new Rain(new Point(rnd.nextInt(WIDTH + 100), -length)));
+			rain.add(new Rain(new Point(RND.nextInt(WIDTH + 100), -length)));
 		}
 		for (Iterator<Rain> it = rain.iterator(); it.hasNext();)
 			it.next().update(speed, nabiki);
@@ -42,7 +42,7 @@ public class Rainy {
 
 		public Rain(Point point) {
 			this.point = point;
-			int cl = 100 + rnd.nextInt(150);
+			int cl = 100 + RND.nextInt(150);
 			color = new Color(cl, cl, 255);
 		}
 

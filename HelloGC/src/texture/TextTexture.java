@@ -12,84 +12,84 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class TextTexture {
-	/**
-	 * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
-	 */
-	private static Font font = null;
-	
-	public Texture createTextTexture(String str, int width, int height, Color color) {
+    /**
+     * 外部フォントで表示したい文字列を書いたテクスチャーを生成する
+     */
+    private static Font font = null;
 
-		BufferedImage image = null;
-		Graphics2D g = null;
-		try {
-			if(font == null) font = createFont(FONT_FILEPATH);
-			image = new TextureLoader().createImageData(width, FONT_HEIGHT);
+    public final Texture createTextTexture(final String str, final int width, final int height, final Color color) {
 
-			// 透明色で塗りつぶし、BufferedImage を初期化する
-			g = image.createGraphics();
-//            g.setColor(new Color(1f, 1f, 1f, 1f));
-//            g.fillRect(0, 0, width, height);
+        BufferedImage image = null;
+        Graphics2D g = null;
+        try {
+            if (font == null) {
+                createFont(FONT_FILEPATH);
+            }
+            image = new TextureLoader().createImageData(width, FONT_HEIGHT);
 
-			// 外部フォントを使う準備をする
-			g.setFont(font);
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(color);
+            // 透明色で塗りつぶし、BufferedImage を初期化する
+            g = image.createGraphics();
+            //            g.setColor(new Color(1f, 1f, 1f, 1f));
+            //            g.fillRect(0, 0, width, height);
 
-			// 表示する文字列の位置を計算する
-			String message = str;
-			int count = 0;
-			int y = 0;
-			while (0 < message.length()) {
-				boolean isDrawed = false;
+            // 外部フォントを使う準備をする
+            g.setFont(font);
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g.setColor(color);
 
-				if (message.length() <= count) {
-					isDrawed = true;
-				} else {
-					// メッセージウインドウの右端まで文字を書き込んだら、改行する
-					int awidth = g.getFontMetrics().stringWidth(
-							message.substring(0, count + 1));
+            // 表示する文字列の位置を計算する
+            String message = str;
+            int count = 0;
+            int y = 0;
+            while (0 < message.length()) {
+                boolean isDrawed = false;
 
-					isDrawed = (width < awidth);
-				}
+                if (message.length() <= count) {
+                    isDrawed = true;
+                } else {
+                    // メッセージウインドウの右端まで文字を書き込んだら、改行する
+                    int awidth = g.getFontMetrics().stringWidth(
+                            message.substring(0, count + 1));
 
-				if (isDrawed) {
-					g.drawString(message.substring(0, count), 0, FONT_HEIGHT - 6 + y);
-					message = message.substring(count);
-					y += FONT_HEIGHT + 6;
-					count = 0;
-				} else {
-					count++;
-				}
-			}
+                    isDrawed = (width < awidth);
+                }
 
-			return new TextureLoader().loadTexture(image);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (g != null) {
-				g.dispose();
-			}
-			if (image != null) {
-				image.flush();
-			}
-		}
-		return null;
-	}
+                if (isDrawed) {
+                    g.drawString(message.substring(0, count), 0, FONT_HEIGHT - 6 + y);
+                    message = message.substring(count);
+                    y += FONT_HEIGHT + 6;
+                    count = 0;
+                } else {
+                    count++;
+                }
+            }
 
-	/**
-	 * Font生成
-	 */
-	private Font createFont(String filepath) {
-		try {
-			InputStream is = getClass().getClassLoader().getResourceAsStream(filepath);
-			Font font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
-					(float) FONT_HEIGHT);
-			is.close();
-			return font;
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+            return new TextureLoader().loadTexture(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (g != null) {
+                g.dispose();
+            }
+            if (image != null) {
+                image.flush();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Font生成
+     */
+    private void createFont(final String filepath) {
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream(filepath);
+            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
+                    (float) FONT_HEIGHT);
+            is.close();
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

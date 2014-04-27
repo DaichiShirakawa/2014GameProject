@@ -22,12 +22,12 @@ public class BallGravity extends Ball {
 	}
 
 	public void move() {
-		if (keyboard.isPress(KeyEvent.VK_LEFT))
+		if (KEYBOARD.isPress(KeyEvent.VK_LEFT))
 			vx -= accele;
-		if (keyboard.isPress(KeyEvent.VK_RIGHT))
+		if (KEYBOARD.isPress(KeyEvent.VK_RIGHT))
 			vx += accele;
 		if ((y + size == HEIGHT) && (vy < sikii)
-				&& (keyboard.isPress(KeyEvent.VK_SPACE))) {
+				&& (KEYBOARD.isPress(KeyEvent.VK_SPACE))) {
 			vy -= new Random().nextInt(20);
 		}
 		x += vx;

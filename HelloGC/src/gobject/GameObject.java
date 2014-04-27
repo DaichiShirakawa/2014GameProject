@@ -1,9 +1,11 @@
 package gobject;
 
-public interface GameObject{
-	public abstract void dispose();
-	public abstract void update();
-	public void render();
-	public boolean canDispose();
-}
+public interface GameObject {
+    void dispose();
 
+    void update();
+
+    void render();
+
+    boolean canDispose();
+}
