@@ -13,12 +13,22 @@ public final class CommonLogic {
     }
 
     /**
-     * min から max までの間で乱数を生成して返す
+     * min <= r <= max の範囲の乱数rを生成
      */
     public static float random(final float min, final float max) {
-
         float dist = max - min;
         return (float) (Math.random() * dist + min);
+    }
+
+    /**
+     *背景クリア色の変更
+     */
+    public static void setClearColorWhite() {
+        glClearColor(1f, 1f, 1f, 1f);
+    }
+
+    public static void setClearColorBlack() {
+        glClearColor(0f, 0f, 0f, 1f);
     }
 
     /**

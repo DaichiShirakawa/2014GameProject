@@ -4,11 +4,10 @@ import static common.CommonLogic.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
 import gobject.hello.shooting.GStgCharacter;
-import gobject.hello.shooting.ShootingLogic;
+import gobject.hello.shooting.ShootingManager;
 
 import java.util.List;
 
-import texture.AlphaBlend;
 import texture.Texture;
 import texture.TextureLoader;
 
@@ -24,7 +23,6 @@ public class NormalBullet extends GStgBullet {
     private GStgCharacter target = null;
 
     public NormalBullet(GStgCharacter shooter) {
-        super();
         setDivision(DIVISION.FRIENDLY);
         startX = shooter.getX();
         startY = shooter.getY();
@@ -32,7 +30,6 @@ public class NormalBullet extends GStgBullet {
         setY(startY);
         setColor(generateColorCosmos());
         setTexture(TEXTURE);
-        AlphaBlend.AlphaBlend.config(getTexture());
         setWidth(BULLET_SIZE);
         setHeight(BULLET_SIZE);
 
@@ -45,7 +42,7 @@ public class NormalBullet extends GStgBullet {
     public void update() {
         if (!isEnable()) {
             if (target != null && getDisposeTimer() % (FPS / 2) == 0) {
-                ShootingLogic.getInstance().shoot(new Effect(target));
+                ShootingManager.getInstance().shoot(new Effect(target));
             }
             super.update();
             return;
@@ -68,10 +65,10 @@ public class NormalBullet extends GStgBullet {
         List<GStgCharacter> list = null;
         switch (getDivision()) {
         case FRIENDLY:
-            list = ShootingLogic.getInstance().getEnemies();
+            list = ShootingManager.getInstance().getEnemies();
             break;
         case ENEMY:
-            list = ShootingLogic.getInstance().getFriendries();
+            list = ShootingManager.getInstance().getFriendries();
             break;
         default:
             return;
@@ -87,7 +84,7 @@ public class NormalBullet extends GStgBullet {
     @Override
     protected void hitEffect(GStgCharacter target) {
         for (int i = 0; i < 3; i++) {
-            ShootingLogic.getInstance().shoot(new Effect(this));
+            ShootingManager.getInstance().shoot(new Effect(this));
         }
         setDisposeTimer(1);
         this.target = target;

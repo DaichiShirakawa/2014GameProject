@@ -8,6 +8,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -65,6 +66,7 @@ public class TextTexture {
                 }
             }
 
+            AlphaBlend.AlphaBlend.config();
             return new TextureLoader().loadTexture(image);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,13 +85,24 @@ public class TextTexture {
      * Font生成
      */
     private void createFont(final String filepath) {
+        InputStream is = null;
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(filepath);
-            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
-                    (float) FONT_HEIGHT);
-            is.close();
+            is = new FileInputStream(filepath);
+            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) FONT_HEIGHT);
+            //            InputStream is = new FileInputStream(filepath); // getClass().getClassLoader().getResourceAsStream(filepath);
+            //            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
+            //                    (float) FONT_HEIGHT);
+            //            is.close();
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

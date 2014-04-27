@@ -43,7 +43,7 @@ public class MyShip extends GStgCharacter {
             setVx(speed);
         }
         if (KEYBOARD.getPressLength(KEY_Z) % 5 == 0) {
-            ShootingLogic.getInstance().shoot(new NormalBullet(this));
+            ShootingManager.getInstance().shoot(new NormalBullet(this));
         }
         super.update();
     }

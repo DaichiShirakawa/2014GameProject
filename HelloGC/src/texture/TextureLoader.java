@@ -48,6 +48,7 @@ public class TextureLoader {
      * 指定されたパスの画像ファイルをテクスチャーに変換して返す
      */
     public final Texture loadTexture(final String imagePath) {
+        AlphaBlend.AlphaBlend.config();
         try {
             return loadTexture(ImageIO.read(new FileInputStream(imagePath)));
             //return loadTexture(ImageIO.read(getClass().getClassLoader().getResource(imagePath)));

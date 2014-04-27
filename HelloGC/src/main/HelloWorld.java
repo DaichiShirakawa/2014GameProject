@@ -73,8 +73,8 @@ public final class HelloWorld implements Runnable {
             e.printStackTrace();
         }
         // デフォルト背景色
-        // glClearColor(1f, 1f, 1f, 1f);
-        glClearColor(0, 0, 0, 1);
+        //                glClearColor(1f, 1f, 1f, 1f);
+        //                glClearColor(0, 0, 0, 1);
 
         // テクスチャーを有効に
         glEnable(GL_TEXTURE_2D);
@@ -165,4 +165,3 @@ public final class HelloWorld implements Runnable {
         }
     }
 }
-

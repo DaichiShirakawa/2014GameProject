@@ -1,39 +1,39 @@
 package glogic;
 
 import gobject.GameObject;
-import gobject.GameUnitManager;
-import gobject.hello.shooting.ShootingLogic;
+import gobject.GameScene;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GLogic implements GameObject {
-    private List<GameUnitManager> units = new ArrayList<>();
+    private List<GameScene> units = new ArrayList<>();
 
     public GLogic() {
-        //        units.add(new Flowers());
+        units.add(new SceneManager());
+        //        units.add(new FlowerStormManager());
         //        units.add(new DotTest());
-        //        units.add(new TextTest());
-        //        units.add(new SolarSystem());
-        units.add(ShootingLogic.getInstance());
+        //                units.add(new TextTest());
+        //        units.add(new SolarSystemManager());
+        //        units.add(ShootingManager.getInstance());
     }
 
     @Override
     public void update() {
-        for (GameUnitManager unit : units) {
+        for (GameScene unit : units) {
             unit.update();
         }
     }
 
     @Override
     public void render() {
-        for (GameUnitManager unit : units) {
+        for (GameScene unit : units) {
             unit.render();
         }
     }
 
     public void dispose() {
-        for (GameUnitManager unit : units) {
+        for (GameScene unit : units) {
             unit.dispose();
         }
     }
