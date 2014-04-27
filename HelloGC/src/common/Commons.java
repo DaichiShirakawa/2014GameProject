@@ -61,7 +61,8 @@ public final class Commons {
     /**
      * 文字描写
      */
-    public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING + "font/Ricty.ttf";
+//    public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING + "font/Ricty.ttf";
+    public static final String FONT_FILEPATH = "./test.txt";
     public static final int FONT_HEIGHT = 60;
     public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
             "0.0");

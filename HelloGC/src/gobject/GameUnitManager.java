@@ -32,13 +32,11 @@ public abstract class GameUnitManager implements GameObject {
         return false;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected ArrayList addControlList(ArrayList list) {
         controlLists.add(list);
         return list;
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     protected void disposeControlList(List list) {
         for (GameObject obj : (List<GameObject>) list) {
             obj.dispose();

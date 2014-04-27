@@ -2,7 +2,7 @@ package glogic;
 
 import gobject.GameObject;
 import gobject.GameUnitManager;
-import gobject.hello.galaxy.SolarSystem;
+import gobject.hello.shooting.ShootingLogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ public class GLogic implements GameObject {
         //        units.add(new Flowers());
         //        units.add(new DotTest());
         //        units.add(new TextTest());
-        units.add(new SolarSystem());
-        //        units_.add(ShootingLogic.GetInstance());
+        //        units.add(new SolarSystem());
+        units.add(ShootingLogic.getInstance());
     }
 
     @Override

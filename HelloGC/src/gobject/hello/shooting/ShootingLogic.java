@@ -8,29 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ShootingLogic extends GameUnitManager {
-    private static ShootingLogic instance_;
-    private List<GStgCharacter> friendlies_;
-    private List<GStgCharacter> enemies_;
-    private List<GStgCharacter> bullets_;
+    private static ShootingLogic instance;
+    private List<GStgCharacter> friendlies;
+    private List<GStgCharacter> enemies;
+    private List<GStgCharacter> bullets;
 
     @SuppressWarnings("unchecked")
     private ShootingLogic() {
-        bullets_ = addControlList(new ArrayList<GStgBullet>());
-        friendlies_ = addControlList(new ArrayList<GStgCharacter>());
-        enemies_ = addControlList(new ArrayList<GStgCharacter>());
-        friendlies_.add(new MyShip());
-        enemies_.add(new EnemyShip());
+        bullets = addControlList(new ArrayList<GStgBullet>());
+        friendlies = addControlList(new ArrayList<GStgCharacter>());
+        enemies = addControlList(new ArrayList<GStgCharacter>());
+        friendlies.add(new MyShip());
+        enemies.add(new EnemyShip());
     }
 
     public static ShootingLogic getInstance() {
-        if (instance_ == null) {
-            instance_ = new ShootingLogic();
+        if (instance == null) {
+            instance = new ShootingLogic();
         }
-        return instance_;
+        return instance;
     }
 
     public void shoot(GStgBullet bullet) {
-        bullets_.add(bullet);
+        bullets.add(bullet);
     }
 
     @Override
@@ -66,10 +66,10 @@ public final class ShootingLogic extends GameUnitManager {
     }
 
     public List<GStgCharacter> getFriendries() {
-        return friendlies_;
+        return friendlies;
     }
 
     public List<GStgCharacter> getEnemies() {
-        return enemies_;
+        return enemies;
     }
 }
