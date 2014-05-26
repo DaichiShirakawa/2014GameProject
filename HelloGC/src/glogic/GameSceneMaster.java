@@ -8,17 +8,17 @@ import gobject.hello.shooting.ShootingManager;
 import gobject.hello.solarsystem.SolarSystemManager;
 import gobject.weather.FlowerStormManager;
 
-public class SceneManager extends GameScene {
-    GameScene scene;
+public class GameSceneMaster extends GameScene {
+    GameScene currentScene;
 
-    public SceneManager() {
-        scene = new TitleScene();
+    public GameSceneMaster() {
+        currentScene = new TitleScene();
     }
 
     @Override
     public void update() {
         sceneScan();
-        scene.update();
+        currentScene.update();
     }
 
     private void sceneScan() {
@@ -33,24 +33,18 @@ public class SceneManager extends GameScene {
         } else if (KEYBOARD.isPressed(KEY_F5)) {
             changeScene(ShootingManager.getInstance());
         }
-        //        units.add(new FlowerStormManager());
-        //        units.add(new DotTest());
-        //                units.add(new TextTest());
-        //        units.add(new SolarSystemManager());
-        //        units.add(ShootingManager.getInstance());
-
     }
 
     private void changeScene(GameScene scene) {
-        if (this.scene != null) {
-            this.scene.dispose();
+        if (this.currentScene != null) {
+            this.currentScene.dispose();
         }
-        this.scene = scene;
+        this.currentScene = scene;
     }
 
     @Override
     public void render() {
-        scene.render();
+        currentScene.render();
     }
 
 }

@@ -39,7 +39,7 @@ public final class Commons {
     private static int frameCount = 0;
 
     public static void resetFrameCount() {
-        frameCount = 1;
+        frameCount = 0;
     }
 
     public static void incFrameCount() {
