@@ -10,6 +10,8 @@ public final class Commons {
         //隠蔽
     }
 
+    public static final String PRODUCT_TITLE = "作品提出";
+    
     /**
      * ウィンドウ・描写領域
      */
