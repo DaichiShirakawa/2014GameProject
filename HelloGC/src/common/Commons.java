@@ -5,6 +5,13 @@ import io.MyKeyboard;
 import java.text.DecimalFormat;
 import java.util.Random;
 
+/**
+ * ゲーム全体に関わる各種定数の定義
+ * およびRandom等の汎用オブジェクトを保持
+ * 
+ * @author shirakawa
+ * 
+ */
 public final class Commons {
     private Commons() {
         //隠蔽
@@ -33,22 +40,9 @@ public final class Commons {
     public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
 
     /**
-     * FPS管理
+     * FPS
      */
     public static final int FPS = 60;
-    private static int frameCount = 0;
-
-    public static void resetFrameCount() {
-        frameCount = 0;
-    }
-
-    public static void incFrameCount() {
-        frameCount++;
-    }
-
-    public static int getFrameCount() {
-        return frameCount;
-    }
 
     /**
      * IO

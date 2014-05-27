@@ -1,12 +1,18 @@
 package gobject;
 
+/**
+ * ループで扱うオブジェクトの基底インターフェース
+ * 
+ * @author shirakawa
+ * 
+ */
 public interface GameObject {
+	
+	void update();
 
-    void update();
+	void render();
 
-    void render();
+	void dispose();
 
-    void dispose();
-
-    boolean canDispose();
+	boolean canDispose();
 }

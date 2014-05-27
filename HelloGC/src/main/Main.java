@@ -2,7 +2,7 @@ package main;
 
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import glogic.GameSceneMaster;
+import gobject.scene.GameSceneManager;
 
 import java.io.File;
 
@@ -11,17 +11,18 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 /**
- * 転職活動作品用
+ * 作品集プログラムの起動点
  * 
- * @author tokiha_s
+ * @author shirakawa
  * @since 2014/05/26
+ * 
  */
 public final class Main{
 
 	public static void main(final String[] args) {
 		initialize();
 		
-		GameSceneMaster sceneMaster = new GameSceneMaster();
+		GameSceneManager sceneMaster = GameSceneManager.getInstance();
 		try {
 			new GameLoop(sceneMaster).run();
 		} catch (Exception e) {
