@@ -205,7 +205,7 @@ public class TextureLoader {
         WritableRaster raster = Raster.createInterleavedRaster(
                 DataBuffer.TYPE_BYTE, width, height, 4, null);
         BufferedImage bufferedImage = new BufferedImage(glAlphaColorModel,
-                raster, true, new Hashtable<Object, Object>());
+                raster, true, new Hashtable<>());
 
         return bufferedImage;
     }

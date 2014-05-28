@@ -9,7 +9,7 @@ import gobject.scene.GameSceneImpl;
 import java.awt.Color;
 
 import main.FPSManager;
-import texture.TextTexture;
+import texture.TextTextureMaker;
 
 public class TextTestScene extends GameSceneImpl {
 
@@ -24,14 +24,14 @@ public class TextTestScene extends GameSceneImpl {
             setY(HEIGHT / 2);
             setWidth(400);
             setHeight(50);
-            setTexture(new TextTexture().createTextTexture("aasd■てすとn", getWidth(),
+            setTexture(new TextTextureMaker().createTextTexture("aasd■てすとn", getWidth(),
                     getHeight(), Color.black));
         }
 
         @Override
         public void update() {
             getTexture().dispose();
-            setTexture(new TextTexture().createTextTexture("ときtoki" + FPSManager.getCurrentFrame(),
+            setTexture(new TextTextureMaker().createTextTexture("ときtoki" + FPSManager.getCurrentFrame(),
                     getWidth(), getHeight(), Color.black));
         }
 

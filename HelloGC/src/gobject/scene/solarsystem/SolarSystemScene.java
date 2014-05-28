@@ -9,11 +9,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import texture.TextTexture;
+import texture.TextTextureMaker;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class SolarSystemManager extends GameSceneImpl {
+public class SolarSystemScene extends GameSceneImpl {
     private List<Star> stars;
     private double timeScale = 0.0001f;
     private int inputScale = 1;
@@ -25,7 +25,7 @@ public class SolarSystemManager extends GameSceneImpl {
     private float tokiy;
     private float tokix;
 
-    public SolarSystemManager() {
+    public SolarSystemScene() {
     	BackGroundColor.BLACK.set();
 
         Star star;
@@ -84,7 +84,7 @@ public class SolarSystemManager extends GameSceneImpl {
         stars.add(star.makeChild("ガ", 0.3f, 20, Color.white, 0.4290 / (double) 365, 0.4290));
         stars.add(star.makeChild("リ", 0.3f, 25, Color.white, 0.5540 / (double) 365, 0.5540));
 
-        fontTexture = new TextTexture().createTextTexture(keika + "日経過/speed:"
+        fontTexture = new TextTextureMaker().createTextTexture(keika + "日経過/speed:"
                 + inputScale, FONT_HEIGHT, FONT_HEIGHT, Color.white);
         tokiTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
                 + "dotTokiIcon.png");
@@ -97,22 +97,22 @@ public class SolarSystemManager extends GameSceneImpl {
         }
         keika += ((365 * FPS) / (double) 360) * getTimeScale();
         fontTexture.dispose();
-        fontTexture = new TextTexture().createTextTexture("d:" + (int) keika
+        fontTexture = new TextTextureMaker().createTextTexture("d:" + (int) keika
                 + "/s:" + inputScale, 600, FONT_HEIGHT, Color.white);
 
-        if (KEYBOARD.getPressLength(KEY_UP) % INPUT_INTERVAL == 0) {
+        if (KEYBOARD.getPressingFrameCount(KEY.UP) % INPUT_INTERVAL == 0) {
             inputScale++;
         }
-        if (KEYBOARD.getPressLength(KEY_DOWN) % INPUT_INTERVAL == 0) {
+        if (KEYBOARD.getPressingFrameCount(KEY.DOWN) % INPUT_INTERVAL == 0) {
             inputScale--;
         }
-        if (KEYBOARD.getPressLength(KEY_LEFT) % INPUT_INTERVAL == 0) {
+        if (KEYBOARD.getPressingFrameCount(KEY.LEFT) % INPUT_INTERVAL == 0) {
             inputScale -= 10;
         }
-        if (KEYBOARD.getPressLength(KEY_RIGHT) % INPUT_INTERVAL == 0) {
+        if (KEYBOARD.getPressingFrameCount(KEY.RIGHT) % INPUT_INTERVAL == 0) {
             inputScale += 10;
         }
-        if (KEYBOARD.isPressed(KEY_SPACE)) {
+        if (KEYBOARD.isPressed(KEY.SPACE)) {
             inputScale = 0;
         }
 

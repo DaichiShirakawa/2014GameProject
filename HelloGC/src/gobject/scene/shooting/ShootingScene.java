@@ -11,6 +11,7 @@ import java.util.List;
 
 public final class ShootingScene extends GameSceneImpl {
     private static ShootingScene instance;
+    
     private List<GStgCharacter> friendlies = new ArrayList<GStgCharacter>();
     private List<GStgCharacter> enemies = new ArrayList<GStgCharacter>();
     private List<GStgBullet> bullets = new ArrayList<GStgBullet>();

@@ -10,9 +10,9 @@ import org.lwjgl.opengl.GL11;
 
 import texture.TextureLoader;
 
-public class DotTest extends GameSceneImpl {
+public class DotTestScene extends GameSceneImpl {
 
-    public DotTest() {
+    public DotTestScene() {
         GL11.glClearColor(1f, 1f, 1f, 1f);
         add(new DotClass());
     }

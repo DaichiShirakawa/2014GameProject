@@ -35,9 +35,10 @@ public final class Main{
 	}
 
 	private static void initialize() {
-		// LWJGLネイティブライブラリの設定
+		// LWJGLネイティブライブラリの指定
 		System.setProperty("org.lwjgl.librarypath", new File(
 				WINDOWS_NATIVE_FOLDER_STRING).getAbsolutePath());
+		
 		createDisplay();
 		initializeOpenGLSettings();
 	}

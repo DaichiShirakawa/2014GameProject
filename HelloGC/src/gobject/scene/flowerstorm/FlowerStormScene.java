@@ -15,7 +15,7 @@ import main.FPSManager;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class FlowerStormManager extends GameSceneImpl implements GameScene {
+public class FlowerStormScene extends GameSceneImpl implements GameScene {
     private static final String IMAGE_FILENAME = "dotTokiIcon.png";
     private static int tokiPerSecond = 20;
 
@@ -23,7 +23,7 @@ public class FlowerStormManager extends GameSceneImpl implements GameScene {
     private float wind = 0f;
     private float vWind = 0f;
 
-    public FlowerStormManager() {
+    public FlowerStormScene() {
         BackGroundColor.WHITE.set();
         flowerTexture = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
                 + IMAGE_FILENAME);
@@ -47,20 +47,20 @@ public class FlowerStormManager extends GameSceneImpl implements GameScene {
             wind = (wind * vWind < 0) ? wind + vWind : wind;
         }
 
-        if (KEYBOARD.isPress(KEY_UP)) {
+        if (KEYBOARD.isPressing(KEY.UP)) {
             if (tokiPerSecond < 60) {
                 tokiPerSecond++;
             }
         }
-        if (KEYBOARD.isPress(KEY_DOWN)) {
+        if (KEYBOARD.isPressing(KEY.DOWN)) {
             if (tokiPerSecond > 1) {
                 tokiPerSecond--;
             }
         }
-        if (KEYBOARD.isPressed(KEY_LEFT)) {
+        if (KEYBOARD.isPressed(KEY.LEFT)) {
             vWind -= 1;
         }
-        if (KEYBOARD.isPressed(KEY_RIGHT)) {
+        if (KEYBOARD.isPressed(KEY.RIGHT)) {
             vWind += 1;
         }
     }

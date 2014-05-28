@@ -31,19 +31,19 @@ public class MyShip extends GStgCharacter {
     public void update() {
         setVy(0);
         setVx(0);
-        if (KEYBOARD.isPress(KEY_UP)) {
+        if (KEYBOARD.isPressing(KEY.UP)) {
             setVy(speed);
         }
-        if (KEYBOARD.isPress(KEY_DOWN)) {
+        if (KEYBOARD.isPressing(KEY.DOWN)) {
             setVy(-speed);
         }
-        if (KEYBOARD.isPress(KEY_LEFT)) {
+        if (KEYBOARD.isPressing(KEY.LEFT)) {
             setVx(-speed);
         }
-        if (KEYBOARD.isPress(KEY_RIGHT)) {
+        if (KEYBOARD.isPressing(KEY.RIGHT)) {
             setVx(speed);
         }
-        if (KEYBOARD.getPressLength(KEY_Z) % 5 == 0) {
+        if (KEYBOARD.getPressingFrameCount(KEY.Z) % 5 == 0) {
             ShootingScene.getInstance().shoot(new NormalBullet(this));
         }
         super.update();

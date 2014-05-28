@@ -3,83 +3,97 @@ package io;
 import gobject.GameObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.lwjgl.input.Keyboard;
 
+import common.Commons.KEY;
+
 /**
- * keyStatus n==-2:離された瞬間 n==-1:おされてない n>=0:押されてからnフレームたった
+ * キーボードの状態を扱いやすくするためのラッパー
+ * 押した瞬間／離した瞬間／押されてから経過したフレーム　をキーごとに保持する。
  */
 public class MyKeyboard implements GameObject {
-    private static final int KEYSTATE_MOMENT_RELEASED = -3;
-    private static final int KEYSTATE_NOT_PRESSED = -2;
-    private static final int KEYSTATE_MOMENT_PRESSED = 0;
-    private static MyKeyboard instance = new MyKeyboard();
-    private HashMap<Integer, Integer> keyStatus = new HashMap<>();
+	// HACK 整数の線形性を前提とした定数。もう少し賢い方法がありそうだ
+	private static final int KEYSTATE_RELEASED = -3; // 離された瞬間
+	private static final int KEYSTATE_NOTOUCH = -2; // 押されていない
+	private static final int KEYSTATE_PRESSED = 0; // 押された瞬間
 
-    protected MyKeyboard() {
-        return;
-    }
+	private static MyKeyboard instance = null;
+	
+	private HashMap<KEY, Integer> keyboardStatus = new HashMap<>();
 
-    public static MyKeyboard getInstance() {
-        return instance;
-    }
+	private MyKeyboard() {
+		// 隠蔽
+	}
 
-    public final int getPressLength(final int key) {
-        if (keyStatus.get(key) == null) {
-            return -1;
-        } else {
-            return (keyStatus.get(key));
-        }
-    }
+	public static MyKeyboard getInstance() {
+		if (instance == null) {
+			instance = new MyKeyboard();
+		}
+		return instance;
+	}
 
-    public final boolean isPress(final int key) {
-        return (keyStatus.get(key) != null && keyStatus.get(key) >= 0);
-    }
+	public int getPressingFrameCount(KEY key) {
+		if (keyboardStatus.get(key) == null) {
+			return KEYSTATE_NOTOUCH;
+		} else {
+			return (keyboardStatus.get(key));
+		}
+	}
 
-    public final boolean isPressed(final int key) {
-        return (keyStatus.get(key) != null && keyStatus.get(key) == KEYSTATE_MOMENT_PRESSED);
-    }
+	public boolean isPressing(KEY key) {
+		return (keyboardStatus.get(key) != null && keyboardStatus.get(key) >= 0);
+	}
 
-    public final boolean isReleased(final int key) {
-        return (keyStatus.get(key) != null && keyStatus.get(key) == KEYSTATE_MOMENT_RELEASED);
-    }
+	public boolean isPressed(KEY key) {
+		return (keyboardStatus.get(key) != null && keyboardStatus.get(key) == KEYSTATE_PRESSED);
+	}
 
-    @Override
-    public final void update() {
-        while (Keyboard.next()) {
-            int key = Keyboard.getEventKey();
-            if (Keyboard.getEventKeyState()) {
-                // 押したとき
-                // ループで+1されるので-1しておく
-                keyStatus.put(key, KEYSTATE_MOMENT_PRESSED - 1);
-            } else {
-                // 離したとき
-                keyStatus.put(key, KEYSTATE_MOMENT_RELEASED);
-            }
-        }
-        // 押した時間更新
-        Iterator<Integer> it = keyStatus.keySet().iterator();
-        while (it.hasNext()) {
-            int key = it.next();
-            if (keyStatus.get(key) != KEYSTATE_NOT_PRESSED) {
-                keyStatus.put(key, keyStatus.get(key) + 1);
-            }
-        }
-    }
+	public boolean isReleased(KEY key) {
+		return (keyboardStatus.get(key) != null && keyboardStatus.get(key) == KEYSTATE_RELEASED);
+	}
 
-    @Override
-    public final void render() {
-        return;
-    }
+	@Override
+	public final void update() {
+		updatePressOrRelease();
+		updatePressedFrameCount();
+	}
 
-    @Override
-    public final void dispose() {
-        return;
-    }
+	private void updatePressedFrameCount() {
+		for (KEY key : keyboardStatus.keySet()) {
+			if (keyboardStatus.get(key) != KEYSTATE_NOTOUCH) {
+				keyboardStatus.put(key, keyboardStatus.get(key) + 1);
+			}
+		}
+	}
 
-    @Override
-    public final boolean canDispose() {
-        return false;
-    }
+	private void updatePressOrRelease() {
+		while (Keyboard.next()) {
+			KEY key = KEY.valueOf(Keyboard.getEventKey());
+			if (Keyboard.getEventKeyState()) {
+				// 押した瞬間
+				// 押下時間更新時に+1されるため、ここで-1しておく。
+				keyboardStatus.put(key, KEYSTATE_PRESSED - 1);
+			} else {
+				// 離した瞬間
+				// こちらも後で+1されるので、ここで-1しておく。
+				keyboardStatus.put(key, KEYSTATE_RELEASED - 1);
+			}
+		}
+	}
+
+	@Override
+	public void render() {
+		return;
+	}
+
+	@Override
+	public void dispose() {
+		return;
+	}
+
+	@Override
+	public boolean canDispose() {
+		return false;
+	}
 }

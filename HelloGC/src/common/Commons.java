@@ -13,189 +13,213 @@ import java.util.Random;
  * 
  */
 public final class Commons {
-    private Commons() {
-        //隠蔽
-    }
+	private Commons() {
+		// 隠蔽
+	}
 
-    public static final String PRODUCT_TITLE = "作品提出";
-    
-    /**
-     * ウィンドウ・描写領域
-     */
-    public static final int WINDOW_WIDTH = 1200;
-    public static final int WINDOW_HEIGHT = 900;
-    public static final int WIDTH = 400;
-    public static final int HEIGHT = 300;
-    // public static final int WINDOW_WIDTH = 640;
-    // public static final int WINDOW_HEIGHT = 320;
-    // public static final int WIDTH = 320;
-    // public static final int HEIGHT = 240;
-    public static final int DEPTH = 200;
+	public static final String PRODUCT_TITLE = "応募作品";
 
-    /**
-     * リソースへのパス
-     */
-    public static final String RESOURCE_FOLDER_STRING = "./resources/";
-    public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING + "image/";
-    public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
+	/**
+	 * ウィンドウ・描写領域
+	 */
+	public static final int WINDOW_WIDTH = 1200;
+	public static final int WINDOW_HEIGHT = 900;
+	public static final int WIDTH = 400;
+	public static final int HEIGHT = 300;
+	// public static final int WINDOW_WIDTH = 640;
+	// public static final int WINDOW_HEIGHT = 320;
+	// public static final int WIDTH = 320;
+	// public static final int HEIGHT = 240;
+	public static final int DEPTH = 200;
 
-    /**
-     * FPS
-     */
-    public static final int FPS = 60;
+	/**
+	 * リソースへのパス
+	 */
+	public static final String RESOURCE_FOLDER_STRING = "./resources/";
+	public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING
+			+ "image/";
+	public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
+	public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
+			+ "font/MSGOTHIC.TTC";
+//			+ "font/Ricty.ttf";
 
-    /**
-     * IO
-     */
-    public static final MyKeyboard KEYBOARD = MyKeyboard.getInstance();
+	/**
+	 * FPS
+	 */
+	public static final int FPS = 60;
 
-    /**
-     * ゲーム利用
-     */
-    public static final Random RND = new Random(System.nanoTime());
+	/**
+	 * IO
+	 */
+	public static final MyKeyboard KEYBOARD = MyKeyboard.getInstance();
 
-    /**
-     * 文字描写
-     */
-    public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING + "font/MSGOTHIC.TTC";
-    public static final int FONT_HEIGHT = 60;
-    public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
-            "0.0");
+	/**
+	 * ゲーム利用
+	 */
+	public static final Random RND = new Random(System.nanoTime());
 
-    /**
-     * キーボード識別子
-     */
-    public static final int KEY_ESCAPE = 1;
-    public static final int KEY_1 = 2;
-    public static final int KEY_2 = 3;
-    public static final int KEY_3 = 4;
-    public static final int KEY_4 = 5;
-    public static final int KEY_5 = 6;
-    public static final int KEY_6 = 7;
-    public static final int KEY_7 = 8;
-    public static final int KEY_8 = 9;
-    public static final int KEY_9 = 10;
-    public static final int KEY_0 = 11;
-    public static final int KEY_MINUS = 12;
-    public static final int KEY_EQUALS = 13;
-    public static final int KEY_BACK = 14;
-    public static final int KEY_TAB = 15;
-    public static final int KEY_Q = 16;
-    public static final int KEY_W = 17;
-    public static final int KEY_E = 18;
-    public static final int KEY_R = 19;
-    public static final int KEY_T = 20;
-    public static final int KEY_Y = 21;
-    public static final int KEY_U = 22;
-    public static final int KEY_I = 23;
-    public static final int KEY_O = 24;
-    public static final int KEY_P = 25;
-    public static final int KEY_LBRACKET = 26;
-    public static final int KEY_RBRACKET = 27;
-    public static final int KEY_RETURN = 28;
-    public static final int KEY_LCONTROL = 29;
-    public static final int KEY_A = 30;
-    public static final int KEY_S = 31;
-    public static final int KEY_D = 32;
-    public static final int KEY_F = 33;
-    public static final int KEY_G = 34;
-    public static final int KEY_H = 35;
-    public static final int KEY_J = 36;
-    public static final int KEY_K = 37;
-    public static final int KEY_L = 38;
-    public static final int KEY_SEMICOLON = 39;
-    public static final int KEY_APOSTROPHE = 40;
-    public static final int KEY_GRAVE = 41;
-    public static final int KEY_LSHIFT = 42;
-    public static final int KEY_BACKSLASH = 43;
-    public static final int KEY_Z = 44;
-    public static final int KEY_X = 45;
-    public static final int KEY_C = 46;
-    public static final int KEY_V = 47;
-    public static final int KEY_B = 48;
-    public static final int KEY_N = 49;
-    public static final int KEY_M = 50;
-    public static final int KEY_COMMA = 51;
-    public static final int KEY_PERIOD = 52;
-    public static final int KEY_SLASH = 53;
-    public static final int KEY_RSHIFT = 54;
-    public static final int KEY_MULTIPLY = 55;
-    public static final int KEY_LMENU = 56;
-    public static final int KEY_SPACE = 57;
-    public static final int KEY_CAPITAL = 58;
-    public static final int KEY_F1 = 59;
-    public static final int KEY_F2 = 60;
-    public static final int KEY_F3 = 61;
-    public static final int KEY_F4 = 62;
-    public static final int KEY_F5 = 63;
-    public static final int KEY_F6 = 64;
-    public static final int KEY_F7 = 65;
-    public static final int KEY_F8 = 66;
-    public static final int KEY_F9 = 67;
-    public static final int KEY_F10 = 68;
-    public static final int KEY_NUMLOCK = 69;
-    public static final int KEY_SCROLL = 70;
-    public static final int KEY_NUMPAD7 = 71;
-    public static final int KEY_NUMPAD8 = 72;
-    public static final int KEY_NUMPAD9 = 73;
-    public static final int KEY_SUBTRACT = 74;
-    public static final int KEY_NUMPAD4 = 75;
-    public static final int KEY_NUMPAD5 = 76;
-    public static final int KEY_NUMPAD6 = 77;
-    public static final int KEY_ADD = 78;
-    public static final int KEY_NUMPAD1 = 79;
-    public static final int KEY_NUMPAD2 = 80;
-    public static final int KEY_NUMPAD3 = 81;
-    public static final int KEY_NUMPAD0 = 82;
-    public static final int KEY_DECIMAL = 83;
-    public static final int KEY_F11 = 87;
-    public static final int KEY_F12 = 88;
-    public static final int KEY_F13 = 100;
-    public static final int KEY_F14 = 101;
-    public static final int KEY_F15 = 102;
-    public static final int KEY_F16 = 103;
-    public static final int KEY_F17 = 104;
-    public static final int KEY_F18 = 105;
-    public static final int KEY_KANA = 112;
-    public static final int KEY_F19 = 113;
-    public static final int KEY_CONVERT = 121;
-    public static final int KEY_NOCONVERT = 123;
-    public static final int KEY_YEN = 125;
-    public static final int KEY_NUMPADEQUALS = 141;
-    public static final int KEY_CIRCUMFLEX = 144;
-    public static final int KEY_AT = 145;
-    public static final int KEY_COLON = 146;
-    public static final int KEY_UNDERLINE = 147;
-    public static final int KEY_KANJI = 148;
-    public static final int KEY_STOP = 149;
-    public static final int KEY_AX = 150;
-    public static final int KEY_UNLABELED = 151;
-    public static final int KEY_NUMPADENTER = 156;
-    public static final int KEY_RCONTROL = 157;
-    public static final int KEY_SECTION = 167;
-    public static final int KEY_NUMPADCOMMA = 179;
-    public static final int KEY_DIVIDE = 181;
-    public static final int KEY_SYSRQ = 183;
-    public static final int KEY_RMENU = 184;
-    public static final int KEY_FUNCTION = 196;
-    public static final int KEY_PAUSE = 197;
-    public static final int KEY_HOME = 199;
-    public static final int KEY_UP = 200;
-    public static final int KEY_PRIOR = 201;
-    public static final int KEY_LEFT = 203;
-    public static final int KEY_RIGHT = 205;
-    public static final int KEY_END = 207;
-    public static final int KEY_DOWN = 208;
-    public static final int KEY_NEXT = 209;
-    public static final int KEY_INSERT = 210;
-    public static final int KEY_DELETE = 211;
-    public static final int KEY_CLEAR = 218;
-    public static final int KEY_LMETA = 219;
-    public static final int KEY_LWIN = 219;
-    public static final int KEY_RMETA = 220;
-    public static final int KEY_RWIN = 220;
-    public static final int KEY_APPS = 221;
-    public static final int KEY_POWER = 222;
-    public static final int KEY_SLEEP = 223;
+	/**
+	 * 文字描写
+	 */
+	public static final int FONT_HEIGHT = 60;
+	public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
+			"0.0");
+
+	/**
+	 * キーボード識別子
+	 */
+	public enum KEY {
+		ESCAPE(1),
+		ONE(2),
+		TWO(3),
+		THREE(4),
+		FOUR(5),
+		FIVE(6),
+		SIX(7),
+		SEVEN(8),
+		EIGHT(9),
+		NINE(10),
+		ZERO(11),
+		MINUS(12),
+		EQUALS(13),
+		BACK(14),
+		TAB(15),
+		Q(16),
+		W(17),
+		E(18),
+		R(19),
+		T(20),
+		Y(21),
+		U(22),
+		I(23),
+		O(24),
+		P(25),
+		LBRACKET(26),
+		RBRACKET(27),
+		RETURN(28),
+		LCONTROL(29),
+		A(30),
+		S(31),
+		D(32),
+		F(33),
+		G(34),
+		H(35),
+		J(36),
+		K(37),
+		L(38),
+		SEMICOLON(39),
+		APOSTROPHE(40),
+		GRAVE(41),
+		LSHIFT(42),
+		BACKSLASH(43),
+		Z(44),
+		X(45),
+		C(46),
+		V(47),
+		B(48),
+		N(49),
+		M(50),
+		COMMA(51),
+		PERIOD(52),
+		SLASH(53),
+		RSHIFT(54),
+		MULTIPLY(55),
+		LMENU(56),
+		SPACE(57),
+		CAPITAL(58),
+		F1(59),
+		F2(60),
+		F3(61),
+		F4(62),
+		F5(63),
+		F6(64),
+		F7(65),
+		F8(66),
+		F9(67),
+		F10(68),
+		NUMLOCK(69),
+		SCROLL(70),
+		NUMPAD7(71),
+		NUMPAD8(72),
+		NUMPAD9(73),
+		SUBTRACT(74),
+		NUMPAD4(75),
+		NUMPAD5(76),
+		NUMPAD6(77),
+		ADD(78),
+		NUMPAD1(79),
+		NUMPAD2(80),
+		NUMPAD3(81),
+		NUMPAD0(82),
+		DECIMAL(83),
+		F11(87),
+		F12(88),
+		F13(100),
+		F14(101),
+		F15(102),
+		F16(103),
+		F17(104),
+		F18(105),
+		KANA(112),
+		F19(113),
+		CONVERT(121),
+		NOCONVERT(123),
+		YEN(125),
+		NUMPADEQUALS(141),
+		CIRCUMFLEX(144),
+		AT(145),
+		COLON(146),
+		UNDERLINE(147),
+		KANJI(148),
+		STOP(149),
+		AX(150),
+		UNLABELED(151),
+		NUMPADENTER(156),
+		RCONTROL(157),
+		SECTION(167),
+		NUMPADCOMMA(179),
+		DIVIDE(181),
+		SYSRQ(183),
+		RMENU(184),
+		FUNCTION(196),
+		PAUSE(197),
+		HOME(199),
+		UP(200),
+		PRIOR(201),
+		LEFT(203),
+		RIGHT(205),
+		END(207),
+		DOWN(208),
+		NEXT(209),
+		INSERT(210),
+		DELETE(211),
+		CLEAR(218),
+		LMETA(219),
+		LWIN(219),
+		RMETA(220),
+		RWIN(220),
+		APPS(221),
+		POWER(222),
+		SLEEP(223);
+		
+		private final int intVal;
+
+		private KEY(int intVal) {
+			this.intVal = intVal;
+		}
+		
+		public static KEY valueOf(int intVal) {
+			for (KEY key : KEY.values()) {
+				if(key.intVal == intVal) {
+					return key;
+				}
+			}
+			return null;
+		}
+		
+		public int intVal() {
+			return intVal;
+		}
+	}
 
 }

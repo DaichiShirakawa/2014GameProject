@@ -2,7 +2,8 @@ package gobject.character.ball;
 import static common.Commons.*;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
+
+import common.Commons.KEY;
 
 
 public class BallKeyMove extends Ball{
@@ -14,13 +15,13 @@ public class BallKeyMove extends Ball{
 	}
 	
 	public void move() {
-		if (KEYBOARD.isPress(KeyEvent.VK_UP))
+		if (KEYBOARD.isPressing(KEY.UP))
 			vy -= accele;
-		if (KEYBOARD.isPress(KeyEvent.VK_DOWN))
+		if (KEYBOARD.isPressing(KEY.DOWN))
 			vy += accele;
-		if (KEYBOARD.isPress(KeyEvent.VK_LEFT))
+		if (KEYBOARD.isPressing(KEY.LEFT))
 			vx -= accele;
-		if (KEYBOARD.isPress(KeyEvent.VK_RIGHT))
+		if (KEYBOARD.isPressing(KEY.RIGHT))
 			vx += accele;
 		super.move();
 	}

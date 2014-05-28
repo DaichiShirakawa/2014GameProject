@@ -7,25 +7,29 @@ import gobject.scene.GameSceneManager;
 import org.lwjgl.opengl.Display;
 
 class GameLoop implements Runnable {
-	private GameSceneManager sceneMaster;
+	private GameSceneManager sceneManager;
 
 	public GameLoop(GameSceneManager sceneMaster) {
-		this.sceneMaster = sceneMaster;
+		this.sceneManager = sceneMaster;
 	}
 
 	@Override
 	public void run() {
-		FPSManager frameController = FPSManager.getInstance();
+		FPSManager fpsManager = FPSManager.getInstance();
 		
 		while (!Display.isCloseRequested()) {
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			initBuffer();
 
 			KEYBOARD.update();
-			sceneMaster.update();
-			sceneMaster.render();
+			sceneManager.update();
+			sceneManager.render();
 			
-			frameController.update();
+			fpsManager.update();
 		}
+	}
+
+	private void initBuffer() {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 }

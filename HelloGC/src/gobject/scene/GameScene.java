@@ -10,8 +10,8 @@ import java.util.Iterator;
  * @author shirakawa
  *
  */
-public interface GameScene extends GameObject {
-	public GameObject add(GameObject go);
+public interface GameScene extends GameObject {	
+	GameObject add(GameObject go);
 
-	public Iterator<GameObject> iterator();
+	Iterator<GameObject> iterator();
 }
