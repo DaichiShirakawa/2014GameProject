@@ -17,11 +17,11 @@ import org.lwjgl.opengl.DisplayMode;
  * @since 2014/05/26
  * 
  */
-public final class Main{
+public final class Main {
 
 	public static void main(final String[] args) {
 		initialize();
-		
+
 		GameSceneManager sceneMaster = GameSceneManager.getInstance();
 		try {
 			new GameLoop(sceneMaster).run();
@@ -38,7 +38,7 @@ public final class Main{
 		// LWJGLネイティブライブラリの指定
 		System.setProperty("org.lwjgl.librarypath", new File(
 				WINDOWS_NATIVE_FOLDER_STRING).getAbsolutePath());
-		
+
 		createDisplay();
 		initializeOpenGLSettings();
 	}

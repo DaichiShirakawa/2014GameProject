@@ -7,7 +7,6 @@ import gobject.scene.shooting.ShootingScene;
 import gobject.scene.solarsystem.SolarSystemScene;
 import gobject.scene.texttest.TextTestScene;
 import gobject.scene.title.TitleScene;
-
 import common.Commons.KEY;
 
 /**
@@ -16,8 +15,9 @@ import common.Commons.KEY;
  * @author shirakawa
  * 
  */
-public class GameSceneManager extends GameSceneImpl implements GameScene{
+public class GameSceneManager extends GameSceneImpl implements GameScene {
 	private static GameSceneManager instance;
+
 	private GameScene currentScene;
 
 	private GameSceneManager() {
@@ -26,7 +26,7 @@ public class GameSceneManager extends GameSceneImpl implements GameScene{
 	}
 
 	public static GameSceneManager getInstance() {
-		if (instance == null) {
+		if (null == instance) {
 			instance = new GameSceneManager();
 		}
 		return instance;

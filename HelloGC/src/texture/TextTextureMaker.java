@@ -19,15 +19,14 @@ import java.io.InputStream;
  * 
  */
 public class TextTextureMaker {
-	private TextTextureMaker() {
-		//隠蔽
-	}
-	
 	private static Font font = createFont(FONT_FILEPATH);
+
+	private TextTextureMaker() {
+		// 隠蔽
+	}
 
 	public static Texture createTextTexture(String str, int width, int height,
 			Color color) {
-
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {

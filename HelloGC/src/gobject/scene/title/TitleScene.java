@@ -30,7 +30,7 @@ public class TitleScene extends GameSceneImpl implements GameScene {
 			setWidth(200);
 			setHeight(50);
 			setTexture(TextTextureMaker.createTextTexture("PRESS START",
-					200, (int)TRUE_TYPE_FONT_HEIGHT, Color.blue));
+					400, (int)TRUE_TYPE_FONT_HEIGHT, Color.blue));
 		}
 
 		@Override

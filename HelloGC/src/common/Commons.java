@@ -61,7 +61,7 @@ public final class Commons {
 	/**
 	 * 文字描写
 	 */
-	public static final float TRUE_TYPE_FONT_HEIGHT = 28;
+	public static final float TRUE_TYPE_FONT_HEIGHT = 56;
 	public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
 			"0.0");
 

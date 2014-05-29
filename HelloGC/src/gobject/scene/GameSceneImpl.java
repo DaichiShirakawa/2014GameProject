@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public abstract class GameSceneImpl implements GameScene {
     private Collection<GameObject> gameObjects = new LinkedList<GameObject>();
     
-    @Override
+	@Override
     public void update() {
         for (GameObject go : gameObjects) {
             go.update();
