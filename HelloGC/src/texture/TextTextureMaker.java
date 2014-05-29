@@ -19,13 +19,14 @@ import java.io.InputStream;
  * 
  */
 public class TextTextureMaker {
-	private static Font font = null;
+	private TextTextureMaker() {
+		//隠蔽
+	}
+	
+	private static Font font = createFont(FONT_FILEPATH);
 
-	public Texture createTextTexture(String str, int width,
-			int height, Color color) {
-		if (font == null) {
-			font = createFont(FONT_FILEPATH);
-		}
+	public static Texture createTextTexture(String str, int width, int height,
+			Color color) {
 
 		BufferedImage image = null;
 		Graphics2D g = null;
@@ -43,7 +44,7 @@ public class TextTextureMaker {
 					RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setColor(color);
 
-			g.drawString(str, 0, height);
+			g.drawString(str, 0, height - 3);
 
 			return new TextureLoader().loadTexture(image);
 		} catch (IOException e) {
@@ -59,15 +60,12 @@ public class TextTextureMaker {
 		return null;
 	}
 
-	/**
-	 * Font生成
-	 */
-	private Font createFont(String filepath) {
+	private static Font createFont(String filepath) {
 		InputStream is = null;
 		try {
 			is = new FileInputStream(filepath);
-			return Font.createFont(Font.TRUETYPE_FONT, is)
-					.deriveFont((float)FONT_HEIGHT);
+			return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(
+					TRUE_TYPE_FONT_HEIGHT);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 			return null;

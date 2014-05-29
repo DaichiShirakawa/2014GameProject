@@ -24,14 +24,14 @@ public class TextTestScene extends GameSceneImpl {
             setY(HEIGHT / 2);
             setWidth(400);
             setHeight(50);
-            setTexture(new TextTextureMaker().createTextTexture("aasd■てすとn", getWidth(),
+            setTexture(TextTextureMaker.createTextTexture("aasd■てすとn", getWidth(),
                     getHeight(), Color.black));
         }
 
         @Override
         public void update() {
             getTexture().dispose();
-            setTexture(new TextTextureMaker().createTextTexture("ときtoki" + FPSManager.getCurrentFrame(),
+            setTexture(TextTextureMaker.createTextTexture("ときtoki" + FPSManager.getCurrentFrame(),
                     getWidth(), getHeight(), Color.black));
         }
 

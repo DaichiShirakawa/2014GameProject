@@ -26,8 +26,8 @@ public class Star extends GameCharacterImpl {
         setScale(scale);
         setX(WIDTH / 2);
         setY(HEIGHT / 2);
-        setTexture(new TextTextureMaker().createTextTexture(this.caption_,
-                FONT_HEIGHT, FONT_HEIGHT, this.color_));
+        setTexture(TextTextureMaker.createTextTexture(this.caption_,
+                50, 50, this.color_));
         setWidth(24);
         setHeight(24);
         setAngle(0);

@@ -61,12 +61,13 @@ public final class Commons {
 	/**
 	 * 文字描写
 	 */
-	public static final int FONT_HEIGHT = 60;
+	public static final float TRUE_TYPE_FONT_HEIGHT = 28;
 	public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
 			"0.0");
 
 	/**
-	 * キーボード識別子
+	 * 各キーの定義
+	 * org.lwjgl.input.Keyboardに準拠
 	 */
 	public enum KEY {
 		ESCAPE(1),
