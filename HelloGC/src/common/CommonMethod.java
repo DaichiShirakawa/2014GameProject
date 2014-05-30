@@ -29,22 +29,22 @@ public final class CommonMethod {
 	/**
 	 * 背景デフォルト色を指定
 	 */
-	public enum BackGroundColor{
+	public enum BackGroundColor {
 		WHITE(1f, 1f, 1f, 1f),
 		BLACK(0f, 0f, 0f, 1f);
-		
+
 		private final float red;
 		private final float green;
 		private final float blue;
 		private final float alpha;
-		
+
 		private BackGroundColor(float red, float green, float blue, float alpha) {
 			this.red = red;
 			this.green = green;
 			this.blue = blue;
 			this.alpha = alpha;
 		}
-		
+
 		public void set() {
 			glClearColor(red, green, blue, alpha);
 		}
@@ -83,6 +83,9 @@ public final class CommonMethod {
 	 * Colorクラスを使用してテクスチャ色をセット
 	 */
 	public static void setGlColor4f(final Color color, final float alpha) {
+		if (color == null) {
+			return;
+		}
 		glColor4f(color.getRed() / 255f, color.getGreen() / 255f,
 				color.getBlue() / 255f, alpha);
 	}

@@ -33,15 +33,22 @@ public final class Commons {
 	public static final int DEPTH = 200;
 
 	/**
+	 * 汎用座標
+	 */
+	public static final int CENTER_X = WIDTH / 2;
+	public static final int CENTER_Y = HEIGHT / 2;
+
+	/**
 	 * リソースへのパス
 	 */
 	public static final String RESOURCE_FOLDER_STRING = "./resources/";
 	public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING
 			+ "image/";
 	public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
-	public static final String FONT_FILEPATH = RESOURCE_FOLDER_STRING
+	public static final String FONT_MSGOTHIC_FILEPATH = RESOURCE_FOLDER_STRING
 			+ "font/MSGOTHIC.TTC";
-//			+ "font/Ricty.ttf";
+	public static final String FONT_RICTY_FILEPATH = RESOURCE_FOLDER_STRING
+			+ "font/Ricty.ttf";
 
 	/**
 	 * FPS
@@ -202,22 +209,22 @@ public final class Commons {
 		APPS(221),
 		POWER(222),
 		SLEEP(223);
-		
+
 		private final int intVal;
 
 		private KEY(int intVal) {
 			this.intVal = intVal;
 		}
-		
+
 		public static KEY valueOf(int intVal) {
 			for (KEY key : KEY.values()) {
-				if(key.intVal == intVal) {
+				if (key.intVal == intVal) {
 					return key;
 				}
 			}
 			return null;
 		}
-		
+
 		public int intVal() {
 			return intVal;
 		}

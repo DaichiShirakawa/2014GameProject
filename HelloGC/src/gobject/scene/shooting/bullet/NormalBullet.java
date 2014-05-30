@@ -28,7 +28,7 @@ public class NormalBullet extends GStgBullet {
         startY = shooter.getY();
         setX(startX);
         setY(startY);
-        setTextureColor(generateColorCosmos());
+        setColor(generateColorCosmos());
         setTexture(TEXTURE);
         setWidth(BULLET_SIZE);
         setHeight(BULLET_SIZE);
@@ -57,7 +57,7 @@ public class NormalBullet extends GStgBullet {
 
     @Override
     public void render() {
-        setGlColor4f(getTextureColor(), getAlpha());
+        setGlColor4f(getColor(), getAlpha());
         super.render();
     }
 
@@ -100,7 +100,7 @@ public class NormalBullet extends GStgBullet {
             setWidth(target.getWidth() / 3);
             setHeight(target.getHeight() / 3);
             setScale(random(0.5f, 2f));
-            setTextureColor(target.getTextureColor());
+            setColor(target.getColor());
 
             float tmp = RND.nextInt(361);
             setVx(4 * (float) sin(tmp) * random(0.2f, 1f));
@@ -118,7 +118,7 @@ public class NormalBullet extends GStgBullet {
 
         @Override
         public void render() {
-            setGlColor4f(getTextureColor(), getAlpha());
+            setGlColor4f(getColor(), getAlpha());
             super.render();
         }
 

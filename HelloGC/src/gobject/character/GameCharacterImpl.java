@@ -10,334 +10,333 @@ import java.awt.Point;
 import texture.Texture;
 
 public abstract class GameCharacterImpl implements GameCharacter {
-    private boolean disposeFlag = false;
-    private int disposeTimer = -1;
-    private boolean enableFlag = true;
-    private boolean visibleFlag = true;
-    
-    private float x;
-    private float vx;
-    private float y;
-    private float vy;
-    private int width;
-    private int height;
-    private float scale = 1;
-    private float vScale = 0;
-    private float angle = 0;
-    private float vAngle = 0;
-    private float alpha = 1;
-    private float vAlpha = 0;
-    
-    private Color textureColor;
-    private Texture texture;
-    private MoveMode xMoveMode = MoveMode.UNLIMITED;
-    private MoveMode yMoveMode = MoveMode.UNLIMITED;
+	private boolean disposeFlag = false;
+	private int disposeTimer = -1;
+	private boolean enableFlag = true;
+	private boolean visible = true;
+
+	private float x;
+	private float vx;
+	private float y;
+	private float vy;
+	private int width;
+	private int height;
+	private float scale = 1;
+	private float vScale = 0;
+	private float angle = 0;
+	private float vAngle = 0;
+	private float alpha = 1;
+	private float vAlpha = 0;
+
+	private Color color;
+	private Texture texture;
+	private MoveMode xMoveMode = MoveMode.UNLIMITED;
+	private MoveMode yMoveMode = MoveMode.UNLIMITED;
 
 	@Override
-    public void update() {
-        if (disposeTimer > 0) {
-            disposeTimer--;
-        }
-        if (disposeTimer == 0) {
-            setDispose();
-        }
-        if (!isEnable()) {
-            return;
-        }
+	public void update() {
+		if (disposeTimer > 0) {
+			disposeTimer--;
+		}
+		if (disposeTimer == 0) {
+			setDispose();
+		}
+		if (!isEnable()) {
+			return;
+		}
 
-        scale += vScale;
-        angle += vAngle;
-        alpha += vAlpha;
-        if (alpha > 1f) {
-            alpha = 1f;
-            vAlpha = 0f;
-        }
-        if (alpha < 0f) {
-            alpha = 0f;
-            vAlpha = 0f;
-        }
-        move();
-    }
+		scale += vScale;
+		angle += vAngle;
+		alpha += vAlpha;
+		if (alpha > 1f) {
+			alpha = 1f;
+			vAlpha = 0f;
+		}
+		if (alpha < 0f) {
+			alpha = 0f;
+			vAlpha = 0f;
+		}
+		move();
+	}
 
 	@Override
-    public void move() {
-        x = xMoveMode.move(WIDTH, width, x, vx);
-        if (xMoveMode == MoveMode.DISPOSE_WITH_FADEOUT
-                && (x + width / 2 < 0 || x - width / 2 > WIDTH)) {
-            setDispose();
-        }
+	public void move() {
+		x = xMoveMode.move(WIDTH, width, x, vx);
+		if (xMoveMode == MoveMode.DISPOSE_WITH_FADEOUT
+				&& (x + width / 2 < 0 || x - width / 2 > WIDTH)) {
+			setDispose();
+		}
 
-        y = yMoveMode.move(HEIGHT, height, y, vy);
-        if (yMoveMode == MoveMode.DISPOSE_WITH_FADEOUT
-                && (y + height / 2 < 0 || y - height / 2 > HEIGHT)) {
-            setDispose();
-        }
-    }
+		y = yMoveMode.move(HEIGHT, height, y, vy);
+		if (yMoveMode == MoveMode.DISPOSE_WITH_FADEOUT
+				&& (y + height / 2 < 0 || y - height / 2 > HEIGHT)) {
+			setDispose();
+		}
+	}
 
-    @Override
-    public void render() {
-        if (!isEnable()) {
-            return;
-        }
-        draw();
-    }
+	@Override
+	public void render() {
+		if (!isEnable()) {
+			return;
+		}
+		draw();
+	}
 
-    @Override
-    public void dispose() {
-        if (getTexture() != null) {
-            getTexture().dispose();
-        }
-    }
+	@Override
+	public void dispose() {
+		if (getTexture() != null) {
+			getTexture().dispose();
+		}
+	}
 
-    @Override
-    public boolean canDispose() {
-        return disposeFlag;
-    }
+	@Override
+	public boolean canDispose() {
+		return disposeFlag;
+	}
 
-    @Override
-    public void draw(final Texture texture) {
-        if (!isVisible()) {
-            return;
-        }
-        // 設定を初期化する
-        glLoadIdentity();
-        // 原点の指定
-        glTranslatef(getX(), getY(), 0);
-        // 回転
-        glRotatef(getAngle(), 0, 0, 1);
+	@Override
+	public void draw(final Texture texture, Color color, float alpha) {
+		if (!isVisible()) {
+			return;
+		}
+		glLoadIdentity();
+		glTranslatef(getX(), getY(), 0);
+		glRotatef(getAngle(), 0, 0, 1);
+		setGlColor4f(color, alpha);
 
-        drawTexture(texture, getWidth(), getHeight());
-    }
+		drawTexture(texture, getWidth(), getHeight());
+	}
 
-    @Override
-    public void draw() {
-        draw(getTexture());
-    }
+	@Override
+	public void draw() {
+		draw(getTexture(), getColor(), getAlpha());
+	}
 
-    @Override
+	@Override
 	public Texture getTexture() {
-        return texture;
-    }
+		return texture;
+	}
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
 
-    @Override
+	@Override
 	public int getX() {
-        return (int) x;
-    }
+		return (int) x;
+	}
 
-    @Override
+	@Override
 	public void setX(float x) {
-        this.x = x;
-    }
+		this.x = x;
+	}
 
-    @Override
+	@Override
 	public int getY() {
-        return (int) y;
-    }
+		return (int) y;
+	}
 
-    @Override
+	@Override
 	public void setY(float y) {
-        this.y = y;
-    }
+		this.y = y;
+	}
 
-    @Override
+	@Override
 	public float getVx() {
-        return vx;
-    }
+		return vx;
+	}
 
-    @Override
+	@Override
 	public void setVx(float vx) {
-        this.vx = vx;
-    }
+		this.vx = vx;
+	}
 
-    @Override
+	@Override
 	public float getVy() {
-        return vy;
-    }
+		return vy;
+	}
 
-    @Override
+	@Override
 	public void setVy(float vy) {
-        this.vy = vy;
-    }
+		this.vy = vy;
+	}
 
-    @Override
+	@Override
 	public int getWidth() {
-        return (int) (width * scale);
-    }
+		return (int) (width * scale);
+	}
 
-    @Override
+	@Override
 	public void setWidth(int width) {
-        assert width % 2 == 0 : "widthは偶数でなくてはならない";
-        this.width = width;
-    }
+		assert width % 2 == 0 : "widthは偶数でなくてはならない";
+		this.width = width;
+	}
 
-    @Override
+	@Override
 	public int getHeight() {
-        return (int) (height * scale);
-    }
+		return (int) (height * scale);
+	}
 
-    @Override
+	@Override
 	public void setHeight(int height) {
-        assert height % 2 == 0 : "heightは偶数でなくてはならない";
-        this.height = height;
-    }
+		assert height % 2 == 0 : "heightは偶数でなくてはならない";
+		this.height = height;
+	}
 
-    @Override
+	@Override
 	public float getScale() {
-        return scale;
-    }
+		return scale;
+	}
 
-    @Override
+	@Override
 	public void setScale(float scale) {
-        this.scale = scale;
-    }
+		this.scale = scale;
+	}
 
-    @Override
+	@Override
 	public float getAngle() {
-        return angle;
-    }
+		return angle;
+	}
 
-    @Override
+	@Override
 	public void setAngle(float angle) {
-        this.angle = angle;
-    }
+		this.angle = angle;
+	}
 
-    @Override
+	@Override
 	public float getAlpha() {
-        return alpha;
-    }
+		return alpha;
+	}
 
-    @Override
+	@Override
 	public void setAlpha(float alpha) {
-        this.alpha = alpha;
-    }
+		this.alpha = alpha;
+	}
 
-    @Override
+	@Override
 	public float getvScale() {
-        return vScale;
-    }
+		return vScale;
+	}
 
-    @Override
+	@Override
 	public void setvScale(float vScale) {
-        this.vScale = vScale;
-    }
+		this.vScale = vScale;
+	}
 
-    @Override
+	@Override
 	public float getvAngle() {
-        return vAngle;
-    }
+		return vAngle;
+	}
 
-    @Override
+	@Override
 	public void setvAngle(float vAngle) {
-        this.vAngle = vAngle;
-    }
+		this.vAngle = vAngle;
+	}
 
-    @Override
+	@Override
 	public float getvAlpha() {
-        return vAlpha;
-    }
+		return vAlpha;
+	}
 
-    @Override
+	@Override
 	public void setvAlpha(float vAlpha) {
-        if (vAlpha > 1f) {
-            vAlpha = 1f;
-        }
-        if (vAlpha < 0f) {
-            vAlpha = 0f;
-        }
-        this.vAlpha = vAlpha;
-    }
+		if (vAlpha > 1f) {
+			vAlpha = 1f;
+		}
+		if (vAlpha < 0f) {
+			vAlpha = 0f;
+		}
+		this.vAlpha = vAlpha;
+	}
 
-    @Override
+	@Override
 	public void setXMoveMode(MoveMode moveMode) {
-        this.xMoveMode = moveMode;
-    }
+		this.xMoveMode = moveMode;
+	}
 
-    @Override
+	@Override
 	public void setYMoveMode(MoveMode moveMode) {
-        this.yMoveMode = moveMode;
-    }
+		this.yMoveMode = moveMode;
+	}
 
-    @Override
+	@Override
 	public void setDispose() {
-        disposeFlag = true;
-        disable();
-    }
+		disposeFlag = true;
+		disable();
+	}
 
-    /**
-     * seconds秒経過後に破棄するタイマーをセットする。
-     */
-    @Override
+	/**
+	 * seconds秒経過後に破棄するタイマーをセットする。
+	 */
+	@Override
 	public void disposeAfter(float seconds) {
-    	//現状のロジックでは1/FPS秒程度の誤差がある。
-        disposeTimer = (int) (FPS * seconds);
-    }
+		// 現状のロジックでは1/FPS秒程度の誤差がある。
+		disposeTimer = (int) (FPS * seconds);
+	}
 
-    @Override
+	@Override
 	public int getDisposeTimer() {
-        return disposeTimer;
-    }
+		return disposeTimer;
+	}
 
-    @Override
+	@Override
 	public void show() {
-        visibleFlag = true;
-    }
+		visible = true;
+	}
 
-    @Override
+	@Override
 	public void hide() {
-        visibleFlag = false;
-    }
+		visible = false;
+	}
 
-    protected boolean isVisible() {
-        return visibleFlag;
-    }
+	@Override
+	public boolean isVisible() {
+		return visible;
+	}
 
-    @Override
+	@Override
 	public void enable() {
-        enableFlag = true;
-    }
+		enableFlag = true;
+	}
 
-    @Override
+	@Override
 	public void disable() {
-        enableFlag = false;
-        hide();
-    }
+		enableFlag = false;
+		hide();
+	}
 
-    @Override
+	@Override
 	public boolean isEnable() {
-        return enableFlag;
-    }
+		return enableFlag;
+	}
 
-    @Override
-	public Color getTextureColor() {
-        return textureColor;
-    }
+	@Override
+	public Color getColor() {
+		return color;
+	}
 
-    @Override
-	public void setTextureColor(Color textureColor) {
-        this.textureColor = textureColor;
-    }
+	@Override
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
-    @Override
+	@Override
 	public boolean checkHit(GameCharacter target) {
-        Point selfP1 = new Point(getX() - getWidth() / 2, getY() + getHeight()
-                / 2);
-        Point selfP2 = new Point(selfP1.x + getWidth(), selfP1.y);
-        Point selfP3 = new Point(selfP1.x, selfP1.y - getHeight());
+		Point selfP1 = new Point(getX() - getWidth() / 2, getY() + getHeight()
+				/ 2);
+		Point selfP2 = new Point(selfP1.x + getWidth(), selfP1.y);
+		Point selfP3 = new Point(selfP1.x, selfP1.y - getHeight());
 
-        Point targP1 = new Point(target.getX() - target.getWidth() / 2,
-                target.getY() + target.getHeight() / 2);
-        Point targP2 = new Point(targP1.x + target.getWidth(), targP1.y);
-        Point targP3 = new Point(targP1.x, targP1.y - target.getHeight());
+		Point targP1 = new Point(target.getX() - target.getWidth() / 2,
+				target.getY() + target.getHeight() / 2);
+		Point targP2 = new Point(targP1.x + target.getWidth(), targP1.y);
+		Point targP3 = new Point(targP1.x, targP1.y - target.getHeight());
 
-        if (selfP2.x >= targP1.x && selfP1.x <= targP2.x) {
-            if (selfP3.y <= targP1.y && selfP1.y >= targP3.y) {
-                return true;
-            }
-        }
-        return false;
-    }
+		if (selfP2.x >= targP1.x && selfP1.x <= targP2.x) {
+			if (selfP3.y <= targP1.y && selfP1.y >= targP3.y) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

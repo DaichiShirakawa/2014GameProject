@@ -65,10 +65,10 @@ public interface GameCharacter extends GameObject {
 	Texture getTexture();
 
 	void setTexture(Texture texture);
+	
+	Color getColor();
 
-	Color getTextureColor();
-
-	void setTextureColor(Color textureColor);
+	void setColor(Color textureColor);
 
 	void setXMoveMode(MoveMode moveMode);
 
@@ -89,11 +89,13 @@ public interface GameCharacter extends GameObject {
 
 	void draw();
 
-	void draw(Texture texture);
+	void draw(Texture texture, Color color, float alpha);
 
 	void show();
 
 	void hide();
+	
+	boolean isVisible();
 
 	void enable();
 

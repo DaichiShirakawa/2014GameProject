@@ -7,6 +7,7 @@ import gobject.scene.shooting.ShootingScene;
 import gobject.scene.solarsystem.SolarSystemScene;
 import gobject.scene.texttest.TextTestScene;
 import gobject.scene.title.TitleScene;
+
 import common.Commons.KEY;
 
 /**
@@ -34,7 +35,7 @@ public class GameSceneManager extends GameSceneImpl implements GameScene {
 
 	@Override
 	public void update() {
-		GameScene newScene = SceneCollector.changeSceneIfNecessary();
+		GameScene newScene = SceneCollector.scanChangeScene();
 		if (newScene != null) {
 			currentScene.dispose();
 			currentScene = newScene;
@@ -67,13 +68,14 @@ public class GameSceneManager extends GameSceneImpl implements GameScene {
 			try {
 				return sceneClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
-				System.err.println("ありえないエラー");
+				System.err.println(sceneClass.getName()
+						+ " クラスのインスタンス生成でエラーが発生しました。");
 				e.printStackTrace();
 				return null;
 			}
 		}
 
-		public static GameScene changeSceneIfNecessary() {
+		public static GameScene scanChangeScene() {
 			for (SceneCollector scene : SceneCollector.values()) {
 				if (KEYBOARD.isPressed(scene.trigger)) {
 					return scene.newInstance();

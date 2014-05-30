@@ -20,7 +20,7 @@ public class MyShip extends GStgCharacter {
                 + "tokiIcon.png"));
         setWidth(size);
         setHeight(size);
-        setX(WIDTH / 2);
+        setX(CENTER_X);
         setY(getHeight());
         color = new Color(0.6f, 0.6f, 1f);
         setXMoveMode(MoveMode.LOOP);

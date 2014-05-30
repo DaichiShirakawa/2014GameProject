@@ -23,9 +23,9 @@ public class EnemyShip extends GStgCharacter {
                 + "DotTokiIcon.png"));
         setWidth(size);
         setHeight(size);
-        setX(WIDTH / 2);
+        setX(CENTER_X);
         setY(HEIGHT - getHeight());
-        setTextureColor(new Color(1f, 0.6f, 0.6f));
+        setColor(new Color(1f, 0.6f, 0.6f));
         //setVx(speed_);
         //setVy(speed_);
         setXMoveMode(MoveMode.LOOP);
@@ -35,15 +35,15 @@ public class EnemyShip extends GStgCharacter {
     @Override
     public void update() {
         thita += 1 / (float) FPS;
-        setX(WIDTH / 2 + 100 * (float) sin(thita));
-        setY(HEIGHT / 2 + 100 * (float) cos(thita));
+        setX(CENTER_X + 100 * (float) sin(thita));
+        setY(CENTER_Y + 100 * (float) cos(thita));
         damageUpdate();
         super.update();
     }
 
     @Override
     public void render() {
-        setGlColor4f(getTextureColor(), getAlpha());
+        setGlColor4f(getColor(), getAlpha());
         draw();
     }
 

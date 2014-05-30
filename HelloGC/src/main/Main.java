@@ -10,6 +10,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import texture.AlphaBlend;
+
 /**
  * 作品集プログラムの起動点
  * 
@@ -62,5 +64,6 @@ public final class Main {
 		glLoadIdentity();
 		glOrtho(0, WIDTH, 0, HEIGHT, -DEPTH / 2, DEPTH / 2);
 		glMatrixMode(GL_MODELVIEW);
+        AlphaBlend.AlphaBlend.config();
 	}
 }

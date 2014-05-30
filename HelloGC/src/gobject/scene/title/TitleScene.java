@@ -1,18 +1,22 @@
 package gobject.scene.title;
 
-import static common.CommonMethod.*;
 import static common.Commons.*;
+import gobject.character.GameCharacter;
 import gobject.character.GameCharacterImpl;
 import gobject.scene.GameScene;
 import gobject.scene.GameSceneImpl;
 
 import java.awt.Color;
 
-import main.FPSManager;
-import texture.TextTextureMaker;
+import texture.text.TextTextureMaker;
+
+import common.CommonMethod.BackGroundColor;
+
 
 /**
  * 起動時に表示されるおなじみの画面
+ * 
+ * PRESS START!
  * 
  * @author shirakawa
  * 
@@ -23,26 +27,24 @@ public class TitleScene extends GameSceneImpl implements GameScene {
 		add(new TitleText());
 	}
 
-	private class TitleText extends GameCharacterImpl {
+	private class TitleText extends GameCharacterImpl implements GameCharacter {
 		public TitleText() {
-			setX(WIDTH / 2);
-			setY(HEIGHT / 2);
-			setWidth(200);
-			setHeight(50);
-			setTexture(TextTextureMaker.createTextTexture("PRESS START",
-					400, (int)TRUE_TYPE_FONT_HEIGHT, Color.blue));
+			setX(CENTER_X);
+			setY(CENTER_Y);
+			setTexture(TextTextureMaker.createText("PRESS START!", Color.blue));
+			setWidth(getTexture().getWidth());
+			setHeight(getTexture().getHeight());
 		}
 
 		@Override
 		public void update() {
-			if ((FPSManager.getFramesUntilStart() + 1) % 30 == 0) {
-				setY(getY() < 0 ? HEIGHT / 2 : -100);
-			}
-		}
-
-		@Override
-		public void render() {
-			draw();
+//			if (FPSManager.getFramesUntilStart() % 45 == 0) {
+//				if (isVisible()) {
+//					hide();
+//				} else {
+//					show();
+//				}
+//			}
 		}
 	}
 

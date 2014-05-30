@@ -9,9 +9,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import texture.TextTextureMaker;
 import texture.Texture;
 import texture.TextureLoader;
+import texture.text.TextTextureMaker;
 
 public class SolarSystemScene extends GameSceneImpl {
 	private List<Star> stars;

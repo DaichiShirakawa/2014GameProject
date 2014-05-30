@@ -1,45 +1,42 @@
 package gobject.scene.texttest;
 
-import static common.CommonMethod.*;
 import static common.Commons.*;
-import static org.lwjgl.opengl.GL11.*;
 import gobject.character.GameCharacterImpl;
 import gobject.scene.GameSceneImpl;
 
 import java.awt.Color;
 
 import main.FPSManager;
-import texture.TextTextureMaker;
+import texture.text.FontDef;
+import texture.text.TextTextureMaker;
+
+import common.CommonMethod.BackGroundColor;
 
 public class TextTestScene extends GameSceneImpl {
 
-    public TextTestScene() {
-        BackGroundColor.WHITE.set();
-        add(new TestClass());
-    }
+	public TextTestScene() {
+		BackGroundColor.WHITE.set();
+		add(new TestClass());
+	}
 
-    private class TestClass extends GameCharacterImpl {
-        public TestClass() {
-            setX(WIDTH / 2);
-            setY(HEIGHT / 2);
-            setWidth(400);
-            setHeight(50);
-            setTexture(TextTextureMaker.createTextTexture("aasd■てすとn", getWidth(),
-                    getHeight(), Color.black));
-        }
+	private class TestClass extends GameCharacterImpl {
+		public TestClass() {
+			setX(CENTER_X);
+			setY(CENTER_Y);
+			setTexture(TextTextureMaker.createText("てすと", Color.red,
+					FontDef.RICTY_24));
+			setWidth(getTexture().getWidth());
+			setHeight(getTexture().getHeight());
+		}
 
-        @Override
-        public void update() {
-            getTexture().dispose();
-            setTexture(TextTextureMaker.createTextTexture("ときtoki" + FPSManager.getCurrentFrame(),
-                    getWidth(), getHeight(), Color.black));
-        }
-
-        @Override
-        public void render() {
-            glColor4f(0, 0, 0, 1);
-            draw();
-        }
-    }
+		@Override
+		public void update() {
+			getTexture().dispose();
+			setTexture(TextTextureMaker.createText(
+					"ときtoki" + FPSManager.getFramesUntilStart(), Color.red));
+			setWidth(getTexture().getWidth());
+			setHeight(getTexture().getHeight());
+		}
+	}
 
 }

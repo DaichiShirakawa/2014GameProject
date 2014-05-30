@@ -3,6 +3,7 @@ package gobject.scene.dottest;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import gobject.character.GameCharacterImpl;
+import gobject.scene.GameScene;
 import gobject.scene.GameSceneImpl;
 
 import org.lwjgl.input.Keyboard;
@@ -10,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import texture.TextureLoader;
 
-public class DotTestScene extends GameSceneImpl {
+public class DotTestScene extends GameSceneImpl implements GameScene {
 
     public DotTestScene() {
         GL11.glClearColor(1f, 1f, 1f, 1f);
@@ -21,8 +22,8 @@ public class DotTestScene extends GameSceneImpl {
         public DotClass() {
             setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
                     + "dotTokiIcon.png"));
-            setX(WIDTH / 2);
-            setY(HEIGHT / 2);
+            setX(CENTER_X);
+            setY(CENTER_Y);
             setWidth(getTexture().getWidth());
             setHeight(getTexture().getHeight());
         }

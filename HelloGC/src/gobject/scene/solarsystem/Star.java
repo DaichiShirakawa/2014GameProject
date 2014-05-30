@@ -7,7 +7,7 @@ import gobject.character.GameCharacterImpl;
 
 import java.awt.Color;
 
-import texture.TextTextureMaker;
+import texture.text.TextTextureMaker;
 
 public class Star extends GameCharacterImpl {
     private Star parentStar;
@@ -24,8 +24,8 @@ public class Star extends GameCharacterImpl {
         this.caption_ = caption;
         this.color_ = color;
         setScale(scale);
-        setX(WIDTH / 2);
-        setY(HEIGHT / 2);
+        setX(CENTER_X);
+        setY(CENTER_Y);
         setTexture(TextTextureMaker.createTextTexture(this.caption_,
                 50, 50, this.color_));
         setWidth(24);

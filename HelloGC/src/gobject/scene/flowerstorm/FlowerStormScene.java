@@ -98,7 +98,7 @@ public class FlowerStormScene extends GameSceneImpl implements GameScene {
             setScale(random(0.2f, 1.0f));
             setAngle(RND.nextInt(360));
             setAlpha(0.8f);
-            setTextureColor(generateColorCosmos());
+            setColor(generateColorCosmos());
             setXMoveMode(MoveMode.LOOP);
             setYMoveMode(MoveMode.UNLIMITED);
 
@@ -133,7 +133,7 @@ public class FlowerStormScene extends GameSceneImpl implements GameScene {
 
         @Override
         public void render() {
-            setGlColor4f(getTextureColor(), getAlpha());
+            setGlColor4f(getColor(), getAlpha());
             draw();
         }
 
