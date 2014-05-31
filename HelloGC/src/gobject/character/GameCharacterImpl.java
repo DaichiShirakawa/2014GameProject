@@ -36,7 +36,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
 	@Override
 	public void update() {
-		processInput();
+		inputProcess();
 
 		if (disposeTimer > 0) {
 			disposeTimer--;
@@ -62,7 +62,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 		move();
 	}
 
-	protected void processInput() {
+	protected void inputProcess() {
 		// 必要に応じてオーバーライドする
 	}
 
@@ -164,7 +164,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	public int getPixcelY() {
 		return (int) y;
 	}
-
+	
 	@Override
 	public GameCharacter setY(float y) {
 		this.y = y;

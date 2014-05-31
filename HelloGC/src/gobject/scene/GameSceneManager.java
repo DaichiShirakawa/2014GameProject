@@ -1,13 +1,12 @@
 package gobject.scene;
 
 import static common.Commons.*;
-import gobject.scene.dottest.DotTestScene;
 import gobject.scene.flowerstorm.FlowerStormScene;
-import gobject.scene.shooting.ShootingScene;
+import gobject.scene.shooting.edf.EDFScene;
+import gobject.scene.shooting.test.ShootingScene;
 import gobject.scene.solarsystem.SolarSystemScene;
-import gobject.scene.texttest.TextTestScene;
+import gobject.scene.text.TestScene;
 import gobject.scene.title.TitleScene;
-
 import common.Commons.KEY;
 
 /**
@@ -50,11 +49,11 @@ public class GameSceneManager extends GameSceneImpl {
 
 	public enum SceneCollector {
 		TITLE(KEY.ESCAPE, TitleScene.class),
-		FLOWER_STORM(KEY.F1, FlowerStormScene.class),
-		DOT_TEST(KEY.F2, DotTestScene.class),
-		TEXT_TEST(KEY.F3, TextTestScene.class),
-		SOLAR_SYSTEM(KEY.F4, SolarSystemScene.class),
-		SHOOTING(KEY.F5, ShootingScene.class);
+		TEST(KEY.F1, TestScene.class),
+		FLOWER_STORM(KEY.F2, FlowerStormScene.class),
+		SOLAR_SYSTEM(KEY.F3, SolarSystemScene.class),
+		SHOOTING(KEY.F4, ShootingScene.class),
+		EDF(KEY.RETURN, EDFScene.class);
 
 		private final KEY trigger;
 		private Class<? extends GameScene> sceneClass;

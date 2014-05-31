@@ -28,9 +28,9 @@ public final class Commons {
 //	public static final int WIDTH = 400;
 //	public static final int HEIGHT = 300;
 	 public static final int WINDOW_WIDTH = 800;
-	 public static final int WINDOW_HEIGHT = 600;
-	 public static final int WIDTH = 400;
-	 public static final int HEIGHT = 300;
+	 public static final int WINDOW_HEIGHT = 800;
+	 public static final int WIDTH = 800;
+	 public static final int HEIGHT = 800;
 	public static final int DEPTH = 200;
 
 	/**

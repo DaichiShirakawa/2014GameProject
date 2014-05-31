@@ -16,7 +16,7 @@ public class Flower extends GameCharacterImpl {
 		setHeight(DEFAULT_HEIGHT);
 		setX(RND.nextInt(WIDTH + getWidth() * 2) - getWidth());
 		setY(-getHeight());
-		setScale(random(0.2f, 0.9f));
+		setScale(random(0.3f, 2.0f));
 		setAngle(RND.nextInt(360));
 		setAlpha(0.7f);
 		setColor(generateCosmosColor());

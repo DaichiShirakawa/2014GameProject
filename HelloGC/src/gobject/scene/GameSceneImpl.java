@@ -1,7 +1,6 @@
 package gobject.scene;
 
 import gobject.GameObject;
-import gobject.character.GameCharacter;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -50,12 +49,6 @@ public abstract class GameSceneImpl implements GameScene {
 	public boolean canDispose() {
 		return false;
 	}
-
-//	@Override
-//	public GameObject add(GameObject go) {
-//		gameObjects.add(go);
-//		return go;
-//	}
 
 	@Override
 	public <T extends GameObject> T add(T go) {

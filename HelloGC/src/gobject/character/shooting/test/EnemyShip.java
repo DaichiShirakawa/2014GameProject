@@ -1,23 +1,25 @@
-package gobject.character.spaceship;
+package gobject.character.shooting.test;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
 import gobject.character.MoveMode;
+import gobject.character.shooting.ShootingCharacter;
+import gobject.scene.shooting.ShootingScene;
 
 import java.awt.Color;
 
 import texture.TextureLoader;
 
-public class EnemyShip extends GStgCharacter {
+public class EnemyShip extends ShootingCharacter {
     private int size = 32;
-    //private int speed_ = 1;
     private float thita = 0;
     private boolean damaging = false;
     private float dmgVibMove = 0;
     private float dmgVibThita = 0;
 
-    public EnemyShip() {
+    public EnemyShip(ShootingScene scene) {
+    	super(scene);
         setDivision(DIVISION.ENEMY);
         setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
                 + "DotTokiIcon.png"));
@@ -26,8 +28,6 @@ public class EnemyShip extends GStgCharacter {
         setX(CENTER_X);
         setY(HEIGHT - getHeight());
         setColor(new Color(1f, 0.6f, 0.6f));
-        //setVx(speed_);
-        //setVy(speed_);
         setMoveModeX(MoveMode.LOOP);
         setMoveModeY(MoveMode.LOOP);
     }
@@ -48,11 +48,11 @@ public class EnemyShip extends GStgCharacter {
     }
 
     @Override
-    public void damage() {
+    public void takeDamage() {
         damaging = true;
         dmgVibMove = 5;
         dmgVibThita = 0;
-        super.damage();
+        super.takeDamage();
     }
 
     public void damageUpdate() {

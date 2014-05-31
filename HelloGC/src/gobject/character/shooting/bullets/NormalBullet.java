@@ -1,17 +1,17 @@
-package gobject.character.bullet;
+package gobject.character.shooting.bullets;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
-import gobject.character.spaceship.GStgCharacter;
-import gobject.scene.shooting.ShootingScene;
+import gobject.character.shooting.ShootingCharacter;
+import gobject.scene.shooting.test.ShootingScene;
 
 import java.util.List;
 
 import texture.Texture;
 import texture.TextureLoader;
 
-public class NormalBullet extends GStgBullet {
+public class NormalBullet extends ShootingBulletCharacter {
     private static final int BULLET_SIZE = 10;
     private static final int RANGE = 200;
 
@@ -20,9 +20,9 @@ public class NormalBullet extends GStgBullet {
     private float ySpeed = 5;
     private static final Texture TEXTURE = new TextureLoader()
             .loadTexture(IMAGE_FOLDER_STRING + "flower.png");
-    private GStgCharacter target = null;
+    private ShootingCharacter target = null;
 
-    public NormalBullet(GStgCharacter shooter) {
+    public NormalBullet(ShootingCharacter shooter) {
         setDivision(DIVISION.FRIENDLY);
         startX = shooter.getPixcelX();
         startY = shooter.getPixcelY();
@@ -62,7 +62,7 @@ public class NormalBullet extends GStgBullet {
     }
 
     protected void checkHit() {
-        List<GStgCharacter> list = null;
+        List<ShootingCharacter> list = null;
         switch (getDivision()) {
         case FRIENDLY:
             list = ShootingScene.getInstance().getEnemies();
@@ -74,7 +74,7 @@ public class NormalBullet extends GStgBullet {
             return;
         }
 
-        for (GStgCharacter target : list) {
+        for (ShootingCharacter target : list) {
             if (checkHit(target)) {
                 hitEffect(target);
             }
@@ -82,18 +82,18 @@ public class NormalBullet extends GStgBullet {
     }
 
     @Override
-    protected void hitEffect(GStgCharacter target) {
+    protected void hitEffect(ShootingCharacter target) {
         for (int i = 0; i < 3; i++) {
             ShootingScene.getInstance().shoot(new Effect(this));
         }
         disposeAfter(1);
         this.target = target;
         disable();
-        target.damage();
+        target.takeDamage();
     }
 
-    protected class Effect extends GStgBullet {
-        protected Effect(GStgCharacter target) {
+    protected class Effect extends ShootingBulletCharacter {
+        protected Effect(ShootingCharacter target) {
             setX(target.getPixcelX());
             setY(target.getPixcelY());
             setTexture(target.getTexture());
@@ -128,7 +128,7 @@ public class NormalBullet extends GStgBullet {
         }
 
         @Override
-        protected void hitEffect(GStgCharacter target) {
+        protected void hitEffect(ShootingCharacter target) {
             return;
         }
 
