@@ -1,7 +1,7 @@
 package gobject.character;
 
-import static common.CommonMethod.*;
 import static common.Commons.*;
+import static common.CommonMethod.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
@@ -15,6 +15,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	private boolean enableFlag = true;
 	private boolean visible = true;
 
+	private BasePoint basePoint = BasePoint.CENTER;
 	private float x;
 	private float vx;
 	private float y;
@@ -35,6 +36,8 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
 	@Override
 	public void update() {
+		processInput();
+
 		if (disposeTimer > 0) {
 			disposeTimer--;
 		}
@@ -57,6 +60,10 @@ public abstract class GameCharacterImpl implements GameCharacter {
 			vAlpha = 0f;
 		}
 		move();
+	}
+
+	protected void processInput() {
+		// 必要に応じてオーバーライドする
 	}
 
 	@Override
@@ -95,21 +102,19 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void draw(final Texture texture, Color color, float alpha) {
+	public void draw() {
 		if (!isVisible()) {
 			return;
 		}
+		int x = getBasePoint().getX(getPixcelX(), getWidth());
+		int y = getBasePoint().getY(getPixcelY(), getHeight());
+
 		glLoadIdentity();
-		glTranslatef(getX(), getY(), 0);
+		glTranslatef(x, y, 0);
 		glRotatef(getAngle(), 0, 0, 1);
-		setGlColor4f(color, alpha);
+		setGlColor4f(getColor(), getAlpha());
 
-		drawTexture(texture, getWidth(), getHeight());
-	}
-
-	@Override
-	public void draw() {
-		draw(getTexture(), getColor(), getAlpha());
+		drawTexture(getTexture(), getWidth(), getHeight());
 	}
 
 	@Override
@@ -117,28 +122,53 @@ public abstract class GameCharacterImpl implements GameCharacter {
 		return texture;
 	}
 
-	public void setTexture(Texture texture) {
+	@Override
+	public GameCharacter setTexture(Texture texture) {
 		this.texture = texture;
+		return this;
 	}
 
 	@Override
-	public int getX() {
+	public BasePoint getBasePoint() {
+		return basePoint;
+	}
+
+	@Override
+	public GameCharacter setBasePont(BasePoint basePoint) {
+		this.basePoint = basePoint;
+		return this;
+	}
+	
+	@Override
+	public float getX() {
+		return x;
+	}
+
+	@Override
+	public int getPixcelX() {
 		return (int) x;
 	}
-
+	
 	@Override
-	public void setX(float x) {
+	public GameCharacter setX(float x) {
 		this.x = x;
+		return this;
+	}
+	
+	@Override
+	public float getY() {
+		return y;
 	}
 
 	@Override
-	public int getY() {
+	public int getPixcelY() {
 		return (int) y;
 	}
 
 	@Override
-	public void setY(float y) {
+	public GameCharacter setY(float y) {
 		this.y = y;
+		return this;
 	}
 
 	@Override
@@ -147,8 +177,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setVx(float vx) {
+	public GameCharacter setVx(float vx) {
 		this.vx = vx;
+		return this;
 	}
 
 	@Override
@@ -157,8 +188,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setVy(float vy) {
+	public GameCharacter setVy(float vy) {
 		this.vy = vy;
+		return this;
 	}
 
 	@Override
@@ -167,9 +199,10 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setWidth(int width) {
-		assert width % 2 == 0 : "widthは偶数でなくてはならない";
+	public GameCharacter setWidth(int width) {
+		assert (width % 2 == 0) : "widthは偶数でなくてはならない";
 		this.width = width;
+		return this;
 	}
 
 	@Override
@@ -178,9 +211,10 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setHeight(int height) {
-		assert height % 2 == 0 : "heightは偶数でなくてはならない";
+	public GameCharacter setHeight(int height) {
+		assert (height % 2 == 0) : "heightは偶数でなくてはならない";
 		this.height = height;
+		return this;
 	}
 
 	@Override
@@ -189,8 +223,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setScale(float scale) {
+	public GameCharacter setScale(float scale) {
 		this.scale = scale;
+		return this;
 	}
 
 	@Override
@@ -199,8 +234,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setAngle(float angle) {
+	public GameCharacter setAngle(float angle) {
 		this.angle = angle;
+		return this;
 	}
 
 	@Override
@@ -209,8 +245,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setAlpha(float alpha) {
+	public GameCharacter setAlpha(float alpha) {
 		this.alpha = alpha;
+		return this;
 	}
 
 	@Override
@@ -219,8 +256,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setvScale(float vScale) {
+	public GameCharacter setvScale(float vScale) {
 		this.vScale = vScale;
+		return this;
 	}
 
 	@Override
@@ -229,8 +267,9 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setvAngle(float vAngle) {
+	public GameCharacter setVAngle(float vAngle) {
 		this.vAngle = vAngle;
+		return this;
 	}
 
 	@Override
@@ -239,7 +278,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setvAlpha(float vAlpha) {
+	public GameCharacter setvAlpha(float vAlpha) {
 		if (vAlpha > 1f) {
 			vAlpha = 1f;
 		}
@@ -247,16 +286,19 @@ public abstract class GameCharacterImpl implements GameCharacter {
 			vAlpha = 0f;
 		}
 		this.vAlpha = vAlpha;
+		return this;
 	}
 
 	@Override
-	public void setXMoveMode(MoveMode moveMode) {
+	public GameCharacter setMoveModeX(MoveMode moveMode) {
 		this.xMoveMode = moveMode;
+		return this;
 	}
 
 	@Override
-	public void setYMoveMode(MoveMode moveMode) {
+	public GameCharacter setMoveModeY(MoveMode moveMode) {
 		this.yMoveMode = moveMode;
+		return this;
 	}
 
 	@Override
@@ -280,13 +322,21 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void show() {
+	public GameCharacter show() {
 		visible = true;
+		return this;
 	}
 
 	@Override
-	public void hide() {
+	public GameCharacter hide() {
 		visible = false;
+		return this;
+	}
+	
+	@Override
+	public GameCharacter toggleVisible() {
+		visible = !visible;
+		return this;
 	}
 
 	@Override
@@ -316,19 +366,20 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	}
 
 	@Override
-	public void setColor(Color color) {
+	public GameCharacter setColor(Color color) {
 		this.color = color;
+		return this;
 	}
 
 	@Override
 	public boolean checkHit(GameCharacter target) {
-		Point selfP1 = new Point(getX() - getWidth() / 2, getY() + getHeight()
+		Point selfP1 = new Point(getPixcelX() - getWidth() / 2, getPixcelY() + getHeight()
 				/ 2);
 		Point selfP2 = new Point(selfP1.x + getWidth(), selfP1.y);
 		Point selfP3 = new Point(selfP1.x, selfP1.y - getHeight());
 
-		Point targP1 = new Point(target.getX() - target.getWidth() / 2,
-				target.getY() + target.getHeight() / 2);
+		Point targP1 = new Point(target.getPixcelX() - target.getWidth() / 2,
+				target.getPixcelY() + target.getHeight() / 2);
 		Point targP2 = new Point(targP1.x + target.getWidth(), targP1.y);
 		Point targP3 = new Point(targP1.x, targP1.y - target.getHeight());
 

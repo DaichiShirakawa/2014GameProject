@@ -1,41 +1,49 @@
 package gobject.scene.texttest;
 
 import static common.Commons.*;
-import gobject.character.GameCharacterImpl;
+import gobject.GameObject;
+import gobject.character.BasePoint;
+import gobject.character.GameCharacter;
+import gobject.character.text.TextCharacter;
 import gobject.scene.GameSceneImpl;
 
 import java.awt.Color;
 
 import main.FPSManager;
-import texture.text.FontDef;
-import texture.text.TextTextureMaker;
-
 import common.CommonMethod.BackGroundColor;
 
 public class TextTestScene extends GameSceneImpl {
 
+	private TextCharacter testText;
+
 	public TextTestScene() {
 		BackGroundColor.WHITE.set();
-		add(new TestClass());
+
+		testText = add(new MyTextCharacter(getTestText()).setBasePont(
+				BasePoint.LEFTTOP)
+				.setColor(Color.green)
+				.setX(5)
+				.setY(HEIGHT - 5));
+	}
+	
+	@Override
+	public void update() {
+		testText.
+		super.update();
 	}
 
-	private class TestClass extends GameCharacterImpl {
-		public TestClass() {
-			setX(CENTER_X);
-			setY(CENTER_Y);
-			setTexture(TextTextureMaker.createText("てすと", Color.red,
-					FontDef.RICTY_24));
-			setWidth(getTexture().getWidth());
-			setHeight(getTexture().getHeight());
+	private String getTestText() {
+		return "てすtes" + FPSManager.getFramesUntilStart();
+	}
+
+	private class MyTextCharacter extends TextCharacter {
+		public MyTextCharacter(String text) {
+			super(text);
 		}
 
 		@Override
 		public void update() {
-			getTexture().dispose();
-			setTexture(TextTextureMaker.createText(
-					"ときtoki" + FPSManager.getFramesUntilStart(), Color.red));
-			setWidth(getTexture().getWidth());
-			setHeight(getTexture().getHeight());
+			updateText(getTestText());
 		}
 	}
 

@@ -1,4 +1,4 @@
-package gobject.scene.shooting;
+package gobject.character.spaceship;
 
 import gobject.character.GameCharacterImpl;
 

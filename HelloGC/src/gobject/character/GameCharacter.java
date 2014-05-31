@@ -10,69 +10,77 @@ import texture.Texture;
  * キャラクターの挙動を定義
  * 
  * @author shirakawa
- *
+ * 
  */
 public interface GameCharacter extends GameObject {
 
-	int getX();
+	BasePoint getBasePoint();
 
-	void setX(float x);
+	GameCharacter setBasePont(BasePoint basePoint);
 
-	int getY();
+	float getX();
 
-	void setY(float y);
+	int getPixcelX();
+
+	GameCharacter setX(float x);
+
+	float getY();
+
+	int getPixcelY();
+
+	GameCharacter setY(float y);
 
 	float getVx();
 
-	void setVx(float vx);
+	GameCharacter setVx(float vx);
 
 	float getVy();
 
-	void setVy(float vy);
+	GameCharacter setVy(float vy);
 
 	int getWidth();
 
-	void setWidth(int width);
+	GameCharacter setWidth(int width);
 
 	int getHeight();
 
-	void setHeight(int height);
+	GameCharacter setHeight(int height);
 
 	float getScale();
 
-	void setScale(float scale);
+	GameCharacter setScale(float scale);
 
 	float getAngle();
 
-	void setAngle(float angle);
+	GameCharacter setAngle(float angle);
 
 	float getAlpha();
 
-	void setAlpha(float alpha);
+	GameCharacter setAlpha(float alpha);
 
 	float getvScale();
 
-	void setvScale(float vScale);
+	GameCharacter setvScale(float vScale);
 
 	float getvAngle();
 
-	void setvAngle(float vAngle);
+	GameCharacter setVAngle(float vAngle);
 
 	float getvAlpha();
 
-	void setvAlpha(float vAlpha);
+	GameCharacter setvAlpha(float vAlpha);
 
 	Texture getTexture();
 
-	void setTexture(Texture texture);
-	
+	GameCharacter setTexture(Texture texture);
+
 	Color getColor();
 
-	void setColor(Color textureColor);
+	GameCharacter setColor(Color textureColor);
 
-	void setXMoveMode(MoveMode moveMode);
+	GameCharacter setMoveModeX(MoveMode moveMode);
 
-	void setYMoveMode(MoveMode moveMode);
+	GameCharacter setMoveModeY(MoveMode moveMode);
 
 	void setDispose();
 
@@ -89,12 +97,12 @@ public interface GameCharacter extends GameObject {
 
 	void draw();
 
-	void draw(Texture texture, Color color, float alpha);
+	GameCharacter show();
 
-	void show();
-
-	void hide();
+	GameCharacter hide();
 	
+	GameCharacter toggleVisible();
+
 	boolean isVisible();
 
 	void enable();

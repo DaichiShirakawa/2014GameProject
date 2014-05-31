@@ -1,8 +1,11 @@
 package gobject.scene.shooting;
 
 import gobject.GameObject;
+import gobject.character.bullet.GStgBullet;
+import gobject.character.spaceship.EnemyShip;
+import gobject.character.spaceship.GStgCharacter;
+import gobject.character.spaceship.MyShip;
 import gobject.scene.GameSceneImpl;
-import gobject.scene.shooting.bullet.GStgBullet;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,7 +39,7 @@ public final class ShootingScene extends GameSceneImpl {
 
 	@Override
 	public void update() {
-		for (Iterator<GameObject> ite = iterator(); ite.hasNext();) {
+		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			GameObject go = ite.next();
 			go.update();
 			if (go.canDispose()) {

@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * ゲーム全体に関わる各種定数の定義
- * およびRandom等の汎用オブジェクトを保持
+ * およびRandom等ゲーム内利用の汎用オブジェクトを保持
  * 
  * @author shirakawa
  * 
@@ -17,19 +17,20 @@ public final class Commons {
 		// 隠蔽
 	}
 
-	public static final String PRODUCT_TITLE = "応募作品";
+	public static final String PRODUCT_TITLE = "ブラウニーズ様 就職活動応募作品";
+	public static final String LWJGL_NATIVE_PROPERTY_NAME = "org.lwjgl.librarypath";
 
 	/**
 	 * ウィンドウ・描写領域
 	 */
-	public static final int WINDOW_WIDTH = 1200;
-	public static final int WINDOW_HEIGHT = 900;
-	public static final int WIDTH = 400;
-	public static final int HEIGHT = 300;
-	// public static final int WINDOW_WIDTH = 640;
-	// public static final int WINDOW_HEIGHT = 320;
-	// public static final int WIDTH = 320;
-	// public static final int HEIGHT = 240;
+//	public static final int WINDOW_WIDTH = 1200;
+//	public static final int WINDOW_HEIGHT = 900;
+//	public static final int WIDTH = 400;
+//	public static final int HEIGHT = 300;
+	 public static final int WINDOW_WIDTH = 800;
+	 public static final int WINDOW_HEIGHT = 600;
+	 public static final int WIDTH = 400;
+	 public static final int HEIGHT = 300;
 	public static final int DEPTH = 200;
 
 	/**
@@ -51,25 +52,16 @@ public final class Commons {
 			+ "font/Ricty.ttf";
 
 	/**
-	 * FPS
+	 * ゲーム中枢
 	 */
 	public static final int FPS = 60;
-
-	/**
-	 * IO
-	 */
 	public static final MyKeyboard KEYBOARD = MyKeyboard.getInstance();
-
-	/**
-	 * ゲーム利用
-	 */
 	public static final Random RND = new Random(System.nanoTime());
 
 	/**
-	 * 文字描写
+	 * テキスト処理関連
 	 */
-	public static final float TRUE_TYPE_FONT_HEIGHT = 56;
-	public static final DecimalFormat FORMAT_FOR_FLOAT_0D0 = new DecimalFormat(
+	public static final DecimalFormat FORMAT_FLOAT_0D0 = new DecimalFormat(
 			"0.0");
 
 	/**

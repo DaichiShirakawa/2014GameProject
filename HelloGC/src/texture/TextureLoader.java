@@ -207,6 +207,6 @@ public class TextureLoader {
         BufferedImage bufferedImage = new BufferedImage(glAlphaColorModel,
                 raster, true, new Hashtable<>());
 
-        return bufferedImage;
-    }
+		return bufferedImage;
+	}
 }

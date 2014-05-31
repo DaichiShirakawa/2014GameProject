@@ -1,6 +1,6 @@
-package gobject.scene.shooting.bullet;
+package gobject.character.bullet;
 
-import gobject.scene.shooting.GStgCharacter;
+import gobject.character.spaceship.GStgCharacter;
 
 public abstract class GStgBullet extends GStgCharacter {
 

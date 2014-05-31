@@ -76,7 +76,7 @@ public final class CommonMethod {
 	 * 浮動小数点を"0.0"形式にフォーマットする
 	 */
 	public static String floatTo0d0(final double val) {
-		return FORMAT_FOR_FLOAT_0D0.format(val);
+		return FORMAT_FLOAT_0D0.format(val);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public final class CommonMethod {
 	/**
 	 * 赤紫～白のきれいなコスモス色を生成
 	 */
-	public static Color generateColorCosmos() {
+	public static Color generateCosmosColor() {
 		float rand = random(0f, 1.4f);
 		float r = 1f;
 		float g = (1f < rand) ? rand - 1f : 0f;

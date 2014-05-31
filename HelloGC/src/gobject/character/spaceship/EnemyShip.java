@@ -1,4 +1,4 @@
-package gobject.scene.shooting;
+package gobject.character.spaceship;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
@@ -28,8 +28,8 @@ public class EnemyShip extends GStgCharacter {
         setColor(new Color(1f, 0.6f, 0.6f));
         //setVx(speed_);
         //setVy(speed_);
-        setXMoveMode(MoveMode.LOOP);
-        setYMoveMode(MoveMode.LOOP);
+        setMoveModeX(MoveMode.LOOP);
+        setMoveModeY(MoveMode.LOOP);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class EnemyShip extends GStgCharacter {
         }
         dmgVibMove *= 0.95f;
         dmgVibThita += 1;
-        setX(getX() + dmgVibMove * (float) sin(dmgVibThita));
+        setX(getPixcelX() + dmgVibMove * (float) sin(dmgVibThita));
         if (dmgVibMove < 0.5) {
             damaging = false;
         }

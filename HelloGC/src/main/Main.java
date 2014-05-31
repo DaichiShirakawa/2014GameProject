@@ -37,12 +37,14 @@ public final class Main {
 	}
 
 	private static void initialize() {
-		// LWJGLネイティブライブラリの指定
-		System.setProperty("org.lwjgl.librarypath", new File(
-				WINDOWS_NATIVE_FOLDER_STRING).getAbsolutePath());
-
+		setLwjglNativeLibrary();
 		createDisplay();
-		initializeOpenGLSettings();
+		setPreSettingsFor2DGame();
+	}
+
+	private static void setLwjglNativeLibrary() {
+		System.setProperty(LWJGL_NATIVE_PROPERTY_NAME, new File(
+				WINDOWS_NATIVE_FOLDER_STRING).getAbsolutePath());
 	}
 
 	private static void createDisplay() {
@@ -55,7 +57,7 @@ public final class Main {
 		}
 	}
 
-	private static void initializeOpenGLSettings() {
+	private static void setPreSettingsFor2DGame() {
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
@@ -64,6 +66,6 @@ public final class Main {
 		glLoadIdentity();
 		glOrtho(0, WIDTH, 0, HEIGHT, -DEPTH / 2, DEPTH / 2);
 		glMatrixMode(GL_MODELVIEW);
-        AlphaBlend.AlphaBlend.config();
+		AlphaBlend.AlphaBlend.config();
 	}
 }

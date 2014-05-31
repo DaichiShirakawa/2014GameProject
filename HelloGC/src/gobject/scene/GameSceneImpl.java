@@ -1,6 +1,7 @@
 package gobject.scene;
 
 import gobject.GameObject;
+import gobject.character.GameCharacter;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,48 +11,61 @@ import java.util.LinkedList;
  * シーンの挙動を実装
  * 
  * @author shirakawa
- *
+ * 
  */
 public abstract class GameSceneImpl implements GameScene {
-    private Collection<GameObject> gameObjects = new LinkedList<GameObject>();
-    
+	private Collection<GameObject> gameObjects = new LinkedList<GameObject>();
+
 	@Override
-    public void update() {
-        for (GameObject go : gameObjects) {
-            go.update();
-            if (go.canDispose()) {
-                go.dispose();
-                gameObjects.remove(go);
-            }
-        }
-    }
+	public void update() {
+		processInput();
+		for (GameObject go : gameObjects) {
+			go.update();
+			if (go.canDispose()) {
+				go.dispose();
+				gameObjects.remove(go);
+			}
+		}
+	}
 
-    @Override
-    public void render() {
-        for (GameObject go : gameObjects) {
-            go.render();
-        }
-    }
+	protected void processInput() {
+		// 必要に応じてオーバーライド
+	}
 
-    @Override
-    public void dispose() {
-        for (GameObject go : gameObjects) {
-            go.dispose();
-        }
-    }
+	@Override
+	public void render() {
+		for (GameObject go : gameObjects) {
+			go.render();
+		}
+	}
 
-    @Override
-    public boolean canDispose() {
-        return false;
-    }
+	@Override
+	public void dispose() {
+		for (GameObject go : gameObjects) {
+			go.dispose();
+		}
+	}
 
-    public GameObject add(GameObject go) {
-        gameObjects.add(go);
-        return go;
-    }
+	@Override
+	public boolean canDispose() {
+		return false;
+	}
 
-    public Iterator<GameObject> iterator() {
-        return gameObjects.iterator();
-    }
-    
+//	@Override
+//	public GameObject add(GameObject go) {
+//		gameObjects.add(go);
+//		return go;
+//	}
+
+	@Override
+	public <T extends GameObject> T add(T go) {
+		gameObjects.add(go);
+		return go;
+	}
+
+	@Override
+	public Iterator<GameObject> getIterator() {
+		return gameObjects.iterator();
+	}
+
 }

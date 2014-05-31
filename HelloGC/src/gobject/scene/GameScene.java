@@ -1,6 +1,7 @@
 package gobject.scene;
 
 import gobject.GameObject;
+import gobject.character.GameCharacter;
 
 import java.util.Iterator;
 
@@ -11,7 +12,9 @@ import java.util.Iterator;
  * 
  */
 public interface GameScene extends GameObject {
-	GameObject add(GameObject go);
+	// GameObject add(GameObject go);
 
-	Iterator<GameObject> iterator();
+	<T extends GameObject> T add(T go);
+
+	Iterator<GameObject> getIterator();
 }

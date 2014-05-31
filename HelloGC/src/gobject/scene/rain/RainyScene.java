@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Rainy {
+public class RainyScene {
     private List<Rain> rain = new ArrayList<Rain>();
     private int frame = 0;
     private int interval = 2;

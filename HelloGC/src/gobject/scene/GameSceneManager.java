@@ -16,7 +16,7 @@ import common.Commons.KEY;
  * @author shirakawa
  * 
  */
-public class GameSceneManager extends GameSceneImpl implements GameScene {
+public class GameSceneManager extends GameSceneImpl {
 	private static GameSceneManager instance;
 
 	private GameScene currentScene;

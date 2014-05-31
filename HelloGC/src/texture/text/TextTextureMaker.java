@@ -22,8 +22,16 @@ public class TextTextureMaker {
 		// 隠蔽
 	}
 
+	public static Texture createText(String str) {
+		return createText(str, Color.white);
+	}
+
 	public static Texture createText(String str, Color color) {
 		return createText(str, color, FontDef.DEFAULT);
+	}
+
+	public static Texture createText(String str, FontDef fontDef) {
+		return createText(str, Color.white, fontDef);
 	}
 
 	public static Texture createText(String str, Color color, FontDef fontDef) {

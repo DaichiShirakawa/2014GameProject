@@ -1,9 +1,9 @@
-package gobject.scene.shooting.bullet;
+package gobject.character.bullet;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
-import gobject.scene.shooting.GStgCharacter;
+import gobject.character.spaceship.GStgCharacter;
 import gobject.scene.shooting.ShootingScene;
 
 import java.util.List;
@@ -24,18 +24,18 @@ public class NormalBullet extends GStgBullet {
 
     public NormalBullet(GStgCharacter shooter) {
         setDivision(DIVISION.FRIENDLY);
-        startX = shooter.getX();
-        startY = shooter.getY();
+        startX = shooter.getPixcelX();
+        startY = shooter.getPixcelY();
         setX(startX);
         setY(startY);
-        setColor(generateColorCosmos());
+        setColor(generateCosmosColor());
         setTexture(TEXTURE);
         setWidth(BULLET_SIZE);
         setHeight(BULLET_SIZE);
 
         setVx(random(-0.5f, 0.5f));
         setVy(ySpeed);
-        setvAngle(12);
+        setVAngle(12);
     }
 
     @Override
@@ -47,8 +47,8 @@ public class NormalBullet extends GStgBullet {
             super.update();
             return;
         }
-        if (sqrt(pow((float) (startX - getX()), 2f)
-                + pow((float) (startY - getY()), 2f)) > RANGE) {
+        if (sqrt(pow((float) (startX - getPixcelX()), 2f)
+                + pow((float) (startY - getPixcelY()), 2f)) > RANGE) {
             setDispose();
         }
         super.update();
@@ -94,8 +94,8 @@ public class NormalBullet extends GStgBullet {
 
     protected class Effect extends GStgBullet {
         protected Effect(GStgCharacter target) {
-            setX(target.getX());
-            setY(target.getY());
+            setX(target.getPixcelX());
+            setY(target.getPixcelY());
             setTexture(target.getTexture());
             setWidth(target.getWidth() / 3);
             setHeight(target.getHeight() / 3);

@@ -1,9 +1,10 @@
-package gobject.scene.shooting;
+package gobject.character.spaceship;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import gobject.character.MoveMode;
-import gobject.scene.shooting.bullet.NormalBullet;
+import gobject.character.bullet.NormalBullet;
+import gobject.scene.shooting.ShootingScene;
 
 import java.awt.Color;
 
@@ -23,8 +24,8 @@ public class MyShip extends GStgCharacter {
         setX(CENTER_X);
         setY(getHeight());
         color = new Color(0.6f, 0.6f, 1f);
-        setXMoveMode(MoveMode.LOOP);
-        setYMoveMode(MoveMode.LOOP);
+        setMoveModeX(MoveMode.LOOP);
+        setMoveModeY(MoveMode.LOOP);
     }
 
     @Override
