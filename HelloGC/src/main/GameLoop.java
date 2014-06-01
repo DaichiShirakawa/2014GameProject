@@ -1,8 +1,8 @@
 package main;
 
-import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import gobject.scene.GameSceneManager;
+import io.Key;
 
 import org.lwjgl.opengl.Display;
 
@@ -16,14 +16,15 @@ class GameLoop implements Runnable {
 	@Override
 	public void run() {
 		FPSManager fpsManager = FPSManager.getInstance();
-		
+
 		while (!Display.isCloseRequested()) {
 			initBuffer();
 
-			KEYBOARD.update();
+			Key.update();
+
 			sceneManager.update();
 			sceneManager.render();
-			
+
 			fpsManager.update();
 		}
 	}

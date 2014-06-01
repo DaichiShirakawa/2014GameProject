@@ -4,6 +4,7 @@ import static common.Commons.*;
 import static java.lang.Math.*;
 import gobject.GameObject;
 import gobject.scene.GameSceneImpl;
+import io.Key;
 
 import java.util.Iterator;
 
@@ -12,7 +13,6 @@ import texture.Texture;
 import texture.TextureLoader;
 
 import common.CommonMethod.BackGroundColor;
-import common.Commons.KEY;
 
 public class FlowerStormScene extends GameSceneImpl {
 
@@ -65,18 +65,18 @@ public class FlowerStormScene extends GameSceneImpl {
 
 	@Override
 	protected void processInput() {
-		if (KEYBOARD.isPressing(KEY.UP)) {
+		if (Key.UP.isPressing()) {
 			flowerBornPerSecond = min(flowerBornPerSecond + 1,
 					MAX_FLOWERS_PER_SECOND);
 		}
-		if (KEYBOARD.isPressing(KEY.DOWN)) {
+		if (Key.DOWN.isPressing()) {
 			flowerBornPerSecond = max(flowerBornPerSecond - 1,
 					MIN_FLOWERS_PER_SECOND);
 		}
-		if (KEYBOARD.isPressed(KEY.LEFT)) {
+		if (Key.LEFT.isPressed()) {
 			maxWind -= V_WIND;
 		}
-		if (KEYBOARD.isPressed(KEY.RIGHT)) {
+		if (Key.RIGHT.isPressed()) {
 			maxWind += V_WIND;
 		}
 	}

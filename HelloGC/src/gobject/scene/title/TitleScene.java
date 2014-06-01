@@ -4,6 +4,9 @@ import static common.Commons.*;
 import gobject.character.GameCharacter;
 import gobject.character.text.TextCharacter;
 import gobject.scene.GameSceneImpl;
+import gobject.scene.GameSceneManager;
+import gobject.scene.GameSceneManager.SceneCollection;
+import io.Key;
 
 import java.awt.Color;
 
@@ -20,7 +23,8 @@ import common.CommonMethod.BackGroundColor;
  * 
  */
 public class TitleScene extends GameSceneImpl {
-	GameCharacter pressStartText;
+	private static final SceneCollection nextScene = SceneCollection.EDF;
+	private GameCharacter pressStartText;
 
 	public TitleScene() {
 		BackGroundColor.WHITE.set();
@@ -29,13 +33,16 @@ public class TitleScene extends GameSceneImpl {
 				.setY(CENTER_Y);
 		add(pressStartText);
 	}
-	
+
 	@Override
 	public void update() {
-		super.update();
-
 		if (FPSManager.getFramesUntilStart() % 45 == 0) {
 			pressStartText.toggleVisible();
+		}
+
+		if (Key.anyKeyOperating()) {
+			GameSceneManager.getInstance()
+					.changeSceneIfNotNull(nextScene);
 		}
 	}
 }

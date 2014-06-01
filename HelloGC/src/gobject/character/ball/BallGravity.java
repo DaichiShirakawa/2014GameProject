@@ -1,11 +1,10 @@
 package gobject.character.ball;
 
 import static common.Commons.*;
+import io.Key;
 
 import java.awt.Color;
 import java.util.Random;
-
-import common.Commons.KEY;
 
 public class BallGravity extends Ball {
     private static final double VG = 0.25;
@@ -23,14 +22,14 @@ public class BallGravity extends Ball {
     }
 
     public void move() {
-        if (KEYBOARD.isPressing(KEY.LEFT)) {
+		if (Key.LEFT.isPressing()) {
             vx -= ACCELE;
         }
-        if (KEYBOARD.isPressing(KEY.RIGHT)) {
+        if (Key.RIGHT.isPressing()) {
             vx += ACCELE;
         }
         if ((y + size == HEIGHT) && (vy < SIKII)
-                && (KEYBOARD.isPressing(KEY.SPACE))) {
+                && (Key.SPACE.isPressing())) {
             vy -= new Random().nextInt(20);
         }
         x += vx;

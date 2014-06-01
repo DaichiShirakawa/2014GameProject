@@ -8,14 +8,15 @@ import gobject.character.star.ShootingStar;
 import gobject.character.star.Star;
 import gobject.character.text.TextCharacter;
 import gobject.scene.GameSceneImpl;
+import io.Key;
 
 import java.awt.Color;
 import java.util.Iterator;
 
 import texture.text.FontDef;
+
 import common.CommonMethod;
 import common.CommonMethod.BackGroundColor;
-import common.Commons.KEY;
 
 public class SolarSystemScene extends GameSceneImpl {
 	private static final int INPUT_INTERVAL = 5;
@@ -133,22 +134,22 @@ public class SolarSystemScene extends GameSceneImpl {
 
 	@Override
 	protected void processInput() {
-		if (KEYBOARD.getPressingFrameCount(KEY.UP) % INPUT_INTERVAL == 0) {
+		if (Key.UP.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale++;
 		}
-		if (KEYBOARD.getPressingFrameCount(KEY.DOWN) % INPUT_INTERVAL == 0) {
+		if (Key.DOWN.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale--;
 		}
-		if (KEYBOARD.getPressingFrameCount(KEY.LEFT) % INPUT_INTERVAL == 0) {
+		if (Key.LEFT.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale -= 10;
 		}
-		if (KEYBOARD.getPressingFrameCount(KEY.RIGHT) % INPUT_INTERVAL == 0) {
+		if (Key.RIGHT.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale += 10;
 		}
-		if (KEYBOARD.isPressed(KEY.SPACE)) {
+		if (Key.SPACE.isPressed()) {
 			speedScale = 0;
 		}
-		if (KEYBOARD.isPressed(KEY.S)) {
+		if (Key.S.isPressed()) {
 			add(new ShootingStar());
 		}
 	}

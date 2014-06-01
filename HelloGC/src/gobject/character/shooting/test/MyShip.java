@@ -1,20 +1,17 @@
 package gobject.character.shooting.test;
 
-import static common.CommonMethod.*;
 import static common.Commons.*;
 import gobject.character.MoveMode;
 import gobject.character.shooting.ShootingCharacter;
 import gobject.character.shooting.bullets.NormalBullet;
-import gobject.scene.shooting.test.ShootingScene;
+import gobject.scene.shooting.ShootingScene;
+import io.Key;
 
 import java.awt.Color;
 
 import texture.TextureLoader;
 
-import common.Commons.KEY;
-
 public class MyShip extends ShootingCharacter {
-	private Color color;
 	private float speed = 2.5f;
 	private int size = 32;
 
@@ -27,7 +24,7 @@ public class MyShip extends ShootingCharacter {
 		setHeight(size);
 		setX(CENTER_X);
 		setY(getHeight());
-		color = new Color(0.6f, 0.6f, 1f);
+		setColor(new Color(0.6f, 0.6f, 1f));
 		setMoveModeX(MoveMode.LOOP);
 		setMoveModeY(MoveMode.LOOP);
 	}
@@ -36,29 +33,22 @@ public class MyShip extends ShootingCharacter {
 	public void update() {
 		setVy(0);
 		setVx(0);
-		if (KEYBOARD.isPressing(KEY.UP)) {
+		if (Key.UP.isPressing()) {
 			setVy(speed);
 		}
-		if (KEYBOARD.isPressing(KEY.DOWN)) {
+		if (Key.DOWN.isPressing()) {
 			setVy(-speed);
 		}
-		if (KEYBOARD.isPressing(KEY.LEFT)) {
+		if (Key.LEFT.isPressing()) {
 			setVx(-speed);
 		}
-		if (KEYBOARD.isPressing(KEY.RIGHT)) {
+		if (Key.RIGHT.isPressing()) {
 			setVx(speed);
 		}
-		if (KEYBOARD.getPressingFrameCount(KEY.Z) % 5 == 0) {
-			ShootingScene.getInstance()
-					.shoot(new NormalBullet(this));
+		if (Key.SPACE.getPressingFrameCount() % 5 == 0) {
+			shoot(new NormalBullet(this));
 		}
 		super.update();
-	}
-
-	@Override
-	public void render() {
-		setGlColor4f(color, getAlpha());
-		draw();
 	}
 
 }

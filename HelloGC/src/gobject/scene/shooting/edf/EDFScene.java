@@ -1,14 +1,14 @@
 package gobject.scene.shooting.edf;
 
-import common.CommonMethod.BackGroundColor;
 import gobject.character.shooting.ShootingCharacter;
 import gobject.character.shooting.bullets.ShootingBulletCharacter;
 import gobject.character.shooting.edf.EDFShip;
 import gobject.character.shooting.edf.Earth;
-import gobject.scene.GameSceneImpl;
 import gobject.scene.shooting.ShootingScene;
 
-public class EDFScene extends GameSceneImpl implements ShootingScene {
+import common.CommonMethod.BackGroundColor;
+
+public class EDFScene extends ShootingScene {
 	public EDFScene() {
 		BackGroundColor.BLACK.set();
 

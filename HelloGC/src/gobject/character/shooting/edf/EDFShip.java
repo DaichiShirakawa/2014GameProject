@@ -5,13 +5,12 @@ import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 import gobject.character.shooting.ShootingCharacter;
 import gobject.scene.shooting.ShootingScene;
+import io.Key;
 
 import java.awt.Color;
 
 import main.FPSManager;
 import texture.TextureLoader;
-
-import common.Commons.KEY;
 
 public class EDFShip extends ShootingCharacter {
 	// 戦艦テクスチャ
@@ -24,12 +23,12 @@ public class EDFShip extends ShootingCharacter {
 	private static final int SIZE = 40;
 
 	// 入力制御
-	private static final KEY LEFT_MOVE = KEY.F;
-	private static final KEY RIGHT_MOVE = KEY.J;
-	private static final KEY LEFT_WEAPON = KEY.D;
-	private static final KEY RIGHT_WEAPON = KEY.K;
-	private static final KEY SHOOT = KEY.SPACE;
-	private static final KEY BACK_TO_EARTH = KEY.B;
+	private static final Key LEFT_MOVE = Key.F;
+	private static final Key RIGHT_MOVE = Key.J;
+	private static final Key LEFT_WEAPON = Key.D;
+	private static final Key RIGHT_WEAPON = Key.K;
+	private static final Key SHOOT = Key.SPACE;
+	private static final Key BACK_TO_EARTH = Key.B;
 
 	// ダッシュ移動パラメータ
 	private static final float DASH_START_SPEED = 5;
@@ -81,36 +80,36 @@ public class EDFShip extends ShootingCharacter {
 	}
 
 	private void leftMoveProcess() {
-		if (KEYBOARD.isPressing(LEFT_MOVE)) {
+		if (LEFT_MOVE.isPressing()) {
 			setAngle(getAngle() + ROTATE_SPEED);
 		}
 	}
 
 	private void rightMoveProcess() {
-		if (KEYBOARD.isPressing(RIGHT_MOVE)) {
+		if (RIGHT_MOVE.isPressing()) {
 			setAngle(getAngle() - ROTATE_SPEED);
 		}
 	}
 
 	private void backToEarthProcess() {
-		if (KEYBOARD.isPressed(BACK_TO_EARTH)) {
+		if (BACK_TO_EARTH.isPressed()) {
 		}
 	}
 
 	private void shootProcess() {
-		if (KEYBOARD.isPressed(SHOOT)) {
+		if (SHOOT.isPressed()) {
 		}
 	}
 
 	private void leftDashProcess() {
-		if (!KEYBOARD.isPressing(LEFT_WEAPON) || cantMove()) {
+		if (!LEFT_WEAPON.isPressing() || cantMove()) {
 			return;
 		}
 		moveStart(DASH_START_SPEED);
 	}
 
 	private void rightDashProcess() {
-		if (!KEYBOARD.isPressing(RIGHT_WEAPON) || cantMove()) {
+		if (!RIGHT_WEAPON.isPressing() || cantMove()) {
 			return;
 		}
 		moveStart(-DASH_START_SPEED);

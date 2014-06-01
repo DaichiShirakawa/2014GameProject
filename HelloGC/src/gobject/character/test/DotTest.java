@@ -2,12 +2,11 @@ package gobject.character.test;
 
 import static common.Commons.*;
 import gobject.character.GameCharacterImpl;
+import io.Key;
 
 import java.awt.Color;
 
 import texture.TextureLoader;
-
-import common.Commons.KEY;
 
 public class DotTest extends GameCharacterImpl {
 	public DotTest() {
@@ -22,16 +21,16 @@ public class DotTest extends GameCharacterImpl {
 
 	@Override
 	protected void inputProcess() {
-		if (KEYBOARD.isPressed(KEY.UP)) {
+		if (Key.UP.isPressed()) {
 			setScale(getScale() * 2);
 		}
-		if (KEYBOARD.isPressed(KEY.DOWN)) {
+		if (Key.DOWN.isPressed()) {
 			setScale(getScale() / 2);
 		}
-		if (KEYBOARD.isPressed(KEY.LEFT)) {
+		if (Key.LEFT.isPressed()) {
 			setAngle(getAngle() + 5f);
 		}
-		if (KEYBOARD.isPressed(KEY.RIGHT)) {
+		if (Key.RIGHT.isPressed()) {
 			setAngle(getAngle() - 5f);
 		}
 	}

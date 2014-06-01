@@ -1,13 +1,12 @@
 package gobject.scene;
 
-import static common.Commons.*;
 import gobject.scene.flowerstorm.FlowerStormScene;
 import gobject.scene.shooting.edf.EDFScene;
-import gobject.scene.shooting.test.ShootingScene;
+import gobject.scene.shooting.test.ShootingTestScene;
 import gobject.scene.solarsystem.SolarSystemScene;
 import gobject.scene.text.TestScene;
 import gobject.scene.title.TitleScene;
-import common.Commons.KEY;
+import io.Key;
 
 /**
  * 各シーンの切り替えを担当するシングルトン
@@ -34,12 +33,20 @@ public class GameSceneManager extends GameSceneImpl {
 
 	@Override
 	public void update() {
-		GameScene newScene = SceneCollector.scanChangeScene();
-		if (newScene != null) {
-			currentScene.dispose();
-			currentScene = newScene;
-		}
+		changeSceneIfNotNull(SceneCollection.scanChangeScene());
 		currentScene.update();
+	}
+
+	public void changeSceneIfNotNull(GameScene newScene) {
+		if (newScene == null) {
+			return;
+		}
+		currentScene.dispose();
+		currentScene = newScene;
+	}
+
+	public void changeSceneIfNotNull(SceneCollection nextscene) {
+		changeSceneIfNotNull(nextscene.newInstance());
 	}
 
 	@Override
@@ -47,23 +54,24 @@ public class GameSceneManager extends GameSceneImpl {
 		currentScene.render();
 	}
 
-	public enum SceneCollector {
-		TITLE(KEY.ESCAPE, TitleScene.class),
-		TEST(KEY.F1, TestScene.class),
-		FLOWER_STORM(KEY.F2, FlowerStormScene.class),
-		SOLAR_SYSTEM(KEY.F3, SolarSystemScene.class),
-		SHOOTING(KEY.F4, ShootingScene.class),
-		EDF(KEY.RETURN, EDFScene.class);
+	public enum SceneCollection {
+		TITLE(Key.ESCAPE, TitleScene.class),
+		TEST(Key.F1, TestScene.class),
+		FLOWER_STORM(Key.F2, FlowerStormScene.class),
+		SOLAR_SYSTEM(Key.F3, SolarSystemScene.class),
+		SHOOTING_TEST(Key.F4, ShootingTestScene.class),
+		EDF(Key.F5, EDFScene.class);
 
-		private final KEY trigger;
+		private final Key trigger;
 		private Class<? extends GameScene> sceneClass;
 
-		private SceneCollector(KEY trigger, Class<? extends GameScene> callClass) {
+		private SceneCollection(Key trigger,
+				Class<? extends GameScene> callClass) {
 			this.trigger = trigger;
 			this.sceneClass = callClass;
 		}
 
-		private GameScene newInstance() {
+		private  GameScene newInstance() {
 			try {
 				return sceneClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
@@ -75,8 +83,8 @@ public class GameSceneManager extends GameSceneImpl {
 		}
 
 		public static GameScene scanChangeScene() {
-			for (SceneCollector scene : SceneCollector.values()) {
-				if (KEYBOARD.isPressed(scene.trigger)) {
+			for (SceneCollection scene : SceneCollection.values()) {
+				if (scene.trigger.isPressed()) {
 					return scene.newInstance();
 				}
 			}
