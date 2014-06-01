@@ -40,7 +40,7 @@ public class TitleScene extends GameSceneImpl {
 			pressStartText.toggleVisible();
 		}
 
-		if (Key.anyKeyOperating()) {
+		if (!Key.ESCAPE.isPressed() && Key.anyKeyReleased()) {
 			GameSceneManager.getInstance()
 					.changeSceneIfNotNull(nextScene);
 		}

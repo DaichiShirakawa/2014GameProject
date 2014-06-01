@@ -3,7 +3,9 @@ package gobject.character.shooting.edf;
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
+import gobject.character.GameCharacter;
 import gobject.character.shooting.ShootingCharacter;
+import gobject.character.shooting.edf.weapon.BasicWeapon;
 import gobject.scene.shooting.ShootingScene;
 import io.Key;
 
@@ -20,7 +22,7 @@ public class EDFShip extends ShootingCharacter {
 	// 基礎パラメータ
 	private static final float TURN_RADIUS = 60; // 画面中心点から戦艦までの半径
 	private static final float ROTATE_SPEED = 0.5f;
-	private static final int SIZE = 40;
+	private static final int SIZE = 30;
 
 	// 入力制御
 	private static final Key LEFT_MOVE = Key.F;
@@ -36,12 +38,37 @@ public class EDFShip extends ShootingCharacter {
 	private float dashSpeed = 0;
 	private long dashStartFrame;
 
+	// 武器
+	private static final int WEAPON_DISTANCE = 15;
+	private BasicWeapon leftWeapon;
+	private BasicWeapon rightWeapon;
+
 	public EDFShip(ShootingScene scene) {
 		super(scene);
 		setTexture(new TextureLoader().loadTexture(TEXTURE_PATH));
 		setColor(new Color(0f, 0.8f, 1f));
+		setY(TURN_RADIUS);
 		setWidth(SIZE);
 		setHeight(SIZE);
+
+		equipLeft(new BasicWeapon(getParentScene(), this));
+		equipRight(new BasicWeapon(getParentScene(), this));
+	}
+
+	private void equipLeft(BasicWeapon weapon) {
+		if(leftWeapon != null) {
+			leftWeapon.dispose();
+		}
+		leftWeapon = getParentScene().add(weapon);
+		leftWeapon.setX(-WEAPON_DISTANCE);
+	}
+
+	private void equipRight(BasicWeapon weapon) {
+		if(rightWeapon != null) {
+			rightWeapon.dispose();
+		}
+		rightWeapon = getParentScene().add(weapon);
+		rightWeapon.setX(WEAPON_DISTANCE);
 	}
 
 	@Override
@@ -57,6 +84,13 @@ public class EDFShip extends ShootingCharacter {
 			dashSpeed = 0;
 		}
 	}
+	
+//	@Override
+//	public GameCharacter setAngle(float angle) {
+//		super.setAngle(angle);
+//		
+//		return this;
+//	}
 
 	@Override
 	public void draw() {
@@ -64,7 +98,7 @@ public class EDFShip extends ShootingCharacter {
 		glLoadIdentity();
 		glTranslated(CENTER_X, CENTER_Y, 0);
 		glRotatef(getAngle(), 0, 0, 1);
-		glTranslatef(0, TURN_RADIUS, 0);
+		glTranslatef(0, getY(), 0);
 		setGlColor4f(getColor(), getAlpha());
 		drawTexture(getTexture(), getWidth(), getHeight());
 	}
@@ -97,25 +131,32 @@ public class EDFShip extends ShootingCharacter {
 	}
 
 	private void shootProcess() {
-		if (SHOOT.isPressed()) {
+		if (!SHOOT.isPressed()) {
+			return;
+		}
+		if (LEFT_WEAPON.isPressed() && leftWeapon != null) {
+			leftWeapon.shoot();
+		}
+		if (RIGHT_WEAPON.isPressed() && rightWeapon != null) {
+			rightWeapon.shoot();
 		}
 	}
 
 	private void leftDashProcess() {
-		if (!LEFT_WEAPON.isPressing() || cantMove()) {
+		if (SHOOT.isPressing() || !LEFT_WEAPON.isPressing() || cantDash()) {
 			return;
 		}
 		moveStart(DASH_START_SPEED);
 	}
 
 	private void rightDashProcess() {
-		if (!RIGHT_WEAPON.isPressing() || cantMove()) {
+		if (SHOOT.isPressing() || !RIGHT_WEAPON.isPressing() || cantDash()) {
 			return;
 		}
 		moveStart(-DASH_START_SPEED);
 	}
 
-	private boolean cantMove() {
+	private boolean cantDash() {
 		return dashStartFrame > FPSManager.getFramesUntilStart()
 				- DASH_DELAY_FRAME;
 	}

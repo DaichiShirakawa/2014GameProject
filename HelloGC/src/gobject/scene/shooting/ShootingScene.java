@@ -70,7 +70,7 @@ abstract public class ShootingScene extends GameSceneImpl {
 				friendlieCharas.remove(go);
 				enemieCharas.remove(go);
 				bullets.remove(go);
-				generatingObjects.remove(go); // 実装上意味のないハズだが、念のため
+				generatingObjects.remove(go); // 実装上意味ないハズだが、念のため
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package gobject.character.shooting.test;
 import static common.Commons.*;
 import gobject.character.MoveMode;
 import gobject.character.shooting.ShootingCharacter;
-import gobject.character.shooting.bullets.NormalBullet;
+import gobject.character.shooting.bullets.TestBullet;
 import gobject.scene.shooting.ShootingScene;
 import io.Key;
 
@@ -46,7 +46,7 @@ public class MyShip extends ShootingCharacter {
 			setVx(speed);
 		}
 		if (Key.SPACE.getPressingFrameCount() % 5 == 0) {
-			shoot(new NormalBullet(this));
+			shoot(new TestBullet(this));
 		}
 		super.update();
 	}

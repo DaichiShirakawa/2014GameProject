@@ -179,12 +179,18 @@ public enum Key {
 		return (state == STATE_RELEASED);
 	}
 
-	/**
-	 * 現在いずれかのキーが操作されていればtrue
-	 */
-	public static boolean anyKeyOperating() {
+	public static boolean anyKeyPressed() {
 		for (Key key : Key.values()) {
-			if (key.state != STATE_NOTOUCH) {
+			if (key.state == STATE_PRESSED) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean anyKeyReleased() {
+		for (Key key : Key.values()) {
+			if (key.state == STATE_RELEASED) {
 				return true;
 			}
 		}
@@ -199,6 +205,9 @@ public enum Key {
 	private static void updatePressOrRelease() {
 		while (Keyboard.next()) {
 			Key key = Key.valueOf(Keyboard.getEventKey());
+			if(key == null) {
+				continue;
+			}
 			if (Keyboard.getEventKeyState()) {
 				// 押した瞬間
 				key.state = STATE_PRESSED;

@@ -138,7 +138,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 		this.basePoint = basePoint;
 		return this;
 	}
-	
+
 	@Override
 	public float getX() {
 		return x;
@@ -148,13 +148,13 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	public int getPixcelX() {
 		return (int) x;
 	}
-	
+
 	@Override
 	public GameCharacter setX(float x) {
 		this.x = x;
 		return this;
 	}
-	
+
 	@Override
 	public float getY() {
 		return y;
@@ -164,7 +164,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 	public int getPixcelY() {
 		return (int) y;
 	}
-	
+
 	@Override
 	public GameCharacter setY(float y) {
 		this.y = y;
@@ -332,7 +332,7 @@ public abstract class GameCharacterImpl implements GameCharacter {
 		visible = false;
 		return this;
 	}
-	
+
 	@Override
 	public GameCharacter toggleVisible() {
 		visible = !visible;
@@ -373,8 +373,11 @@ public abstract class GameCharacterImpl implements GameCharacter {
 
 	@Override
 	public boolean checkHit(GameCharacter target) {
-		Point selfP1 = new Point(getPixcelX() - getWidth() / 2, getPixcelY() + getHeight()
-				/ 2);
+		if (!isEnable()) {
+			return false;
+		}
+		Point selfP1 = new Point(getPixcelX() - getWidth() / 2, getPixcelY()
+				+ getHeight() / 2);
 		Point selfP2 = new Point(selfP1.x + getWidth(), selfP1.y);
 		Point selfP3 = new Point(selfP1.x, selfP1.y - getHeight());
 

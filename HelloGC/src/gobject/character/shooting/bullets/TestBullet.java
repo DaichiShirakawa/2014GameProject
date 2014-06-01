@@ -7,7 +7,7 @@ import gobject.character.shooting.ShootingCharacter;
 import texture.Texture;
 import texture.TextureLoader;
 
-public class NormalBullet extends ShootingBulletCharacter {
+public class TestBullet extends ShootingBulletCharacter {
 	private static final int BULLET_SIZE = 10;
 	private static final int RANGE = 200;
 
@@ -17,9 +17,9 @@ public class NormalBullet extends ShootingBulletCharacter {
 	private static final Texture TEXTURE = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 			+ "flower.png");
 
-	public NormalBullet(ShootingCharacter shooter) {
+	public TestBullet(ShootingCharacter shooter) {
 		super(shooter);
-		setDivision(DIVISION.FRIENDLY);
+		setDivision(shooter.getDivision());
 		startX = shooter.getPixcelX();
 		startY = shooter.getPixcelY();
 		setX(startX);
@@ -38,7 +38,7 @@ public class NormalBullet extends ShootingBulletCharacter {
 	public void update() {
 		super.update();
 		if (!isEnable()) {
-			if (getTarget() != null && getDisposeTimer() % (FPS / 2) == 0) {
+			if (getTarget() != null && getDisposeTimer() % (FPS / 4) == 0) {
 				shoot(new Effect(getTarget()));
 			}
 			return;
@@ -54,10 +54,11 @@ public class NormalBullet extends ShootingBulletCharacter {
 		for (int i = 0; i < 3; i++) {
 			shoot(new Effect(this));
 		}
-		disposeAfter(1);
-		this.setTarget(target);
+		disposeAfter(0.5f);
 		disable();
+		this.setTarget(target);
 		target.takeDamage();
+		shoot(new Effect(target));
 	}
 
 	protected class Effect extends ShootingBulletCharacter {
