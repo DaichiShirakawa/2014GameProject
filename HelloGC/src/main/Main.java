@@ -2,7 +2,6 @@ package main;
 
 import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
-import gobject.scene.GameSceneManager;
 
 import java.io.File;
 

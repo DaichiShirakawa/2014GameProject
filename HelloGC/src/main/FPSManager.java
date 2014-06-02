@@ -66,7 +66,7 @@ public class FPSManager {
 		return getInstance().currentFrame;
 	}
 	
-	public static long getFramesUntilStart() {
+	public static long totalFrame() {
 		return getInstance().framesUntilStart;
 	}
 }

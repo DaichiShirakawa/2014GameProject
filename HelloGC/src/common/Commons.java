@@ -27,8 +27,8 @@ public final class Commons {
 //	public static final int HEIGHT = 300;
 	 public static final int WINDOW_WIDTH = 800;
 	 public static final int WINDOW_HEIGHT = 800;
-	 public static final int WIDTH = 800;
-	 public static final int HEIGHT = 800;
+	 public static final int WIDTH = 400;
+	 public static final int HEIGHT = 400;
 	public static final int DEPTH = 200;
 
 	/**
@@ -53,7 +53,7 @@ public final class Commons {
 	 * ゲーム中枢
 	 */
 	public static final int FPS = 60;
-	public static final Random RND = new Random(System.nanoTime());
+	public static final Random RANDOM = new Random(System.nanoTime());
 
 	/**
 	 * テキスト処理関連

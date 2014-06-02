@@ -1,7 +1,6 @@
 package main;
 
 import static org.lwjgl.opengl.GL11.*;
-import gobject.scene.GameSceneManager;
 import io.Key;
 
 import org.lwjgl.opengl.Display;
