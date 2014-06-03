@@ -2,19 +2,24 @@ package scenes.shootingtest;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import static java.lang.Math.*;
+import scenes.edf.weapons.BasicEffect;
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.ShootingCharacter;
+import classes.character.shooting.ShootingBulletCharacter;
+import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingObjectImpl;
 import classes.scene.ShootingScene;
 
-public class TestBullet extends ShootingBulletCharacterImpl {
+public class TestBullet extends ShootingBulletCharacter {
+	private static final int BULLET_POWER = 1;
+	private static final int BULLET_RANGE = 200;
+	private static final int BULLET_SIZE = 10;
 	private static final Texture TEXTURE = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
 			+ "flower.png");
 	private float ySpeed = 5;
 
-	public TestBullet(ShootingScene parentScene, ShootingCharacter shooter) {
-		super(parentScene, shooter);
+	public TestBullet(ShootingScene parentScene, ShootingObjectImpl shooter) {
+		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(generateCosmosColor());
 		setVx(random(-0.5f, 0.5f));
@@ -34,25 +39,34 @@ public class TestBullet extends ShootingBulletCharacterImpl {
 	}
 
 	@Override
-	public void hitEffect(ShootingCharacter target) {
-		super.hitEffect(target);
-		for (int i = 0; i < 3; i++) {
-			shoot(new Effect(getParentScene(), this));
-		}
-		disposeAfter(0.5f);
-		disable();
+	public void hitEffectTo(ShootingObject target) {
+		super.hitEffectTo(target);
 		this.setTarget(target);
 		shoot(new Effect(getParentScene(), target));
 	}
 
 	@Override
+	public float damage(float damage) {
+		for (int i = 0; i < 3; i++) {
+			shoot(new BasicEffect(getParentScene(), this));
+		}
+		return super.damage(damage);
+	}
+
+	@Override
+	protected void dead() {
+		disposeAfter(0.5f);
+		disable();
+	}
+
+	@Override
 	public float getBulletRange() {
-		return 200;
+		return BULLET_RANGE;
 	}
 
 	@Override
 	public int getBulletSize() {
-		return 10;
+		return BULLET_SIZE;
 	}
 
 	@Override
@@ -62,26 +76,18 @@ public class TestBullet extends ShootingBulletCharacterImpl {
 
 	@Override
 	public float getPower() {
-		return 1;
+		return BULLET_POWER;
 	}
 
-	private class Effect extends ShootingBulletCharacterImpl {
-		protected Effect(ShootingScene parentScene, ShootingCharacter shootor) {
+	private class Effect extends BasicEffect {
+		protected Effect(ShootingScene parentScene, ShootingObject shootor) {
 			super(parentScene, shootor);
-			setScale(random(0.5f, 2f));
-			setColor(shootor.getColor());
-
-			float tmp = RANDOM.nextInt(360);
-			setVx(3 * (float) sin(tmp) * random(0.2f, 1f));
-			setVy(3 * (float) cos(tmp) * random(0.2f, 1f));
-			setAngle(tmp);
-			disposeAfter(0.8f * random(0.5f, 1.5f));
 		}
 
 		@Override
 		public void update() {
-			setVx(getVx() * 0.95f);
-			setVy(getVy() * 0.95f);
+			setVx(getVX() * 0.95f);
+			setVy(getVY() * 0.95f);
 			super.update();
 		}
 
@@ -89,11 +95,6 @@ public class TestBullet extends ShootingBulletCharacterImpl {
 		public void render() {
 			setGlColor4f(getColor(), getAlpha());
 			super.render();
-		}
-
-		@Override
-		public void hitEffect(ShootingCharacter target) {
-			return;
 		}
 
 		@Override
@@ -107,9 +108,10 @@ public class TestBullet extends ShootingBulletCharacterImpl {
 		}
 
 		@Override
-		public float getPower() {
-			return 0;
+		protected float getLifeTime() {
+			return 0.8f * random(0.5f, 1.5f);
 		}
+
 	}
 
 }

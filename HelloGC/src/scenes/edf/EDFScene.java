@@ -1,16 +1,17 @@
 package scenes.edf;
 
 import main.FPSManager;
-import scenes.edf.enemies.EnemyCharacter;
+import scenes.edf.enemies.EDFEnemy;
 import scenes.edf.gui.MoneyCaption;
 import scenes.edf.gui.WeaponCaption;
 import scenes.edf.weapons.BasicWeapon;
+import classes.character.shooting.ShootingWeaponCharacter;
 import classes.scene.ShootingScene;
 import common.LR;
 import common.CommonMethod.BackGroundColor;
 
 public class EDFScene extends ShootingScene {
-	EDFShipCharacter edfShip;
+	EDFShip edfShip;
 	private static final int ENEMY_SPAWN_INTERVAL = 30;
 
 	private int money = 0;
@@ -18,9 +19,9 @@ public class EDFScene extends ShootingScene {
 	public EDFScene() {
 		BackGroundColor.BLACK.set();
 
-		add(new EarthCharacter(this));
+		add(new EDFEarth(this));
 
-		edfShip = add(new EDFShipCharacter(this));
+		edfShip = add(new EDFShip(this));
 		edfShip.equipLeft(new BasicWeapon(this, edfShip, LR.LEFT));
 		edfShip.equipRight(new BasicWeapon(this, edfShip, LR.RIGHT));
 
@@ -37,11 +38,11 @@ public class EDFScene extends ShootingScene {
 		return money;
 	}
 
-	public BasicWeapon getRightWeapon() {
+	public ShootingWeaponCharacter getRightWeapon() {
 		return edfShip.getRightWeapon();
 	}
 
-	public BasicWeapon getLeftWeapon() {
+	public ShootingWeaponCharacter getLeftWeapon() {
 		return edfShip.getLeftWeapon();
 	}
 
@@ -49,7 +50,7 @@ public class EDFScene extends ShootingScene {
 	public void update() {
 		super.update();
 		if (FPSManager.totalFrame() % ENEMY_SPAWN_INTERVAL == 0) {
-			add(new EnemyCharacter(this, FPSManager.totalFrame(), LR.RIGHT));
+			add(new EDFEnemy(this, FPSManager.totalFrame(), LR.RIGHT));
 		}
 	}
 }

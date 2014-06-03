@@ -1,24 +1,25 @@
 package classes.scene;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
-import scenes.shootingtest.ShootingBulletCharacterImpl;
 import classes.GameObject;
-import classes.character.ShootingCharacter;
-import classes.character.ShootingCharacter.DIVISION;
+import classes.character.shooting.ShootingBulletCharacter;
+import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingObjectImpl;
+import classes.character.shooting.ShootingObjectImpl.TEAM;
 
 abstract public class ShootingScene extends GameSceneImpl {
-	private List<ShootingCharacter> friendlieCharas = new ArrayList<>();
-	private List<ShootingCharacter> enemieCharas = new ArrayList<>();
-	private List<ShootingBulletCharacterImpl> bullets = new ArrayList<>();
+	private List<ShootingObject> friendlieCharas = new LinkedList<>();
+	private List<ShootingObject> enemieCharas = new LinkedList<>();
+	private List<ShootingBulletCharacter> bullets = new LinkedList<>();
 	// update()中はオブジェクトリストをIteratorで回すことになる。
 	// update()中に管理下キャラからオブジェクト生成の要請があった場合、
 	// すぐにadd()せず一旦ここに格納しておく。
-	private List<GameObject> generatingObjects = new ArrayList<>();
+	private List<GameObject> generatingObjects = new LinkedList<>();
 
-	public void shoot(ShootingBulletCharacterImpl bullet) {
+	public void shoot(ShootingBulletCharacter bullet) {
 		generatingObjects.add(bullet);
 	}
 
@@ -39,22 +40,14 @@ abstract public class ShootingScene extends GameSceneImpl {
 	}
 
 	private void processCheckHit() {
-		for (ShootingBulletCharacterImpl bullet : bullets) {
-			List<ShootingCharacter> targetList;
-			switch (bullet.getDivision()) {
-			case FRIENDLY:
-				targetList = enemieCharas;
-				break;
-			case ENEMY:
-				targetList = friendlieCharas;
-				break;
-			default:
-				continue;
-			}
-			for (ShootingCharacter target : targetList) {
-				if (bullet.checkHit(target)) {
-					bullet.hitEffect(target);
-				}
+		List<ShootingObject> soList = new LinkedList<>();
+		soList.addAll(enemieCharas);
+		soList.addAll(friendlieCharas);
+		soList.addAll(bullets);
+		
+		for(int i=0; i<soList.size()-1; i++) {
+			for(int j=i+1; j<soList.size(); j++) {
+				soList.get(i).checkHitAndAction(soList.get(j));
 			}
 		}
 	}
@@ -77,23 +70,23 @@ abstract public class ShootingScene extends GameSceneImpl {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends GameObject> T add(T go) {
-		if (go instanceof ShootingBulletCharacterImpl) {
-			return (T) addShootingCharacter((ShootingBulletCharacterImpl) go);
+		if (go instanceof ShootingBulletCharacter) {
+			return (T) addShootingCharacter((ShootingBulletCharacter) go);
 		}
-		if (go instanceof ShootingCharacter) {
-			return (T) addShootingCharacter((ShootingCharacter) go);
+		if (go instanceof ShootingObjectImpl) {
+			return (T) addShootingCharacter((ShootingObjectImpl) go);
 		}
 		return super.add(go);
 	}
 
-	private <T extends ShootingCharacter> T addShootingCharacter(T go) {
+	private <T extends ShootingObject> T addShootingCharacter(T go) {
 		super.add(go);
 
-		if (go instanceof ShootingBulletCharacterImpl) {
-			bullets.add((ShootingBulletCharacterImpl) go);
-		} else if (go.getDivision() == DIVISION.FRIENDLY) {
+		if (go instanceof ShootingBulletCharacter) {
+			bullets.add((ShootingBulletCharacter) go);
+		} else if (go.getTeam() == TEAM.FRIEND_TEAM) {
 			friendlieCharas.add(go);
-		} else if (go.getDivision() == DIVISION.ENEMY) {
+		} else if (go.getTeam() == TEAM.ENEMY_TEAM) {
 			enemieCharas.add(go);
 		}
 

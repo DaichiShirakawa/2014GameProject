@@ -5,20 +5,20 @@ import io.Key;
 
 import java.awt.Color;
 
-import classes.character.GameCharacter;
-import classes.character.ShootingCharacter;
-import classes.scene.ShootingScene;
 import main.FPSManager;
 import scenes.edf.weapons.BasicWeapon;
 import texture.TextureLoader;
+import classes.character.shooting.RotateShootingCharacter;
+import classes.character.shooting.ShootingWeaponCharacter;
+import classes.scene.ShootingScene;
 
-public class EDFShipCharacter extends ShootingCharacter {
+public class EDFShip extends RotateShootingCharacter {
 	// 戦艦テクスチャ
 	private static final String TEXTURE_PATH = IMAGE_FOLDER_STRING
 			+ "tokiIcon.png";
 
 	// 基礎パラメータ
-	private static final float TURN_RADIUS = 30; // 画面中心点から戦艦までの半径
+	private static final float ELEVATION = 30; // 画面中心点から戦艦までの半径
 	private static final float ROTATE_SPEED = 0.75f;
 	private static final int SIZE = 16;
 
@@ -38,17 +38,18 @@ public class EDFShipCharacter extends ShootingCharacter {
 
 	// 武器
 	public static final float WEAPON_DISTANCE = 8; // 本体から武器までの距離
-	private BasicWeapon leftWeapon;
-	private BasicWeapon rightWeapon;
+	private ShootingWeaponCharacter leftWeapon;
+	private ShootingWeaponCharacter rightWeapon;
 
-	public EDFShipCharacter(ShootingScene scene) {
-		super(scene);
+	public EDFShip(ShootingScene scene) {
+		super(scene, 0);
 		setTexture(new TextureLoader().loadTexture(TEXTURE_PATH));
 		setColor(new Color(0f, 0.8f, 1f));
-		setY(TURN_RADIUS);
+		setY(ELEVATION);
 		setWidth(SIZE);
 		setHeight(SIZE);
-		setDivision(DIVISION.FRIENDLY);
+		setTeam(TEAM.FRIEND_TEAM);
+		setElevation(ELEVATION);
 	}
 
 	@Override
@@ -63,15 +64,6 @@ public class EDFShipCharacter extends ShootingCharacter {
 		if (Math.abs(dashSpeed) < 0.1) {
 			dashSpeed = 0;
 		}
-	}
-
-	@Override
-	public GameCharacter setAngle(float angle) {
-		super.setAngle(angle);
-		double theta = Math.toRadians(-angle);
-		setX(CENTER_X + TURN_RADIUS * (float) Math.sin(theta));
-		setY(CENTER_Y + TURN_RADIUS * (float) Math.cos(theta));
-		return this;
 	}
 
 	@Override
@@ -141,10 +133,11 @@ public class EDFShipCharacter extends ShootingCharacter {
 		rightWeapon = getParentScene().add(weapon);
 	}
 
-	public BasicWeapon getRightWeapon() {
+	public ShootingWeaponCharacter getRightWeapon() {
 		return rightWeapon;
 	}
-	public BasicWeapon getLeftWeapon() {
+
+	public ShootingWeaponCharacter getLeftWeapon() {
 		return leftWeapon;
 	}
 }

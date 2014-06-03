@@ -3,15 +3,15 @@ package scenes.edf.gui;
 import java.awt.Color;
 
 import scenes.edf.EDFScene;
-import scenes.edf.weapons.BasicWeapon;
-import classes.character.GameCharacterImpl;
+import classes.character.GameCharacterObjectImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
+import classes.character.shooting.ShootingWeaponCharacter;
 
 import common.Commons;
 import common.LR;
 
-public class WeaponCaption extends GameCharacterImpl {
+public class WeaponCaption extends GameCharacterObjectImpl {
 	EDFScene scene;
 
 	private Hoge left;
@@ -52,14 +52,14 @@ public class WeaponCaption extends GameCharacterImpl {
 		return false;
 	}
 
-	private class Hoge extends GameCharacterImpl {
-		private BasicWeapon weapon;
+	private class Hoge extends GameCharacterObjectImpl {
+		private ShootingWeaponCharacter weapon;
 		private int currentRemainBullet;
 
 		private SimpleCharacter weaponView = new SimpleCharacter();
 		private TextCharacter remainBulletView = new TextCharacter();
 
-		public Hoge(LR lr, BasicWeapon weapon) {
+		public Hoge(LR lr, ShootingWeaponCharacter weapon) {
 			setWeapon(weapon);
 
 			setX(Commons.CENTER_X + (165 * lr.signum()));
@@ -77,14 +77,14 @@ public class WeaponCaption extends GameCharacterImpl {
 					.setColor(Color.white);
 		}
 
-		private void setWeapon(BasicWeapon weapon) {
+		private void setWeapon(ShootingWeaponCharacter weapon) {
 			this.weapon = weapon;
 			currentRemainBullet = weapon.getRemainBullet();
 			weaponView.setTexture(weapon.getTexture());
 			remainBulletView.updateText(getRemainBullet(weapon));
 		}
 
-		private String getRemainBullet(BasicWeapon weapon) {
+		private String getRemainBullet(ShootingWeaponCharacter weapon) {
 			return weapon.getRemainBullet() + " / " + weapon.getMaxCharge();
 		}
 
@@ -92,6 +92,7 @@ public class WeaponCaption extends GameCharacterImpl {
 		public void update() {
 			if (currentRemainBullet != weapon.getRemainBullet()) {
 				remainBulletView.updateText(getRemainBullet(weapon));
+				currentRemainBullet = weapon.getRemainBullet();
 			}
 		}
 

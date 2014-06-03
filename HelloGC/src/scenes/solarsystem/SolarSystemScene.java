@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.util.Iterator;
 
 import classes.GameObject;
-import classes.character.GameCharacter;
+import classes.character.GameCharacterObject;
 import classes.character.GameCharacterBasePoint;
 import classes.character.TextCharacter;
 import classes.scene.GameSceneImpl;
@@ -22,7 +22,7 @@ public class SolarSystemScene extends GameSceneImpl {
 	private int speedScale = 1;
 	private double passageDays = 0;
 
-	private GameCharacter stateCaption;
+	private GameCharacterObject stateCaption;
 
 	public SolarSystemScene() {
 		BackGroundColor.BLACK.set();

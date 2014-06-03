@@ -5,7 +5,7 @@ import io.Key;
 
 import java.awt.Color;
 
-import classes.character.GameCharacter;
+import classes.character.GameCharacterObject;
 import classes.character.TextCharacter;
 import classes.scene.GameSceneImpl;
 import main.FPSManager;
@@ -23,7 +23,7 @@ import common.CommonMethod.BackGroundColor;
  */
 public class TitleScene extends GameSceneImpl {
 	private static final SceneCollection nextScene = SceneCollection.EDF;
-	private GameCharacter pressStartText;
+	private GameCharacterObject pressStartText;
 
 	public TitleScene() {
 		BackGroundColor.WHITE.set();

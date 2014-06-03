@@ -4,18 +4,22 @@ import static common.CommonMethod.*;
 
 import java.awt.Color;
 
-import scenes.shootingtest.ShootingBulletCharacterImpl;
 import texture.Texture;
 import texture.text.TextTextureMaker;
-import classes.character.ShootingCharacter;
+import classes.character.shooting.ShootingBulletCharacter;
+import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingObjectImpl;
 import classes.scene.ShootingScene;
 
-public class BasicBullet extends ShootingBulletCharacterImpl {
+public class BasicBullet extends ShootingBulletCharacter {
+	private static final int BULLET_POWER = 1;
+	private static final int BULLET_SIZE = 8;
+	private static final int BULLET_RANGE = 200;
 	private static final Texture TEXTURE = TextTextureMaker.createText("弾");
 	private static final float SPEED = 3;
 
-	public BasicBullet(ShootingScene parentScene, ShootingCharacter shooter) {
-		super(parentScene, shooter);
+	public BasicBullet(ShootingScene parentScene, ShootingObjectImpl shooter) {
+		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(Color.white);
 
@@ -27,12 +31,12 @@ public class BasicBullet extends ShootingBulletCharacterImpl {
 
 	@Override
 	public float getBulletRange() {
-		return 300;
+		return BULLET_RANGE;
 	}
 
 	@Override
 	public int getBulletSize() {
-		return 8;
+		return BULLET_SIZE;
 	}
 
 	@Override
@@ -42,19 +46,19 @@ public class BasicBullet extends ShootingBulletCharacterImpl {
 
 	@Override
 	public float getPower() {
-		return 1;
+		return BULLET_POWER;
 	}
 
 	@Override
-	public void hitEffect(ShootingCharacter target) {
-		super.hitEffect(target);
+	public void hitEffectTo(ShootingObject target) {
+		super.hitEffectTo(target);
 		for (int i = 0; i < 2; i++) {
 			shoot(new Effect(getParentScene(), this));
 		}
 	}
 
 	private class Effect extends BasicEffect {
-		public Effect(ShootingScene parentScene, ShootingCharacter shooter) {
+		public Effect(ShootingScene parentScene, ShootingObjectImpl shooter) {
 			super(parentScene, shooter);
 		}
 

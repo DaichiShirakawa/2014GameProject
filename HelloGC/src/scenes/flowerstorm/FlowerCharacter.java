@@ -2,11 +2,11 @@ package scenes.flowerstorm;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import classes.character.GameCharacterImpl;
+import classes.character.GameCharacterObjectImpl;
 import classes.character.GameCharacterMoveMode;
 import texture.Texture;
 
-public class FlowerCharacter extends GameCharacterImpl {
+public class FlowerCharacter extends GameCharacterObjectImpl {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 64;
 
