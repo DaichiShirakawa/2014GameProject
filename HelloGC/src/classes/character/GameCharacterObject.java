@@ -99,7 +99,7 @@ public interface GameCharacterObject extends GameObject {
 	GameCharacterObject show();
 
 	GameCharacterObject hide();
-	
+
 	GameCharacterObject toggleVisible();
 
 	boolean isVisible();

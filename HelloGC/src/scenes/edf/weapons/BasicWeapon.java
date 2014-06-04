@@ -11,8 +11,8 @@ import common.LR;
 
 public class BasicWeapon extends ShootingWeaponCharacter {
 	static final float DISTANCE_FROM_OWNER = 8;
-	static final int SHOOT_DELAY_FRAME = 5;
-	public static final int MAX_CHARGE = 300_000;
+	static final int SHOOT_DELAY_FRAME = 18;
+	public static final int MAX_CHARGE = 50;
 	public static final Texture WEAPON_TEXTURE = TextTextureMaker.createText("↑");
 
 	public BasicWeapon(ShootingScene scene, ShootingCharacter owner, LR equipLR) {

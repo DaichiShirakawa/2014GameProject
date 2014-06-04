@@ -14,32 +14,21 @@ abstract public class ShootingScene extends GameSceneImpl {
 	private List<ShootingObject> friendlieCharas = new LinkedList<>();
 	private List<ShootingObject> enemieCharas = new LinkedList<>();
 	private List<ShootingBulletCharacter> bullets = new LinkedList<>();
-	// update()中はオブジェクトリストをIteratorで回すことになる。
-	// update()中に管理下キャラからオブジェクト生成の要請があった場合、
-	// すぐにadd()せず一旦ここに格納しておく。
-	private List<GameObject> generatingObjects = new LinkedList<>();
 
 	public void shoot(ShootingBulletCharacter bullet) {
-		generatingObjects.add(bullet);
+		add(bullet);
 	}
 
 	@Override
 	public void update() {
 		// シューティング用に工夫するのでsuper.update();はしない
-		processInput();
-		processGenerateObjects();
-		processCheckHit();
-		processUpdateObjects();
+		addBookingObjects();
+		inputProcess();
+		checkHit();
+		updateObjects();
 	}
 
-	private void processGenerateObjects() {
-		for (GameObject go : generatingObjects) {
-			add(go);
-		}
-		generatingObjects.clear();
-	}
-
-	private void processCheckHit() {
+	private void checkHit() {
 		List<ShootingObject> soList = new LinkedList<>();
 		soList.addAll(enemieCharas);
 		soList.addAll(friendlieCharas);
@@ -52,7 +41,7 @@ abstract public class ShootingScene extends GameSceneImpl {
 		}
 	}
 
-	private void processUpdateObjects() {
+	private void updateObjects() {
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			GameObject go = ite.next();
 			go.update();
@@ -62,7 +51,6 @@ abstract public class ShootingScene extends GameSceneImpl {
 				friendlieCharas.remove(go);
 				enemieCharas.remove(go);
 				bullets.remove(go);
-				generatingObjects.remove(go); // 実装上意味ないハズだが、念のため
 			}
 		}
 	}

@@ -58,11 +58,11 @@ public class FPSManager {
 	private void updateDisplay() {
 		Display.update();
 		Display.sync(FPS);
-		Display.setTitle("FRAME:" + String.valueOf(getCurrentFrame()) + "FPS:"
+		Display.setTitle("FRAME:" + String.valueOf(cycleFrame()) + "FPS:"
 				+ floatTo0d0(calculatedFPS));
 	}
 
-	public static long getCurrentFrame() {
+	public static long cycleFrame() {
 		return getInstance().currentFrame;
 	}
 	

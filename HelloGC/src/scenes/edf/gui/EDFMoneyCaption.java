@@ -8,15 +8,12 @@ import scenes.edf.EDFScene;
 import classes.character.GameCharacterBasePoint;
 import classes.character.TextCharacter;
 
-
-public class MoneyCaption extends TextCharacter {
+public class EDFMoneyCaption extends TextCharacter {
 	EDFScene scene;
-	int currentMoney;
 
-	public MoneyCaption(EDFScene parentScene) {
-		super(getCaption(parentScene.getMoney()));
-		this.scene = parentScene;
-		currentMoney = parentScene.getMoney();
+	public EDFMoneyCaption(EDFScene edfScene) {
+		super(getCaption(edfScene.getMoney()));
+		this.scene = edfScene;
 		setBasePont(GameCharacterBasePoint.LEFTTOP);
 		setScale(0.4f);
 		setX(5);
@@ -31,9 +28,6 @@ public class MoneyCaption extends TextCharacter {
 	@Override
 	public void update() {
 		super.update();
-		if (scene.getMoney() != currentMoney) {
-			currentMoney = scene.getMoney();
-			updateText(getCaption(currentMoney));
-		}
+		updateText(getCaption(scene.getMoney()));
 	}
 }

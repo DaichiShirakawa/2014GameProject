@@ -2,7 +2,7 @@ package scenes.edf.gui;
 
 import java.awt.Color;
 
-import scenes.edf.EDFScene;
+import scenes.edf.EDFCharacterController;
 import classes.character.GameCharacterObjectImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
@@ -11,16 +11,16 @@ import classes.character.shooting.ShootingWeaponCharacter;
 import common.Commons;
 import common.LR;
 
-public class WeaponCaption extends GameCharacterObjectImpl {
-	EDFScene scene;
+public class EDFWeaponCaption extends GameCharacterObjectImpl {
+	EDFCharacterController scene;
 
 	private Hoge left;
 	private Hoge right;
 
-	public WeaponCaption(EDFScene scene) {
-		this.scene = scene;
-		left = new Hoge(LR.LEFT, scene.getLeftWeapon());
-		right = new Hoge(LR.RIGHT, scene.getRightWeapon());
+	public EDFWeaponCaption(EDFCharacterController edfCharacterController) {
+		this.scene = edfCharacterController;
+		left = new Hoge(LR.LEFT, edfCharacterController.getLeftWeapon());
+		right = new Hoge(LR.RIGHT, edfCharacterController.getRightWeapon());
 	}
 
 	@Override

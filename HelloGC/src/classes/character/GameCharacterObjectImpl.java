@@ -36,7 +36,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	@Override
 	public void update() {
-		processInput();
+		inputProcess();
 
 		if (disposeTimer > 0) {
 			disposeTimer--;
@@ -62,7 +62,8 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 		move();
 	}
 
-	protected void processInput() {
+	@Override
+	public void inputProcess() {
 		// 必要に応じてオーバーライドする
 	}
 
@@ -93,6 +94,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	public void dispose() {
 		if (getTexture() != null) {
 			getTexture().dispose();
+			setTexture(null);
 		}
 	}
 

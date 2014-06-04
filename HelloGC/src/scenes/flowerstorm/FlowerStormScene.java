@@ -35,7 +35,7 @@ public class FlowerStormScene extends GameSceneImpl {
 
 	@Override
 	public void update() {
-		processInput();
+		inputProcess();
 		updateWind();
 		addFlowerIfNecessary();
 
@@ -63,7 +63,7 @@ public class FlowerStormScene extends GameSceneImpl {
 	}
 
 	@Override
-	protected void processInput() {
+	public void inputProcess() {
 		if (Key.UP.isPressing()) {
 			flowerBornPerSecond = min(flowerBornPerSecond + 1,
 					MAX_FLOWERS_PER_SECOND);

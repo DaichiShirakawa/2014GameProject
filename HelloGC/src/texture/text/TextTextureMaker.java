@@ -27,14 +27,14 @@ public class TextTextureMaker {
 	}
 
 	public static Texture createText(String str, Color color) {
-		return createText(str, color, FontDef.DEFAULT);
+		return create(str, color, FontDef.DEFAULT);
 	}
 
 	public static Texture createText(String str, FontDef fontDef) {
-		return createText(str, Color.white, fontDef);
+		return create(str, Color.white, fontDef);
 	}
 
-	public static Texture createText(String str, Color color, FontDef fontDef) {
+	public static Texture create(String str, Color color, FontDef fontDef) {
 		Font font = FontCollector.getFont(fontDef);
 		float width = (fontDef.size / 2) * getByteLength(str);
 		float height = fontDef.size;

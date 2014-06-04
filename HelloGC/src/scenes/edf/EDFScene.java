@@ -1,32 +1,34 @@
 package scenes.edf;
 
-import main.FPSManager;
-import scenes.edf.enemies.EDFEnemy;
-import scenes.edf.gui.MoneyCaption;
-import scenes.edf.gui.WeaponCaption;
-import scenes.edf.weapons.BasicWeapon;
-import classes.character.shooting.ShootingWeaponCharacter;
+import io.Key;
+import main.GameSceneManager;
+import scenes.edf.gui.EDFMoneyCaption;
+import scenes.edf.gui.EDFWeaponCaption;
+import classes.GameObject;
+import classes.character.shooting.ShootingObject;
 import classes.scene.ShootingScene;
-import common.LR;
+
 import common.CommonMethod.BackGroundColor;
 
 public class EDFScene extends ShootingScene {
-	EDFShip edfShip;
-	private static final int ENEMY_SPAWN_INTERVAL = 30;
-
 	private int money = 0;
+	private EDFCharacterController characterController;
+	private EDFStageController stageController;
 
 	public EDFScene() {
 		BackGroundColor.BLACK.set();
+		characterController = add(new EDFCharacterController());
+		stageController = add(new EDFStageController(this));
+		add(new EDFMoneyCaption(this));
+		add(new EDFWeaponCaption(characterController));
+	}
 
-		add(new EDFEarth(this));
-
-		edfShip = add(new EDFShip(this));
-		edfShip.equipLeft(new BasicWeapon(this, edfShip, LR.LEFT));
-		edfShip.equipRight(new BasicWeapon(this, edfShip, LR.RIGHT));
-
-		add(new MoneyCaption(this));
-		add(new WeaponCaption(this));
+	@Override
+	public <T extends GameObject> T add(T go) {
+		if (go instanceof ShootingObject) {
+			return characterController.add(go);
+		}
+		return super.add(go);
 	}
 
 	public int getMoney() {
@@ -38,19 +40,36 @@ public class EDFScene extends ShootingScene {
 		return money;
 	}
 
-	public ShootingWeaponCharacter getRightWeapon() {
-		return edfShip.getRightWeapon();
+	@Override
+	public void update() {
+		if (checkPause() || checkGameover()) {
+			return;
+		}
+		super.update();
 	}
 
-	public ShootingWeaponCharacter getLeftWeapon() {
-		return edfShip.getLeftWeapon();
+	private boolean checkPause() {
+		return stageController.pausing();
+	}
+
+	private boolean checkGameover() {
+		if (characterController.earthArrive()) {
+			return false;
+		}
+
+		GameSceneManager.getInstance()
+				.gameover();
+		return true;
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (FPSManager.totalFrame() % ENEMY_SPAWN_INTERVAL == 0) {
-			add(new EDFEnemy(this, FPSManager.totalFrame(), LR.RIGHT));
+	public void inputProcess() {
+		/**
+		 * TODO ゲームオーバーテスト用。提出時削除すべし
+		 */
+		if (Key.O.isPressed()) {
+			GameSceneManager.getInstance()
+					.gameover();
 		}
 	}
 }

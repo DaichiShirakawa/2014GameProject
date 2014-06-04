@@ -14,6 +14,7 @@ import classes.scene.ShootingScene;
 import common.LR;
 
 public class EDFEnemy extends RotateShootingCharacter {
+	private static final int POWER = 1;
 	private static final int HP = 3;
 	private static final int SIZE = 20;
 	private static final Texture TEXTURE = TextTextureMaker.createText("▽");
@@ -21,7 +22,7 @@ public class EDFEnemy extends RotateShootingCharacter {
 	private static final float FALL_SPEED = 0.2f;
 
 	public EDFEnemy(ShootingScene parentScene, float bornAngle, LR lr) {
-		super(parentScene, 1, HP);
+		super(parentScene, POWER, HP);
 		setWidth(SIZE);
 		setHeight(SIZE);
 		setElevation(WIDTH / 2);
@@ -39,6 +40,6 @@ public class EDFEnemy extends RotateShootingCharacter {
 		for (int i = 0; i < 5; i++) {
 			getParentScene().shoot(new BasicEffect(getParentScene(), this));
 		}
-		((EDFScene) getParentScene()).addMoney(100);
+		((EDFScene) getParentScene()).addMoney(10);
 	}
 }

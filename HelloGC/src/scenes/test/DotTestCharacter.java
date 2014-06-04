@@ -20,7 +20,7 @@ public class DotTestCharacter extends GameCharacterObjectImpl {
 	}
 
 	@Override
-	protected void processInput() {
+	public void inputProcess() {
 		if (Key.UP.isPressed()) {
 			setScale(getScale() * 2);
 		}

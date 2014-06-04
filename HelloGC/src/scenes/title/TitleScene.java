@@ -29,7 +29,8 @@ public class TitleScene extends GameSceneImpl {
 		BackGroundColor.WHITE.set();
 		pressStartText = new TextCharacter("PRESS START!").setColor(Color.blue)
 				.setX(CENTER_X)
-				.setY(CENTER_Y);
+				.setY(CENTER_Y)
+				.setScale(0.5f);
 		add(pressStartText);
 	}
 
@@ -39,7 +40,7 @@ public class TitleScene extends GameSceneImpl {
 			pressStartText.toggleVisible();
 		}
 
-		if (!Key.ESCAPE.isPressed() && Key.anyKeyReleased()) {
+		if (!Key.ESCAPE.isPressed() && Key.anyKeyPressed()) {
 			GameSceneManager.getInstance()
 					.changeSceneIfNotNull(nextScene);
 		}

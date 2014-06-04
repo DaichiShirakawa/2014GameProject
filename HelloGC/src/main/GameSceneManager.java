@@ -2,6 +2,7 @@ package main;
 
 import scenes.edf.EDFScene;
 import scenes.flowerstorm.FlowerStormScene;
+import scenes.gameover.GameOverScene;
 import scenes.shootingtest.ShootingTestScene;
 import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
@@ -92,5 +93,14 @@ public class GameSceneManager extends GameSceneImpl {
 			}
 			return null;
 		}
+	}
+
+	public void reset() {
+		currentScene.dispose();
+		currentScene = new TitleScene();
+	}
+
+	public void gameover() {
+		currentScene = new GameOverScene(currentScene);
 	}
 }

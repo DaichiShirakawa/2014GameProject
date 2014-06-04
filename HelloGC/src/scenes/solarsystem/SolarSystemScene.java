@@ -113,7 +113,7 @@ public class SolarSystemScene extends GameSceneImpl {
 
 	@Override
 	public void update() {
-		processInput();
+		inputProcess();
 
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			GameObject go = ite.next();
@@ -130,7 +130,7 @@ public class SolarSystemScene extends GameSceneImpl {
 	}
 
 	@Override
-	protected void processInput() {
+	public void inputProcess() {
 		if (Key.UP.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale++;
 		}

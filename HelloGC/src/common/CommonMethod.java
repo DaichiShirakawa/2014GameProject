@@ -84,6 +84,7 @@ public final class CommonMethod {
 	 */
 	public static void setGlColor4f(final Color color, final float alpha) {
 		if (color == null) {
+			glColor4f(1, 1, 1, 1);
 			return;
 		}
 		glColor4f(color.getRed() / 255f, color.getGreen() / 255f,

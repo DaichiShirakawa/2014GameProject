@@ -13,11 +13,13 @@ import classes.GameObject;
  * 
  */
 public abstract class GameSceneImpl implements GameScene {
-	private Collection<GameObject> gameObjects = new LinkedList<GameObject>();
+	private Collection<GameObject> gameObjects = new LinkedList<>();
+	private Collection<GameObject> bookingObjects = new LinkedList<>();
 
 	@Override
 	public void update() {
-		processInput();
+		addBookingObjects();
+		inputProcess();
 		for (GameObject go : gameObjects) {
 			go.update();
 			if (go.canDispose()) {
@@ -27,7 +29,8 @@ public abstract class GameSceneImpl implements GameScene {
 		}
 	}
 
-	protected void processInput() {
+	@Override
+	public void inputProcess() {
 		// 必要に応じてオーバーライド
 	}
 
@@ -40,6 +43,7 @@ public abstract class GameSceneImpl implements GameScene {
 
 	@Override
 	public void dispose() {
+		addBookingObjects();
 		for (GameObject go : gameObjects) {
 			go.dispose();
 		}
@@ -52,8 +56,13 @@ public abstract class GameSceneImpl implements GameScene {
 
 	@Override
 	public <T extends GameObject> T add(T go) {
-		gameObjects.add(go);
+		bookingObjects.add(go);
 		return go;
+	}
+
+	protected void addBookingObjects() {
+		gameObjects.addAll(bookingObjects);
+		bookingObjects.clear();
 	}
 
 	@Override

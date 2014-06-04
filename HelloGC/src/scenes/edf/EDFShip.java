@@ -54,7 +54,7 @@ public class EDFShip extends RotateShootingCharacter {
 
 	@Override
 	public void update() {
-		processInput();
+		inputProcess();
 		processDash();
 	}
 
@@ -67,7 +67,7 @@ public class EDFShip extends RotateShootingCharacter {
 	}
 
 	@Override
-	protected void processInput() {
+	public void inputProcess() {
 		processLeftMove();
 		processRightMove();
 		rocessBackToEarth();

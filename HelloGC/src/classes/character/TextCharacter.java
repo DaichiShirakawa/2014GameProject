@@ -11,23 +11,26 @@ import texture.text.TextTextureMaker;
  */
 public class TextCharacter extends GameCharacterObjectImpl {
 	private FontDef fontDef = FontDef.DEFAULT;
+	private String currentText = "";
 
 	public TextCharacter() {
 		//
 	}
 
 	public TextCharacter(String text) {
-		setTexture(TextTextureMaker.createText(text));
-		resetSize();
+		updateText(text);
 	}
 
 	public TextCharacter(String text, FontDef fontDef) {
 		this.fontDef = fontDef;
-		setTexture(TextTextureMaker.createText(text, fontDef));
-		resetSize();
+		updateText(text);
 	}
 
 	public void updateText(String text) {
+		if (currentText.equals(text)) {
+			return;
+		}
+		currentText = text;
 		if (getTexture() != null) {
 			getTexture().dispose();
 		}
