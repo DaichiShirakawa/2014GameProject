@@ -26,20 +26,26 @@ import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 
 public class TextureLoader {
-	private final ColorModel glAlphaColorModel = new ComponentColorModel(
+	private static final ColorModel GL_ALPHA_COLOR_MODEL = new ComponentColorModel(
 			ColorSpace.getInstance(ColorSpace.CS_sRGB),
 			new int[] { 8, 8, 8, 8 }, true, false,
 			ComponentColorModel.TRANSLUCENT, DataBuffer.TYPE_BYTE);
-	private final ColorModel glColorModel = new ComponentColorModel(
+	private static final ColorModel GL_COLOR_MODEL = new ComponentColorModel(
 			ColorSpace.getInstance(ColorSpace.CS_sRGB),
 			new int[] { 8, 8, 8, 0 }, false, false, ComponentColorModel.OPAQUE,
 			DataBuffer.TYPE_BYTE);
-	private final IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
+
+	// private final IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
+
+	private TextureLoader() {
+		// 隠蔽
+	}
 
 	/**
 	 * テクスチャーIDを生成する
 	 */
-	private int createTextureID() {
+	private static int createTextureID() {
+		IntBuffer textureIDBuffer = BufferUtils.createIntBuffer(1);
 		glGenTextures(textureIDBuffer);
 
 		return textureIDBuffer.get(0);
@@ -48,7 +54,7 @@ public class TextureLoader {
 	/**
 	 * 指定されたパスの画像ファイルをテクスチャーに変換して返す
 	 */
-	public final Texture loadTexture(final String imagePath) {
+	public static Texture loadTexture(final String imagePath) {
 		AlphaBlend.AlphaBlend.config();
 		try {
 			return loadTexture(ImageIO.read(new FileInputStream(imagePath)));
@@ -65,7 +71,7 @@ public class TextureLoader {
 	/**
 	 * 指定されたパスの画像ファイルを、指定された ClassLoader で探して、テクスチャーに変換して返す
 	 */
-	public final Texture loadTexture(final String imagePath,
+	public static Texture loadTexture(final String imagePath,
 			final ClassLoader classLoader) throws IOException {
 		return loadTexture(ImageIO.read(classLoader.getResourceAsStream(imagePath)));
 	}
@@ -75,7 +81,7 @@ public class TextureLoader {
 	 * 
 	 * @return
 	 */
-	public final Texture getScreenShot() {
+	public static Texture getScreenShot() {
 		glReadBuffer(GL_FRONT);
 		int width = WINDOW_WIDTH;
 		int height = WINDOW_HEIGHT;
@@ -85,7 +91,7 @@ public class TextureLoader {
 		return loadTexture(buffer, width, height);
 	}
 
-	public final Texture loadTexture(final ByteBuffer buffer, int width,
+	public static Texture loadTexture(final ByteBuffer buffer, int width,
 			int height) {
 		try {
 			return loadTexture(writePixels(buffer, width, height));
@@ -99,14 +105,14 @@ public class TextureLoader {
 	/**
 	 * BufferedImage をテクスチャーに変換して返す
 	 */
-	public final Texture loadTexture(final BufferedImage image)
+	public static Texture loadTexture(final BufferedImage image)
 			throws IOException {
 		return loadTexture(image, GL_TEXTURE_2D, GL_RGBA, GL_LINEAR, GL_LINEAR);
 	}
 
-	private Texture loadTexture(final BufferedImage image, final int target,
-			final int dstPixelFormat, final int minFilter, final int magFilter)
-			throws IOException {
+	private static Texture loadTexture(final BufferedImage image,
+			final int target, final int dstPixelFormat, final int minFilter,
+			final int magFilter) throws IOException {
 		// テクスチャー ID を生成する
 		int textureID = createTextureID();
 		Texture texture = new Texture(target, textureID);
@@ -161,8 +167,8 @@ public class TextureLoader {
 	/**
 	 * テクスチャーの元データとなるバイト配列をつくり、BufferedImage　を描画して返す
 	 */
-	private ByteBuffer convertImageData(final BufferedImage bufferedImage,
-			final Texture texture) {
+	private static ByteBuffer convertImageData(
+			final BufferedImage bufferedImage, final Texture texture) {
 		ByteBuffer imageBuffer;
 		WritableRaster raster;
 		BufferedImage texImage;
@@ -192,12 +198,12 @@ public class TextureLoader {
 				.hasAlpha()) {
 			raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
 					texWidth, texHeight, 4, null);
-			texImage = new BufferedImage(glAlphaColorModel, raster, false,
+			texImage = new BufferedImage(GL_ALPHA_COLOR_MODEL, raster, false,
 					new Hashtable<Object, Object>());
 		} else {
 			raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
 					texWidth, texHeight, 3, null);
-			texImage = new BufferedImage(glColorModel, raster, false,
+			texImage = new BufferedImage(GL_COLOR_MODEL, raster, false,
 					new Hashtable<Object, Object>());
 		}
 
@@ -231,10 +237,11 @@ public class TextureLoader {
 	/**
 	 * テクスチャーに使われるデータ形式と同じデータ形式で、指定のサイズの BufferedImage を生成して返す
 	 */
-	public final BufferedImage createImageData(final int width, final int height) {
+	public static BufferedImage createImageData(final int width,
+			final int height) {
 		WritableRaster raster = Raster.createInterleavedRaster(
 				DataBuffer.TYPE_BYTE, width, height, 4, null);
-		BufferedImage bufferedImage = new BufferedImage(glAlphaColorModel,
+		BufferedImage bufferedImage = new BufferedImage(GL_ALPHA_COLOR_MODEL,
 				raster, true, new Hashtable<>());
 
 		return bufferedImage;
@@ -243,7 +250,8 @@ public class TextureLoader {
 	/**
 	 * ByteBufferからBufferedImageへ変換
 	 */
-	private BufferedImage writePixels(ByteBuffer pixels, int width, int height) {
+	private static BufferedImage writePixels(ByteBuffer pixels, int width,
+			int height) {
 		int[] packedPixels = new int[width * height * 3];
 
 		int bufferInd = 0;

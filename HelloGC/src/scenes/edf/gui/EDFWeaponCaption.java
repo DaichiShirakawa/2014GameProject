@@ -48,7 +48,7 @@ public class EDFWeaponCaption extends GameCharacterObjectImpl {
 	}
 
 	@Override
-	public boolean canDispose() {
+	public boolean canDestroy() {
 		return false;
 	}
 

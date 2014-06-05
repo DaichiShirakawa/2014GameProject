@@ -31,7 +31,7 @@ public class FlowerCharacter extends GameCharacterObjectImpl {
 	public void update(float wind) {
 		setX(getX() + (wind * getScale()));
 		if (getPixcelY() > HEIGHT + getHeight() / 2) {
-			setDispose();
+			setDestroy();
 		}
 		super.update();
 	}

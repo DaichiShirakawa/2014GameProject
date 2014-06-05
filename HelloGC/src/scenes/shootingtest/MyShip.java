@@ -17,7 +17,7 @@ public class MyShip extends ShootingCharacter {
 	public MyShip(ShootingScene scene) {
 		super(scene, 0);
 		setTeam(TEAM.FRIEND_TEAM);
-		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "tokiIcon.png"));
 		setWidth(size);
 		setHeight(size);

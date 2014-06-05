@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Iterator;
+
 /**
  * ループで扱うオブジェクトの基底インターフェース
  * 
@@ -11,10 +13,22 @@ public interface GameObject {
 	void update();
 
 	void render();
+	
+	boolean isVisible();
 
-	void dispose();
+	void destroy();
 
-	boolean canDispose();
+	boolean isDestroyed();
 
-	void inputProcess();
+	boolean canDestroy();
+
+	<T extends GameObject> T add(T go);
+
+	Iterator<GameObject> getIterator();
+	
+	GameObject show();
+	
+	GameObject hide();
+	
+	GameObject toggleVisible();
 }

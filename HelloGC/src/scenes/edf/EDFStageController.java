@@ -6,10 +6,10 @@ import io.Key;
 import java.awt.Color;
 
 import classes.character.TextCharacter;
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 import classes.scene.ShootingScene;
 
-public class EDFStageController extends GameSceneImpl {
+public class EDFStageController extends GameScene {
 	private TextCharacter startCaption;
 	private TextCharacter endCaption;
 	private StageState stageState = StageState.READY;
@@ -41,6 +41,9 @@ public class EDFStageController extends GameSceneImpl {
 		case PLAYING:
 			startCaption.hide();
 			endCaption.hide();
+			if (currentStage.isClear()) {
+				stageState = StageState.CLEAR;
+			}
 			break;
 		case CLEAR:
 			startCaption.hide();
@@ -57,27 +60,24 @@ public class EDFStageController extends GameSceneImpl {
 				stageState = StageState.PLAYING;
 			}
 			break;
-		case PLAYING:
-			if(currentStage.isClear()) {
-				stageState = StageState.CLEAR;
-			}
-			break;
 		case CLEAR:
-			if(Key.SPACE.isPressed()) {
+			if (Key.SPACE.isPressed()) {
 				nextStage();
 				stageState = StageState.READY;
 			}
+			break;
+		default:
 			break;
 		}
 	}
 
 	private void nextStage() {
 		// TODO 自動生成されたメソッド・スタブ
-		
+
 	}
 
 	public boolean pausing() {
-		return (stageState != StageState.PLAYING); 
+		return (stageState != StageState.PLAYING);
 	}
 
 	private enum StageState {

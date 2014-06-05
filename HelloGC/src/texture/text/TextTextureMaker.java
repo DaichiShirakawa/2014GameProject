@@ -56,7 +56,7 @@ public class TextTextureMaker {
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			image = new TextureLoader().createImageData((int) width,
+			image = TextureLoader.createImageData((int) width,
 					(int) height);
 
 			g = image.createGraphics();
@@ -67,7 +67,7 @@ public class TextTextureMaker {
 
 			g.drawString(str, 0, (int) height - 4);
 
-			return new TextureLoader().loadTexture(image);
+			return TextureLoader.loadTexture(image);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -89,7 +89,7 @@ public class TextTextureMaker {
 		Font font = FontCollector.getFont(FontDef.MSGOTHIC_32);
 
 		try {
-			image = new TextureLoader().createImageData(width, height);
+			image = TextureLoader.createImageData(width, height);
 
 			// 透明色で塗りつぶし、BufferedImage を初期化する
 			g = image.createGraphics();
@@ -104,7 +104,7 @@ public class TextTextureMaker {
 
 			g.drawString(str, 0, height - 3);
 
-			return new TextureLoader().loadTexture(image);
+			return TextureLoader.loadTexture(image);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

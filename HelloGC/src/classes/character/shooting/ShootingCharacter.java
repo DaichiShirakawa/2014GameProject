@@ -22,7 +22,7 @@ public abstract class ShootingCharacter extends ShootingObjectImpl {
 	}
 
 	protected void dead() {
-		setDispose();
+		setDestroy();
 	}
 
 }

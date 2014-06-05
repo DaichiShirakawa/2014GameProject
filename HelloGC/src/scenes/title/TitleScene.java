@@ -9,7 +9,7 @@ import main.FPSManager;
 import main.GameSceneManager;
 import main.GameSceneManager.SceneCollection;
 import classes.character.TextCharacter;
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 
 import common.CommonMethod.BackGroundColor;
 
@@ -21,7 +21,7 @@ import common.CommonMethod.BackGroundColor;
  * @author shirakawa
  * 
  */
-public class TitleScene extends GameSceneImpl {
+public class TitleScene extends GameScene {
 	private static final SceneCollection nextScene = SceneCollection.EDF;
 	private TextCharacter pressStartText;
 
@@ -36,13 +36,19 @@ public class TitleScene extends GameSceneImpl {
 
 	@Override
 	public void update() {
-		if (FPSManager.totalFrame() % 45 == 0) {
-			pressStartText.toggleVisible();
-		}
+		super.update();
+		 if (FPSManager.totalFrame() % 45 == 0) {
+		 pressStartText.toggleVisible();
+		 }
 
 		if (!Key.ESCAPE.isPressed() && Key.anyKeyPressed()) {
 			GameSceneManager.getInstance()
 					.changeSceneIfNotNull(nextScene);
 		}
+	}
+	
+	@Override
+	public void render() {
+		super.render();
 	}
 }

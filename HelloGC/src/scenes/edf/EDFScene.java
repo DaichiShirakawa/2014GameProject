@@ -42,7 +42,9 @@ public class EDFScene extends ShootingScene {
 
 	@Override
 	public void update() {
+		addBookingObjects();
 		if (checkPause() || checkGameover()) {
+			stageController.update();
 			return;
 		}
 		super.update();

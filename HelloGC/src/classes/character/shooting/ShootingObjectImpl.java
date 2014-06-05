@@ -93,6 +93,7 @@ public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
 
 	@Override
 	public void dispose() {
+		isDisposed()
 		// テクスチャは破棄しない
 	}
 

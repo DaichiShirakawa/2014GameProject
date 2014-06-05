@@ -1,17 +1,16 @@
 package classes.scene;
 
-import java.util.Iterator;
-
-import classes.GameObject;
+import classes.GameObjectImpl;
 
 /**
- * 各画面の挙動を定義
+ * シーン
  * 
  * @author shirakawa
  * 
  */
-public interface GameScene extends GameObject {
-	<T extends GameObject> T add(T go);
-
-	Iterator<GameObject> getIterator();
+public abstract class GameScene extends GameObjectImpl{
+	@Override
+	public final boolean canDestroy() {
+		return false;
+	}
 }

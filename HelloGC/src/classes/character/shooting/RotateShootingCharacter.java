@@ -1,7 +1,7 @@
 package classes.character.shooting;
 
 import static common.Commons.*;
-import classes.character.GameCharacterObject;
+import classes.character.GameCharacter;
 import classes.scene.ShootingScene;
 
 public abstract class RotateShootingCharacter extends ShootingCharacter {
@@ -23,7 +23,7 @@ public abstract class RotateShootingCharacter extends ShootingCharacter {
 	}
 
 	@Override
-	public GameCharacterObject setAngle(float angle) {
+	public GameCharacter setAngle(float angle) {
 		super.setAngle(angle);
 		double theta = Math.toRadians(-angle);
 		setX(CENTER_X + getElevation() * (float) Math.sin(theta));

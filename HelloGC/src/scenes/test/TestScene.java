@@ -1,9 +1,9 @@
 package scenes.test;
 
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 import common.CommonMethod.BackGroundColor;
 
-public class TestScene extends GameSceneImpl {
+public class TestScene extends GameScene {
 	public TestScene() {
 		BackGroundColor.WHITE.set();
 

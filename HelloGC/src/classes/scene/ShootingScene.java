@@ -10,7 +10,7 @@ import classes.character.shooting.ShootingObject;
 import classes.character.shooting.ShootingObjectImpl;
 import classes.character.shooting.ShootingObjectImpl.TEAM;
 
-abstract public class ShootingScene extends GameSceneImpl {
+abstract public class ShootingScene extends GameScene {
 	private List<ShootingObject> friendlieCharas = new LinkedList<>();
 	private List<ShootingObject> enemieCharas = new LinkedList<>();
 	private List<ShootingBulletCharacter> bullets = new LinkedList<>();
@@ -45,7 +45,7 @@ abstract public class ShootingScene extends GameSceneImpl {
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			GameObject go = ite.next();
 			go.update();
-			if (go.canDispose()) {
+			if (go.canDestroy()) {
 				go.dispose();
 				ite.remove();
 				friendlieCharas.remove(go);

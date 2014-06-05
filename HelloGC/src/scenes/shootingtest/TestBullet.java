@@ -14,7 +14,7 @@ public class TestBullet extends ShootingBulletCharacter {
 	private static final int BULLET_POWER = 1;
 	private static final int BULLET_RANGE = 200;
 	private static final int BULLET_SIZE = 10;
-	private static final Texture TEXTURE = new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+	private static final Texture TEXTURE = TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 			+ "flower.png");
 	private float ySpeed = 5;
 
@@ -55,7 +55,7 @@ public class TestBullet extends ShootingBulletCharacter {
 
 	@Override
 	protected void dead() {
-		disposeAfter(0.5f);
+		destroyAfter(0.5f);
 		disable();
 	}
 

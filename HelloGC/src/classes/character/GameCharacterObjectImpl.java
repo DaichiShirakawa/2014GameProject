@@ -1,28 +1,30 @@
 package classes.character;
 
-import static common.Commons.*;
 import static common.CommonMethod.*;
+import static common.Commons.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 
 import texture.Texture;
+import classes.GameObjectImpl;
 
-public abstract class GameCharacterObjectImpl implements GameCharacterObject {
-	private boolean disposed = false;
-	private boolean canDispose = false;
-	private int disposeTimer = -1;
-	private boolean enable = true;
-	private boolean visible = true;
+public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
+		GameCharacter {
+	private int destroyTimerFrame = -1;
 
 	private GameCharacterBasePoint basePoint = GameCharacterBasePoint.CENTER;
+	private GameCharacterMoveMode xMoveMode = GameCharacterMoveMode.UNLIMITED;
+	private GameCharacterMoveMode yMoveMode = GameCharacterMoveMode.UNLIMITED;
 	private float x;
 	private float vx;
 	private float y;
 	private float vy;
+
 	private int width;
 	private int height;
+
 	private float scale = 1;
 	private float vScale = 0;
 	private float angle = 0;
@@ -32,91 +34,59 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	private Color color;
 	private Texture texture;
-	private GameCharacterMoveMode xMoveMode = GameCharacterMoveMode.UNLIMITED;
-	private GameCharacterMoveMode yMoveMode = GameCharacterMoveMode.UNLIMITED;
+
+	protected GameCharacterObjectImpl() {
+		super();
+	}
 
 	@Override
-	public void update() {
-		inputProcess();
-
-		if (disposeTimer > 0) {
-			disposeTimer--;
-		}
-		if (disposeTimer == 0) {
-			setDispose();
-		}
-		if (!isEnable()) {
+	protected void updateProcess() {
+		if (isDestroyed()) {
 			return;
+		}
+		if (destroyTimerFrame == 0) {
+			destroy();
+			return;
+		}
+		if (destroyTimerFrame > 0) {
+			destroyTimerFrame--;
 		}
 
 		setScale(getScale() + getVScale());
 		setAngle(getAngle() + getVAngle());
 		setAlpha(getAlpha() + getVAlpha());
-		if (alpha > 1f) {
-			alpha = 1f;
-			vAlpha = 0f;
+		if (getAlpha() > 1) {
+			setAlpha(1);
+			setVAlpha(0);
 		}
-		if (alpha < 0f) {
-			alpha = 0f;
-			vAlpha = 0f;
+		if (getAlpha() < 0) {
+			setAlpha(0);
+			setVAlpha(0);
 		}
 		move();
 	}
 
-	@Override
-	public void inputProcess() {
-		// 必要に応じてオーバーライドする
-	}
-
-	@Override
-	public void move() {
+	private final void move() {
 		x = xMoveMode.move(WIDTH, width, x, vx);
 		if (xMoveMode == GameCharacterMoveMode.DISPOSE_WITH_FADEOUT
 				&& (x + width / 2 < 0 || x - width / 2 > WIDTH)) {
-			setDispose();
+			destroy();
 		}
 
 		y = yMoveMode.move(HEIGHT, height, y, vy);
 		if (yMoveMode == GameCharacterMoveMode.DISPOSE_WITH_FADEOUT
 				&& (y + height / 2 < 0 || y - height / 2 > HEIGHT)) {
-			setDispose();
+			destroy();
 		}
 	}
 
 	@Override
-	public void render() {
-		if (!isEnable()) {
-			return;
-		}
-		draw();
-	}
-
-	@Override
-	public void dispose() {
-		disposed = true;
-		if (getTexture() != null) {
-			getTexture().dispose();
-			setTexture(null);
-		}
-	}
-	
-	@Override
-	public boolean isDisposed() {
-		return disposed;
-	}
-
-	@Override
-	public boolean canDispose() {
-		return canDispose;
-	}
-
-	@Override
-	public void draw() {
+	protected void renderProcess() {
 		if (!isVisible()) {
 			return;
 		}
-		int x = getBasePoint().getX(getPixcelX(), getWidth());
-		int y = getBasePoint().getY(getPixcelY(), getHeight());
+		float x = getBasePoint().getX(getX(), getWidth());
+		float y = getBasePoint().getY(getY(), getHeight());
 
 		glLoadIdentity();
 		glTranslatef(x, y, 0);
@@ -129,12 +99,32 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
+	protected final void destroyProcess() {
+		if (!canDisposeTexture()) {
+			return;
+		}
+		if (getTexture() != null) {
+			getTexture().dispose();
+			setTexture(null);
+		}
+	}
+
+	// オブジェクトとテクスチャが１：１の場合など、
+	// trueを返すことでテクスチャも破棄する
+	protected abstract boolean canDisposeTexture();
+
+	@Override
+	public boolean canDestroy() {
+		return true;
+	}
+
+	@Override
 	public Texture getTexture() {
 		return texture;
 	}
 
 	@Override
-	public GameCharacterObject setTexture(Texture texture) {
+	public GameCharacter setTexture(Texture texture) {
 		this.texture = texture;
 		return this;
 	}
@@ -145,7 +135,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setBasePont(GameCharacterBasePoint basePoint) {
+	public GameCharacter setBasePont(GameCharacterBasePoint basePoint) {
 		this.basePoint = basePoint;
 		return this;
 	}
@@ -156,12 +146,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public int getPixcelX() {
-		return (int) x;
-	}
-
-	@Override
-	public GameCharacterObject setX(float x) {
+	public GameCharacter setX(float x) {
 		this.x = x;
 		return this;
 	}
@@ -172,12 +157,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public int getPixcelY() {
-		return (int) y;
-	}
-
-	@Override
-	public GameCharacterObject setY(float y) {
+	public GameCharacter setY(float y) {
 		this.y = y;
 		return this;
 	}
@@ -188,7 +168,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setVx(float vx) {
+	public GameCharacter setVx(float vx) {
 		this.vx = vx;
 		return this;
 	}
@@ -199,7 +179,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setVy(float vy) {
+	public GameCharacter setVy(float vy) {
 		this.vy = vy;
 		return this;
 	}
@@ -210,7 +190,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setWidth(int width) {
+	public GameCharacter setWidth(int width) {
 		assert (width % 2 == 0) : "widthは偶数でなくてはならない";
 		this.width = width;
 		return this;
@@ -222,7 +202,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setHeight(int height) {
+	public GameCharacter setHeight(int height) {
 		assert (height % 2 == 0) : "heightは偶数でなくてはならない";
 		this.height = height;
 		return this;
@@ -234,7 +214,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setScale(float scale) {
+	public GameCharacter setScale(float scale) {
 		this.scale = scale;
 		return this;
 	}
@@ -245,7 +225,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setAngle(float angle) {
+	public GameCharacter setAngle(float angle) {
 		this.angle = angle;
 		return this;
 	}
@@ -256,7 +236,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setAlpha(float alpha) {
+	public GameCharacter setAlpha(float alpha) {
 		this.alpha = alpha;
 		return this;
 	}
@@ -267,7 +247,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setVScale(float vScale) {
+	public GameCharacter setVScale(float vScale) {
 		this.vScale = vScale;
 		return this;
 	}
@@ -278,7 +258,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setVAngle(float vAngle) {
+	public GameCharacter setVAngle(float vAngle) {
 		this.vAngle = vAngle;
 		return this;
 	}
@@ -289,7 +269,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setVAlpha(float vAlpha) {
+	public GameCharacter setVAlpha(float vAlpha) {
 		if (vAlpha > 1f) {
 			vAlpha = 1f;
 		}
@@ -301,78 +281,29 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setMoveModeX(GameCharacterMoveMode moveMode) {
+	public GameCharacter setMoveModeX(GameCharacterMoveMode moveMode) {
 		this.xMoveMode = moveMode;
 		return this;
 	}
 
 	@Override
-	public GameCharacterObject setMoveModeY(GameCharacterMoveMode moveMode) {
+	public GameCharacter setMoveModeY(GameCharacterMoveMode moveMode) {
 		this.yMoveMode = moveMode;
 		return this;
-	}
-
-	@Override
-	public void setDispose() {
-		canDispose = true;
-		disable();
 	}
 
 	/**
 	 * seconds秒経過後に破棄するタイマーをセットする。
 	 */
 	@Override
-	public void disposeAfter(float seconds) {
+	public void destroyAfter(float seconds) {
 		// 現状のロジックでは1/FPS秒程度の誤差がある。
-		disposeTimer = (int) (FPS * seconds);
+		destroyTimerFrame = (int) (FPS * seconds);
 	}
 
 	@Override
-	public int getDisposeTimer() {
-		return disposeTimer;
-	}
-
-	@Override
-	public GameCharacterObject show() {
-		visible = true;
-		return this;
-	}
-
-	@Override
-	public GameCharacterObject hide() {
-		visible = false;
-		return this;
-	}
-
-	@Override
-	public GameCharacterObject toggleVisible() {
-		visible = !visible;
-		return this;
-	}
-
-	@Override
-	public boolean isVisible() {
-		return visible;
-	}
-
-	@Override
-	public void enable() {
-		enable = true;
-	}
-
-	@Override
-	public void disable() {
-		enable = false;
-		hide();
-		setVx(0);
-		setVy(0);
-		setVAlpha(0);
-		setVScale(0);
-	}
-
-	@Override
-	public boolean isEnable() {
-		return enable;
+	public int getDestroyTimerFrame() {
+		return destroyTimerFrame;
 	}
 
 	@Override
@@ -381,28 +312,32 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 	}
 
 	@Override
-	public GameCharacterObject setColor(Color color) {
+	public GameCharacter setColor(Color color) {
 		this.color = color;
 		return this;
 	}
 
 	@Override
-	public boolean checkHit(GameCharacterObject target) {
-		if (!isEnable()) {
+	public boolean checkHit(GameCharacter target) {
+		if (isDestroyed() || target.isDestroyed()) {
 			return false;
 		}
-		Point selfP1 = new Point(getPixcelX() - getWidth() / 2, getPixcelY()
+		Point2D selfP1 = new Point2D.Float(getX() - getWidth() / 2, getY()
 				+ getHeight() / 2);
-		Point selfP2 = new Point(selfP1.x + getWidth(), selfP1.y);
-		Point selfP3 = new Point(selfP1.x, selfP1.y - getHeight());
+		Point2D selfP2 = new Point2D.Float((float) selfP1.getX() + getWidth(),
+				(float) selfP1.getY());
+		Point2D selfP3 = new Point2D.Float((float) selfP1.getX(),
+				(float) selfP1.getY() - getHeight());
 
-		Point targP1 = new Point(target.getPixcelX() - target.getWidth() / 2,
-				target.getPixcelY() + target.getHeight() / 2);
-		Point targP2 = new Point(targP1.x + target.getWidth(), targP1.y);
-		Point targP3 = new Point(targP1.x, targP1.y - target.getHeight());
+		Point2D targP1 = new Point2D.Float(target.getX() - target.getWidth()
+				/ 2, target.getY() + target.getHeight() / 2);
+		Point2D targP2 = new Point2D.Float((float) targP1.getX()
+				+ target.getWidth(), (float)targP1.getY());
+		Point2D targP3 = new Point2D.Float((float)targP1.getX(), (float)targP1.getY()
+				- target.getHeight());
 
-		if (selfP2.x >= targP1.x && selfP1.x <= targP2.x) {
-			if (selfP3.y <= targP1.y && selfP1.y >= targP3.y) {
+		if (selfP2.getX() >= targP1.getX() && selfP1.getX() <= targP2.getX()) {
+			if (selfP3.getY() <= targP1.getY() && selfP1.getY() >= targP3.getY()) {
 				return true;
 			}
 		}

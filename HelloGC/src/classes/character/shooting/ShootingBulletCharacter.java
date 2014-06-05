@@ -40,7 +40,7 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 		super.update();
 		remainRange -= sqrt(pow(getVX(), 2) + pow(getVY(), 2));
 		if (remainRange <= 0) {
-			setDispose();
+			setDestroy();
 		}
 	}
 
@@ -76,6 +76,6 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 	}
 
 	protected void dead() {
-		setDispose();
+		setDestroy();
 	}
 }

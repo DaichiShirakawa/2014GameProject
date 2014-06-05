@@ -10,7 +10,7 @@ import texture.TextureLoader;
 
 public class DotTestCharacter extends GameCharacterObjectImpl {
 	public DotTestCharacter() {
-		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "dotTokiIcon.png"));
 		setX(CENTER_X);
 		setY(CENTER_Y);

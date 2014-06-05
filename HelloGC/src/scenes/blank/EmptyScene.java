@@ -1,6 +1,6 @@
 package scenes.blank;
 
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 
 /**
  * テスト用からっぽシーン
@@ -8,6 +8,6 @@ import classes.scene.GameSceneImpl;
  * @author shirakawa
  *
  */
-public class EmptyScene extends GameSceneImpl {
+public class EmptyScene extends GameScene {
 
 }

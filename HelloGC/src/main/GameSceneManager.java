@@ -8,7 +8,7 @@ import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
 import scenes.title.TitleScene;
 import classes.scene.GameScene;
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 import io.Key;
 
 /**
@@ -17,7 +17,7 @@ import io.Key;
  * @author shirakawa
  * 
  */
-public class GameSceneManager extends GameSceneImpl {
+public class GameSceneManager extends GameScene {
 	private static GameSceneManager instance;
 
 	private GameScene currentScene;

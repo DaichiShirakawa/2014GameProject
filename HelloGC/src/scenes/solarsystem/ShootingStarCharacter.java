@@ -14,7 +14,7 @@ public class ShootingStarCharacter extends GameCharacterObjectImpl {
 			+ "dotTokiIcon.png";
 
 	public ShootingStarCharacter() {
-		setTexture(new TextureLoader().loadTexture(IMAGE_PATH));
+		setTexture(TextureLoader.loadTexture(IMAGE_PATH));
 		setX(WIDTH);
 		setY(HEIGHT);
 		setVx(-3);

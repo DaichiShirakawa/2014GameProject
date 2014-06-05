@@ -20,7 +20,7 @@ public class TestEnemyShip extends ShootingCharacter {
 	public TestEnemyShip(ShootingScene scene) {
 		super(scene, 1);
 		setTeam(TEAM.ENEMY_TEAM);
-		setTexture(new TextureLoader().loadTexture(IMAGE_FOLDER_STRING
+		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "DotTokiIcon.png"));
 		setWidth(size);
 		setHeight(size);

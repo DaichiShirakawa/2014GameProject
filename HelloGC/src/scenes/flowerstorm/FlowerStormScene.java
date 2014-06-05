@@ -7,13 +7,13 @@ import io.Key;
 import java.util.Iterator;
 
 import classes.GameObject;
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 import main.FPSManager;
 import texture.Texture;
 import texture.TextureLoader;
 import common.CommonMethod.BackGroundColor;
 
-public class FlowerStormScene extends GameSceneImpl {
+public class FlowerStormScene extends GameScene {
 
 	private static final String IMAGE_PATH = IMAGE_FOLDER_STRING
 			+ "dotTokiIcon.png";
@@ -30,7 +30,7 @@ public class FlowerStormScene extends GameSceneImpl {
 
 	public FlowerStormScene() {
 		BackGroundColor.WHITE.set();
-		flowerTexture = new TextureLoader().loadTexture(IMAGE_PATH);
+		flowerTexture = TextureLoader.loadTexture(IMAGE_PATH);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class FlowerStormScene extends GameSceneImpl {
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			FlowerCharacter flower = (FlowerCharacter) ite.next();
 			flower.update(wind);
-			if (flower.canDispose()) {
+			if (flower.canDestroy()) {
 				ite.remove();
 			}
 		}

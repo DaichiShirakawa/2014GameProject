@@ -43,7 +43,7 @@ public class EDFShip extends RotateShootingCharacter {
 
 	public EDFShip(ShootingScene scene) {
 		super(scene, 0);
-		setTexture(new TextureLoader().loadTexture(TEXTURE_PATH));
+		setTexture(TextureLoader.loadTexture(TEXTURE_PATH));
 		setColor(new Color(0f, 0.8f, 1f));
 		setY(ELEVATION);
 		setWidth(SIZE);

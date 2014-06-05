@@ -9,9 +9,9 @@ import main.GameSceneManager;
 import classes.character.ScreenShotCharacter;
 import classes.character.TextCharacter;
 import classes.scene.GameScene;
-import classes.scene.GameSceneImpl;
+import classes.scene.GameScene;
 
-public class GameOverScene extends GameSceneImpl {
+public class GameOverScene extends GameScene {
 
 	public GameOverScene(GameScene gameoverScene) {
 		add(new ScreenShotCharacter());

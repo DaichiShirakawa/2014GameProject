@@ -6,7 +6,7 @@ import texture.TextureLoader;
 public class ScreenShotCharacter extends SimpleCharacter {
 
 	public ScreenShotCharacter() {
-		setTexture(new TextureLoader().getScreenShot());
+		setTexture(TextureLoader.getScreenShot());
 		setWidth(WIDTH);
 		setHeight(HEIGHT);
 		setX(CENTER_X);
