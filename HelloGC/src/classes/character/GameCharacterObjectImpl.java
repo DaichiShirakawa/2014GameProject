@@ -10,9 +10,10 @@ import java.awt.Point;
 import texture.Texture;
 
 public abstract class GameCharacterObjectImpl implements GameCharacterObject {
-	private boolean disposeFlag = false;
+	private boolean disposed = false;
+	private boolean canDispose = false;
 	private int disposeTimer = -1;
-	private boolean enableFlag = true;
+	private boolean enable = true;
 	private boolean visible = true;
 
 	private GameCharacterBasePoint basePoint = GameCharacterBasePoint.CENTER;
@@ -92,15 +93,21 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	@Override
 	public void dispose() {
+		disposed = true;
 		if (getTexture() != null) {
 			getTexture().dispose();
 			setTexture(null);
 		}
 	}
+	
+	@Override
+	public boolean isDisposed() {
+		return disposed;
+	}
 
 	@Override
 	public boolean canDispose() {
-		return disposeFlag;
+		return canDispose;
 	}
 
 	@Override
@@ -307,7 +314,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	@Override
 	public void setDispose() {
-		disposeFlag = true;
+		canDispose = true;
 		disable();
 	}
 
@@ -350,12 +357,12 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	@Override
 	public void enable() {
-		enableFlag = true;
+		enable = true;
 	}
 
 	@Override
 	public void disable() {
-		enableFlag = false;
+		enable = false;
 		hide();
 		setVx(0);
 		setVy(0);
@@ -365,7 +372,7 @@ public abstract class GameCharacterObjectImpl implements GameCharacterObject {
 
 	@Override
 	public boolean isEnable() {
-		return enableFlag;
+		return enable;
 	}
 
 	@Override

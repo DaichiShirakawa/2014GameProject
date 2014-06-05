@@ -15,20 +15,16 @@ import common.LR;
  */
 public class SpawnData {
 	private Class<? extends EDFEnemy> enemyClass;
-	private long frame;
+	private long spawnFrame;
 	private float angle;
 	private LR rotateLR;
 
-	public SpawnData(Class<? extends EDFEnemy> enemyClass, long frame,
+	public SpawnData(Class<? extends EDFEnemy> enemyClass, long spawnFrame,
 			float angle, LR rotateLR) {
 		this.enemyClass = enemyClass;
-		this.frame = frame;
+		this.spawnFrame = spawnFrame;
 		this.angle = angle;
 		this.rotateLR = rotateLR;
-	}
-
-	public long getFrame() {
-		return frame;
 	}
 
 	public EDFEnemy spawnTo(ShootingScene parentScene) {
@@ -43,5 +39,9 @@ public class SpawnData {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean canSpawn(long frame) {
+		return this.spawnFrame == frame;
 	}
 }

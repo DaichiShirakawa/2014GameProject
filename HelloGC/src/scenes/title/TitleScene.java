@@ -5,12 +5,12 @@ import io.Key;
 
 import java.awt.Color;
 
-import classes.character.GameCharacterObject;
-import classes.character.TextCharacter;
-import classes.scene.GameSceneImpl;
 import main.FPSManager;
 import main.GameSceneManager;
 import main.GameSceneManager.SceneCollection;
+import classes.character.TextCharacter;
+import classes.scene.GameSceneImpl;
+
 import common.CommonMethod.BackGroundColor;
 
 /**
@@ -23,15 +23,15 @@ import common.CommonMethod.BackGroundColor;
  */
 public class TitleScene extends GameSceneImpl {
 	private static final SceneCollection nextScene = SceneCollection.EDF;
-	private GameCharacterObject pressStartText;
+	private TextCharacter pressStartText;
 
 	public TitleScene() {
 		BackGroundColor.WHITE.set();
-		pressStartText = new TextCharacter("PRESS START!").setColor(Color.blue)
+		pressStartText = add(new TextCharacter("PRESS START!"));
+		pressStartText.setColor(Color.blue)
 				.setX(CENTER_X)
 				.setY(CENTER_Y)
 				.setScale(0.5f);
-		add(pressStartText);
 	}
 
 	@Override

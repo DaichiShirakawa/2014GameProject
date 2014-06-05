@@ -87,6 +87,8 @@ public interface GameCharacterObject extends GameObject {
 	 * seconds秒経過後に破棄するタイマーをセットする。
 	 */
 	void disposeAfter(float seconds);
+	
+	boolean isDisposed();
 
 	int getDisposeTimer();
 
