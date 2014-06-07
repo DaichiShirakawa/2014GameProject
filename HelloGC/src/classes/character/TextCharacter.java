@@ -12,9 +12,8 @@ import texture.text.TextTextureMaker;
 public class TextCharacter extends GameCharacterObjectImpl {
 	private FontDef fontDef = FontDef.DEFAULT;
 	private String currentText = "";
-
+	
 	public TextCharacter() {
-		//
 	}
 
 	public TextCharacter(String text) {
@@ -41,6 +40,11 @@ public class TextCharacter extends GameCharacterObjectImpl {
 	public void resetSize() {
 		setWidth(getTexture().getWidth());
 		setHeight(getTexture().getHeight());
+	}
+
+	@Override
+	protected boolean canDisposeTexture() {
+		return true;
 	}
 
 }

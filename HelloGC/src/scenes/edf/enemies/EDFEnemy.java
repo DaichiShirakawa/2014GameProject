@@ -35,11 +35,12 @@ public class EDFEnemy extends RotateShootingCharacter {
 	}
 
 	@Override
-	protected void dead() {
-		super.dead();
+	protected void destroyProcess() {
+		super.destroyProcess();
 		for (int i = 0; i < 5; i++) {
-			getParentScene().shoot(new BasicEffect(getParentScene(), this));
+			getParentScene().add(new BasicEffect(getParentScene(), this));
 		}
 		((EDFScene) getParentScene()).addMoney(10);
+
 	}
 }

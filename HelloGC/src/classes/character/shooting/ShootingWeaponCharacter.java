@@ -20,9 +20,8 @@ public abstract class ShootingWeaponCharacter extends ShootingObjectImpl {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		setAngle(owner.getAngle());
-		super.update();
 
 		double theta = Math.toRadians(getAngle());
 
@@ -35,6 +34,7 @@ public abstract class ShootingWeaponCharacter extends ShootingObjectImpl {
 				+ (getDistanceFromOwner() * equipLR.signum() * (float) Math.sin(theta)));
 
 		remainShootDelayFrame--;
+		return super.updateProcess();
 	}
 
 	public void shoot() {
@@ -43,7 +43,7 @@ public abstract class ShootingWeaponCharacter extends ShootingObjectImpl {
 		}
 		remainBullet--;
 		remainShootDelayFrame = getShootDelayFrame();
-		getParentScene().shoot(new BasicBullet(getParentScene(), this));
+		getParentScene().add(new BasicBullet(getParentScene(), this));
 	}
 
 	abstract protected float getDistanceFromOwner();

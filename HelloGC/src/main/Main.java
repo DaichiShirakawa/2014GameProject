@@ -29,7 +29,7 @@ public final class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			sceneMaster.dispose();
+			sceneMaster.destroy();
 			Display.destroy();
 			System.exit(0);
 		}

@@ -10,4 +10,9 @@ public class TestScene extends GameScene {
 		add(new DotTestCharacter());
 		add(new TextTestCharacter());
 	}
+
+	@Override
+	protected boolean updateProcess() {
+		return true;
+	}
 }

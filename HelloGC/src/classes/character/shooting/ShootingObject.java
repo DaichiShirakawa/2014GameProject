@@ -10,7 +10,7 @@ public interface ShootingObject extends GameCharacter {
 
 	void setTeam(TEAM team);
 	
-	boolean isEnemyForces(ShootingObject target);
+	boolean isEnemyForces(GameCharacter target);
 
 	ShootingScene getParentScene();
 
@@ -24,7 +24,5 @@ public interface ShootingObject extends GameCharacter {
 
 	void shoot(ShootingBulletCharacter bullet);
 
-	boolean checkHitAndAction(ShootingObject target);
-	
 	void hitEffectTo(ShootingObject target);
 }

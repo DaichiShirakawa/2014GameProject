@@ -53,9 +53,9 @@ public class EDFShip extends RotateShootingCharacter {
 	}
 
 	@Override
-	public void update() {
-		inputProcess();
+	protected boolean updateProcess() {
 		processDash();
+		return super.updateProcess();
 	}
 
 	private void processDash() {
@@ -121,14 +121,14 @@ public class EDFShip extends RotateShootingCharacter {
 
 	public void equipLeft(BasicWeapon weapon) {
 		if (leftWeapon != null) {
-			leftWeapon.dispose();
+			leftWeapon.destroy();
 		}
 		leftWeapon = getParentScene().add(weapon);
 	}
 
 	public void equipRight(BasicWeapon weapon) {
 		if (rightWeapon != null) {
-			rightWeapon.dispose();
+			rightWeapon.destroy();
 		}
 		rightWeapon = getParentScene().add(weapon);
 	}

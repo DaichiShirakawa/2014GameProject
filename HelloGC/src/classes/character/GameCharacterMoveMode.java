@@ -88,7 +88,7 @@ public enum GameCharacterMoveMode {
 	 * テクスチャが画面外に出た時点でキャラクターをdisposeする。
 	 * ※disposeはキャラクター実装任せ。
 	 */
-	DISPOSE_WITH_FADEOUT {
+	DESTROY_WITH_FADEOUT {
 		@Override
 		public float move(int displayBorder, int characterSize, float p,
 				float vp) {

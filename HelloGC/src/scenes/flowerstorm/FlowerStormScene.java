@@ -17,35 +17,31 @@ public class FlowerStormScene extends GameScene {
 
 	private static final String IMAGE_PATH = IMAGE_FOLDER_STRING
 			+ "dotTokiIcon.png";
+	private static Texture flowerTexture = TextureLoader.loadTexture(IMAGE_PATH);
 
 	private static final int MIN_FLOWERS_PER_SECOND = 1;
 	private static final int MAX_FLOWERS_PER_SECOND = 60;
 
 	private static int flowerBornPerSecond = 20;
 
-	private Texture flowerTexture;
 	private float wind = 0f;
 	private float maxWind = 0f;
 	private static final float V_WIND = 2;
 
 	public FlowerStormScene() {
 		BackGroundColor.WHITE.set();
-		flowerTexture = TextureLoader.loadTexture(IMAGE_PATH);
 	}
 
 	@Override
-	public void update() {
-		inputProcess();
+	public boolean updateProcess() {
 		updateWind();
 		addFlowerIfNecessary();
 
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			FlowerCharacter flower = (FlowerCharacter) ite.next();
-			flower.update(wind);
-			if (flower.canDestroy()) {
-				ite.remove();
-			}
+			flower.setWind(wind);
 		}
+		return true;
 	}
 
 	private void addFlowerIfNecessary() {
@@ -78,11 +74,5 @@ public class FlowerStormScene extends GameScene {
 		if (Key.RIGHT.isPressed()) {
 			maxWind += V_WIND;
 		}
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		flowerTexture.dispose();
 	}
 }

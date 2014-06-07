@@ -27,7 +27,7 @@ public class TitleScene extends GameScene {
 
 	public TitleScene() {
 		BackGroundColor.WHITE.set();
-		pressStartText = add(new TextCharacter("PRESS START!"));
+		pressStartText = add(new TextCharacter("PRESS RETURN!"));
 		pressStartText.setColor(Color.blue)
 				.setX(CENTER_X)
 				.setY(CENTER_Y)
@@ -35,20 +35,16 @@ public class TitleScene extends GameScene {
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		 if (FPSManager.totalFrame() % 45 == 0) {
-		 pressStartText.toggleVisible();
-		 }
+	public boolean updateProcess() {
+		if (FPSManager.totalFrame() % 45 == 0) {
+			pressStartText.toggleVisible();
+		}
 
-		if (!Key.ESCAPE.isPressed() && Key.anyKeyPressed()) {
+		if (Key.RETURN.isPressed()) {
 			GameSceneManager.getInstance()
 					.changeSceneIfNotNull(nextScene);
 		}
+		return true;
 	}
-	
-	@Override
-	public void render() {
-		super.render();
-	}
+
 }

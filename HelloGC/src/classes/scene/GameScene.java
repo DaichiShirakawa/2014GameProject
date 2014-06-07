@@ -10,7 +10,7 @@ import classes.GameObjectImpl;
  */
 public abstract class GameScene extends GameObjectImpl{
 	@Override
-	public final boolean canDestroy() {
-		return false;
+	protected final void renderProcess() {
+		//シーンは何も描写しない
 	}
 }

@@ -1,5 +1,6 @@
 package main;
 
+import io.Key;
 import scenes.edf.EDFScene;
 import scenes.flowerstorm.FlowerStormScene;
 import scenes.gameover.GameOverScene;
@@ -8,8 +9,6 @@ import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
 import scenes.title.TitleScene;
 import classes.scene.GameScene;
-import classes.scene.GameScene;
-import io.Key;
 
 /**
  * 各シーンの切り替えを担当するシングルトン
@@ -24,7 +23,7 @@ public class GameSceneManager extends GameScene {
 
 	private GameSceneManager() {
 		// 隠蔽
-		currentScene = new TitleScene();
+		currentScene = add(new TitleScene());
 	}
 
 	public static GameSceneManager getInstance() {
@@ -35,26 +34,30 @@ public class GameSceneManager extends GameScene {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		changeSceneIfNotNull(SceneCollection.scanChangeScene());
-		currentScene.update();
+		return true;
 	}
 
 	public void changeSceneIfNotNull(GameScene newScene) {
 		if (newScene == null) {
 			return;
 		}
-		currentScene.dispose();
-		currentScene = newScene;
+		currentScene.destroy();
+		currentScene = add(newScene);
 	}
 
 	public void changeSceneIfNotNull(SceneCollection nextscene) {
 		changeSceneIfNotNull(nextscene.newInstance());
 	}
 
-	@Override
-	public void render() {
-		currentScene.render();
+	public void reset() {
+		changeSceneIfNotNull(new TitleScene());
+	}
+
+	public void gameover() {
+		changeSceneIfNotNull(new GameOverScene(currentScene));
+		currentScene = new GameOverScene(currentScene);
 	}
 
 	public enum SceneCollection {
@@ -74,7 +77,7 @@ public class GameSceneManager extends GameScene {
 			this.sceneClass = callClass;
 		}
 
-		private  GameScene newInstance() {
+		private GameScene newInstance() {
 			try {
 				return sceneClass.newInstance();
 			} catch (InstantiationException | IllegalAccessException e) {
@@ -93,14 +96,5 @@ public class GameSceneManager extends GameScene {
 			}
 			return null;
 		}
-	}
-
-	public void reset() {
-		currentScene.dispose();
-		currentScene = new TitleScene();
-	}
-
-	public void gameover() {
-		currentScene = new GameOverScene(currentScene);
 	}
 }

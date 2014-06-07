@@ -34,4 +34,9 @@ public class DotTestCharacter extends GameCharacterObjectImpl {
 			setAngle(getAngle() - 5f);
 		}
 	}
+
+	@Override
+	protected boolean canDisposeTexture() {
+		return true; //HACK
+	}
 }

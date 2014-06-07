@@ -36,21 +36,16 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public boolean updateProcess() {
 		remainRange -= sqrt(pow(getVX(), 2) + pow(getVY(), 2));
 		if (remainRange <= 0) {
-			setDestroy();
+			destroy();
 		}
+		return super.updateProcess();
 	}
 
 	public float getBulletRange() {
 		return 200;
-	}
-
-	@Override
-	public void dispose() {
-		return;
 	}
 
 	protected ShootingObject getShooter() {
@@ -69,13 +64,9 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 	public float damage(float damage) {
 		super.damage(damage);
 		if (zeroHP()) {
-			dead();
+			destroy();
 		}
 		return getHP();
 
-	}
-
-	protected void dead() {
-		setDestroy();
 	}
 }

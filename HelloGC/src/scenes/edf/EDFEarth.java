@@ -28,7 +28,7 @@ public class EDFEarth extends ShootingCharacter {
 		setVAngle(JITEN);
 		setColor(COLOR);
 
-		hpCaption = new TextCharacter(getHpText());
+		hpCaption = add(new TextCharacter(getHpText()));
 		hpCaption.setX(CENTER_X)
 				.setY(CENTER_Y)
 				.setScale(0.3f)
@@ -40,32 +40,19 @@ public class EDFEarth extends ShootingCharacter {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	protected boolean updateProcess() {
 		hpCaption.updateText(getHpText());
 		hpCaption.setColor(getCaptionColor(getHP()));
+		return super.updateProcess();
 	}
-
-	@Override
-	public void render() {
-		// TODO 自動生成されたメソッド・スタブ
-		super.render();
-		hpCaption.render();
-	}
-
+	
 	private String getHpText() {
 		return "♡" + (int) getHP() + " ";
 	}
-
+	
 	@Override
-	public void dispose() {
-		super.dispose();
-		hpCaption.dispose();
-	}
-
-	@Override
-	protected void dead() {
+	protected void destroyProcess() {
+		super.destroyProcess();
 		setColor(Color.red);
 	}
-
 }

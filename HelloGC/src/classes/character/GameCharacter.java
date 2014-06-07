@@ -12,10 +12,6 @@ import texture.Texture;
  * 
  */
 public interface GameCharacter extends GameObject {
-	/**
-	 * フィールドのgetter/setter
-	 */
-
 	GameCharacterBasePoint getBasePoint();
 
 	GameCharacter setBasePont(GameCharacterBasePoint basePoint);
@@ -81,13 +77,24 @@ public interface GameCharacter extends GameObject {
 	GameCharacter setColor(Color textureColor);
 
 	/**
-	 * destroy関係
+	 * seconds秒後に破棄するタイマーをセットする。
+	 * @param seconds
 	 */
-	// seconds秒経過後にdestroyするタイマーをセット
 	void destroyAfter(float seconds);
 
+	/**
+	 * 破棄タイマーがセットされていれば、
+	 * 破棄されるまでの残りフレーム数を返す。
+	 * タイマーがセットされていなければ-1を返す。
+	 * @return 破棄されるまでの残りフレーム数
+	 */
 	int getDestroyTimerFrame();
 
+	/**
+	 * targetと自分が接触しているかの判定。
+	 * デフォルトではx, yを中心点とした横width縦heightの矩形で判定する。
+	 * @return
+	 */
 	boolean checkHit(GameCharacter target);
 
 }

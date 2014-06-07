@@ -9,6 +9,7 @@ import texture.Texture;
 public class FlowerCharacter extends GameCharacterObjectImpl {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 64;
+	private float wind;
 
 	public FlowerCharacter(Texture texture) {
 		setTexture(texture);
@@ -21,18 +22,26 @@ public class FlowerCharacter extends GameCharacterObjectImpl {
 		setAlpha(0.7f);
 		setColor(generateCosmosColor());
 		setMoveModeX(GameCharacterMoveMode.LOOP);
-		setMoveModeY(GameCharacterMoveMode.UNLIMITED);
+		setMoveModeY(GameCharacterMoveMode.DESTROY_WITH_FADEOUT);
 
 		setVx(random(-0.1f, 0.4f));
 		setVy(getScale() * 2);
 		setVAngle(4f);
 	}
-
-	public void update(float wind) {
+	
+	@Override
+	protected boolean updateProcess() {
 		setX(getX() + (wind * getScale()));
-		if (getPixcelY() > HEIGHT + getHeight() / 2) {
-			setDestroy();
-		}
-		super.update();
+		return super.updateProcess();
+	}
+
+	public FlowerCharacter setWind(float wind) {
+		this.wind = wind;
+		return this;
+	}
+
+	@Override
+	protected boolean canDisposeTexture() {
+		return false;
 	}
 }

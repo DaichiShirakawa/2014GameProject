@@ -4,12 +4,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import common.LR;
 import scenes.edf.enemies.EDFEnemy;
-import classes.character.SimpleCharacter;
+import classes.GameObjectImpl;
 import classes.scene.ShootingScene;
 
-public class EDFStage extends SimpleCharacter {
+import common.LR;
+
+public class EDFStage extends GameObjectImpl {
 	private ShootingScene parentScene;
 	private long frame = 0;
 	private List<SpawnData> spawns = new LinkedList<>();
@@ -20,7 +21,7 @@ public class EDFStage extends SimpleCharacter {
 		spawns.add(new SpawnData(EDFEnemy.class, 120, 00, LR.LEFT));
 		spawns.add(new SpawnData(EDFEnemy.class, 120, 00, LR.RIGHT));
 		spawns.add(new SpawnData(EDFEnemy.class, 240, 180, LR.LEFT));
-		// spawns.add(new SpawnData(EDFEnemy.class, 240, 180, LR.RIGHT));
+		spawns.add(new SpawnData(EDFEnemy.class, 240, 180, LR.RIGHT));
 		// spawns.add(new SpawnData(EDFEnemy.class, 310, 180, LR.LEFT));
 		// spawns.add(new SpawnData(EDFEnemy.class, 320, 180, LR.RIGHT));
 		// spawns.add(new SpawnData(EDFEnemy.class, 330, 180, LR.RIGHT));
@@ -38,7 +39,7 @@ public class EDFStage extends SimpleCharacter {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		frame++;
 		for (Iterator<SpawnData> ite = spawns.iterator(); ite.hasNext();) {
 			SpawnData data = ite.next();
@@ -47,21 +48,28 @@ public class EDFStage extends SimpleCharacter {
 				ite.remove();
 			}
 		}
+		return true;
 	}
 
 	private void doSpawn(SpawnData spawnData) {
 		spawnedEnemies.add(parentScene.add(spawnData.spawnTo(parentScene)));
 	}
 
+	@Override
+	protected void renderProcess() {
+		return;
+	}
+
+
 	public boolean isClear() {
-		if(!spawns.isEmpty()) {
+		if (!spawns.isEmpty()) {
 			return false;
 		}
 		for (EDFEnemy enemy : spawnedEnemies) {
-			if(!enemy.isDisposed()) {
+			if (!enemy.isDestroyed()) {
 				return false;
 			}
 		}
-		return true; 
+		return true;
 	}
 }

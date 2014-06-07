@@ -16,10 +16,11 @@ public abstract class RotateShootingCharacter extends ShootingCharacter {
 		super(scene, power, hp);
 	}
 
+	
 	@Override
-	public void update() {
-		super.update();
+	protected boolean updateProcess() {
 		setElevation(getElevation() + getvElevation());
+		return super.updateProcess();
 	}
 
 	@Override

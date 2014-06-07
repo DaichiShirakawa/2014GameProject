@@ -26,8 +26,9 @@ public class EDFMoneyCaption extends TextCharacter {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	protected boolean updateProcess() {
 		updateText(getCaption(scene.getMoney()));
+		return super.updateProcess();
 	}
+
 }

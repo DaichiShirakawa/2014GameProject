@@ -29,7 +29,7 @@ public class MyShip extends ShootingCharacter {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		setVy(0);
 		setVx(0);
 		if (Key.UP.isPressing()) {
@@ -47,7 +47,7 @@ public class MyShip extends ShootingCharacter {
 		if (Key.SPACE.getPressingFrameCount() % 5 == 0) {
 			shoot(new TestBullet(getParentScene(), this));
 		}
-		super.update();
+		return super.updateProcess();
 	}
 
 }

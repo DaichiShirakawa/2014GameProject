@@ -19,6 +19,7 @@ public class StarCharacter extends GameCharacterObjectImpl implements GameCharac
 	private double jitenAngle = 0; //thisStarの向いている絶対方位
 	private double kotenSpeed = 0;
 	private double jitenSpeed = 0;
+	private double timeScale;
 
 	{
 		//defaults
@@ -45,22 +46,21 @@ public class StarCharacter extends GameCharacterObjectImpl implements GameCharac
 		childStar.setY(hankei);
 		return childStar;
 	}
-
+	
 	@Override
-	public void update() {
-		//
-	}
-
-	/**
-	 * 回転速度を依存するtimeScaleパラメータを追加 
-	 */
-	public void update(double timeScale) {
+	protected boolean updateProcess() {
 		jitenAngle += ((365 * FPS) / jitenSpeed) * timeScale;
 		kotenAngle += (FPS / kotenSpeed) * timeScale;
+		return super.updateProcess();
+	}
+
+	public StarCharacter setTimeScale(double timeScale) {
+		this.timeScale = timeScale;
+		return this;
 	}
 
 	@Override
-	public void render() {
+	public void renderProcess() {
 		glLoadIdentity();
 		setTranslate(this);
 		setGlColor4f(getColor(), 1f);
@@ -73,12 +73,12 @@ public class StarCharacter extends GameCharacterObjectImpl implements GameCharac
 	 */
 	private static void setTranslate(StarCharacter star) {
 		if (star.parentStar == null) {
-			glTranslatef(star.getPixcelX(), star.getPixcelY(), 0);
+			glTranslatef(star.getX(), star.getY(), 0);
 		} else {
 			//親星を起点として方角kotenAngleを向き、(X, Y)だけ進行する
 			setTranslate(star.parentStar);
 			glRotatef((float) star.kotenAngle, 0, 0, 1);
-			glTranslatef(star.getPixcelX(), star.getPixcelY(), 0);
+			glTranslatef(star.getX(), star.getY(), 0);
 			glRotatef((float) -star.kotenAngle, 0, 0, 1);
 		}
 	}
@@ -89,6 +89,11 @@ public class StarCharacter extends GameCharacterObjectImpl implements GameCharac
 
 	public double getKAngle() {
 		return kotenAngle;
+	}
+
+	@Override
+	protected boolean canDisposeTexture() {
+		return true;
 	}
 
 }

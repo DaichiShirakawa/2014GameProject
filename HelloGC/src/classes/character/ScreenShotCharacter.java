@@ -3,7 +3,7 @@ package classes.character;
 import static common.Commons.*;
 import texture.TextureLoader;
 
-public class ScreenShotCharacter extends SimpleCharacter {
+public class ScreenShotCharacter extends GameCharacterObjectImpl{
 
 	public ScreenShotCharacter() {
 		setTexture(TextureLoader.getScreenShot());
@@ -14,7 +14,7 @@ public class ScreenShotCharacter extends SimpleCharacter {
 	}
 
 	@Override
-	public void dispose() {
-		getTexture().dispose();
+	protected boolean canDisposeTexture() {
+		return true;
 	}
 }

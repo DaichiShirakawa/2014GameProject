@@ -28,7 +28,8 @@ public class SolarSystemScene extends GameScene {
 		BackGroundColor.BLACK.set();
 
 		StarCharacter parentStar;
-		StarCharacter sun = new StarCharacter(null, "太", 1f, Color.orange, 0, 27.275);
+		StarCharacter sun = new StarCharacter(null, "太", 1f, Color.orange, 0,
+				27.275);
 
 		add(sun);
 		add(sun.makeChild("水", 0.4f, 15, new Color(0.5f, 0.5f, 1f), 0.241,
@@ -112,21 +113,18 @@ public class SolarSystemScene extends GameScene {
 	}
 
 	@Override
-	public void update() {
-		inputProcess();
-
+	public boolean updateProcess() {
 		for (Iterator<GameObject> ite = getIterator(); ite.hasNext();) {
 			GameObject go = ite.next();
 			if (go instanceof StarCharacter) {
-				((StarCharacter) go).update(getTimeScale());
-			} else {
-				go.update();
+				((StarCharacter) go).setTimeScale(getTimeScale());
 			}
 		}
 
 		passageDays += ((365 * FPS) / (double) 360) * getTimeScale();
 		((TextCharacter) stateCaption).updateText(getStateString());
 
+		return true;
 	}
 
 	@Override

@@ -9,10 +9,10 @@ import classes.character.shooting.ShootingObject;
 import classes.scene.ShootingScene;
 
 public class BasicEffect extends ShootingEffectCharacter {
-	public BasicEffect(ShootingScene parentScene, ShootingObject shooter) {
-		super(parentScene, shooter);
+	public BasicEffect(ShootingScene parentScene, ShootingObject source) {
+		super(parentScene, source);
 		setScale(random(0.5f, 2f));
-		setColor(shooter.getColor());
+		setColor(source.getColor());
 
 		float tmp = RANDOM.nextInt(360);
 		setVx(3 * (float) sin(tmp) * random(0.2f, 1f));
@@ -36,10 +36,10 @@ public class BasicEffect extends ShootingEffectCharacter {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		setVx(getVX() * 0.95f);
 		setVy(getVY() * 0.95f);
-		super.update();
+		return super.updateProcess();
 	}
 
 }

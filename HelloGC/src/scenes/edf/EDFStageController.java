@@ -31,8 +31,7 @@ public class EDFStageController extends GameScene {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public boolean updateProcess() {
 		switch (stageState) {
 		case READY:
 			startCaption.show();
@@ -50,6 +49,7 @@ public class EDFStageController extends GameScene {
 			endCaption.show();
 			break;
 		}
+		return true;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class EDFStageController extends GameScene {
 
 	}
 
-	public boolean pausing() {
+	public boolean isPausing() {
 		return (stageState != StageState.PLAYING);
 	}
 
@@ -85,4 +85,5 @@ public class EDFStageController extends GameScene {
 		PLAYING,
 		CLEAR,
 	}
+
 }

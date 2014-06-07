@@ -5,23 +5,24 @@ import io.Key;
 
 import java.awt.Color;
 
+import main.FPSManager;
 import main.GameSceneManager;
 import classes.character.ScreenShotCharacter;
 import classes.character.TextCharacter;
-import classes.scene.GameScene;
 import classes.scene.GameScene;
 
 public class GameOverScene extends GameScene {
 
 	public GameOverScene(GameScene gameoverScene) {
 		add(new ScreenShotCharacter());
-		gameoverScene.dispose();
+		gameoverScene.destroy();
 
 		add(new TextCharacter("-GAME OVER-")).setX(CENTER_X)
 				.setY(CENTER_Y + 70)
 				.setColor(Color.red)
 				.setScale(0.5f);
-		add(new TextCharacter("press enter to reset")).setX(CENTER_X)
+		
+		add(new TextCharacter("press return to reset game")).setX(CENTER_X)
 		.setY(CENTER_Y + 50)
 		.setColor(Color.red)
 		.setScale(0.3f);
@@ -33,5 +34,13 @@ public class GameOverScene extends GameScene {
 			GameSceneManager.getInstance()
 					.reset();
 		}
+	}
+
+	@Override
+	protected boolean updateProcess() {
+		if(FPSManager.totalFrame() % 60 == 0) {
+			toggleVisible();
+		}
+		return true;
 	}
 }

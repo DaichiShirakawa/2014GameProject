@@ -28,17 +28,6 @@ public class TestBullet extends ShootingBulletCharacter {
 	}
 
 	@Override
-	public void update() {
-		super.update();
-		if (!isEnable()) {
-			if (getTarget() != null && getDisposeTimer() % (FPS / 4) == 0) {
-				shoot(new Effect(getParentScene(), getTarget()));
-			}
-			return;
-		}
-	}
-
-	@Override
 	public void hitEffectTo(ShootingObject target) {
 		super.hitEffectTo(target);
 		this.setTarget(target);
@@ -51,12 +40,6 @@ public class TestBullet extends ShootingBulletCharacter {
 			shoot(new BasicEffect(getParentScene(), this));
 		}
 		return super.damage(damage);
-	}
-
-	@Override
-	protected void dead() {
-		destroyAfter(0.5f);
-		disable();
 	}
 
 	@Override
@@ -85,16 +68,10 @@ public class TestBullet extends ShootingBulletCharacter {
 		}
 
 		@Override
-		public void update() {
+		public boolean updateProcess() {
 			setVx(getVX() * 0.95f);
 			setVy(getVY() * 0.95f);
-			super.update();
-		}
-
-		@Override
-		public void render() {
-			setGlColor4f(getColor(), getAlpha());
-			super.render();
+			return super.updateProcess();
 		}
 
 		@Override
@@ -111,7 +88,6 @@ public class TestBullet extends ShootingBulletCharacter {
 		protected float getLifeTime() {
 			return 0.8f * random(0.5f, 1.5f);
 		}
-
 	}
 
 }

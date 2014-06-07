@@ -19,9 +19,9 @@ public class TextTestCharacter extends TextCharacter {
 	}
 
 	@Override
-	public void update() {
+	public boolean updateProcess() {
 		updateText(getTestText());
-		super.update();
+		return super.updateProcess();
 	}
 
 	private static String getTestText() {

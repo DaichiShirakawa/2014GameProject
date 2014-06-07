@@ -21,8 +21,13 @@ public class ShootingStarCharacter extends GameCharacterObjectImpl {
 		setVy(-2);
 		setWidth(SIZE);
 		setHeight(SIZE);
-		setMoveModeX(GameCharacterMoveMode.DISPOSE_WITH_FADEOUT);
-		setMoveModeY(GameCharacterMoveMode.DISPOSE_WITH_FADEOUT);
+		setMoveModeX(GameCharacterMoveMode.DESTROY_WITH_FADEOUT);
+		setMoveModeY(GameCharacterMoveMode.DESTROY_WITH_FADEOUT);
 		setColor(Color.yellow);
+	}
+
+	@Override
+	protected boolean canDisposeTexture() {
+		return true;//HACK イケてない
 	}
 }

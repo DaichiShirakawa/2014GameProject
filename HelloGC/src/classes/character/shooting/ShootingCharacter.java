@@ -16,13 +16,9 @@ public abstract class ShootingCharacter extends ShootingObjectImpl {
 	public float damage(float damage) {
 		super.damage(damage);
 		if (zeroHP()) {
-			dead();
+			destroy();
 		}
 		return getHP();
-	}
-
-	protected void dead() {
-		setDestroy();
 	}
 
 }

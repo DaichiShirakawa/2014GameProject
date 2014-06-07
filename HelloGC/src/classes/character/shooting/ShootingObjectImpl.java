@@ -3,6 +3,7 @@ package classes.character.shooting;
 import java.util.HashSet;
 import java.util.Set;
 
+import classes.character.GameCharacter;
 import classes.character.GameCharacterObjectImpl;
 import classes.scene.ShootingScene;
 
@@ -44,12 +45,15 @@ public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
 	}
 
 	@Override
-	public boolean isEnemyForces(ShootingObject target) {
+	public boolean isEnemyForces(GameCharacter target) {
+		if (!(target instanceof ShootingCharacter)) {
+			return false;
+		}
 		switch (getTeam()) {
 		case FRIEND_TEAM:
-			return target.getTeam() == TEAM.ENEMY_TEAM;
+			return ((ShootingObjectImpl) target).getTeam() == TEAM.ENEMY_TEAM;
 		case ENEMY_TEAM:
-			return target.getTeam() == TEAM.FRIEND_TEAM;
+			return ((ShootingObjectImpl) target).getTeam() == TEAM.FRIEND_TEAM;
 		default:
 			return false;
 		}
@@ -92,25 +96,25 @@ public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
 	}
 
 	@Override
-	public void dispose() {
-		isDisposed()
-		// テクスチャは破棄しない
+	protected boolean canDisposeTexture() {
+		return false;
 	}
 
 	@Override
 	public void shoot(ShootingBulletCharacter bullet) {
 		bullet.setParentScene(parentScene);
-		parentScene.shoot(bullet);
+		parentScene.add(bullet);
 	}
 
 	@Override
-	public boolean checkHitAndAction(ShootingObject target) {
-		if (!isEnemyForces(target) || hittedObjects.contains(target)
-				|| !checkHit(target)) {
+	public boolean checkHit(GameCharacter target) {
+		boolean notShootingCharacter = !(target instanceof ShootingCharacter);
+		boolean notEnemyForces = !isEnemyForces(target);
+		boolean notHit = !super.checkHit(target);
+		if (notShootingCharacter || notEnemyForces
+				|| hittedObjects.contains(target) || notHit) {
 			return false;
 		}
-		hitEffectTo(target);
-		target.hitEffectTo(this);
 		return true;
 	}
 

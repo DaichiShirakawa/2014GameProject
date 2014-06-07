@@ -40,13 +40,13 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 	}
 
 	@Override
-	protected void updateProcess() {
+	protected boolean updateProcess() {
 		if (isDestroyed()) {
-			return;
+			return false;
 		}
 		if (destroyTimerFrame == 0) {
 			destroy();
-			return;
+			return false;
 		}
 		if (destroyTimerFrame > 0) {
 			destroyTimerFrame--;
@@ -64,17 +64,23 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 			setVAlpha(0);
 		}
 		move();
+		return true;
 	}
 
+	/**
+	 * MoveModeで定義された移動処理を行う。
+	 * (x, y)を中心点として計算するロジックになっている。
+	 * TODO BasePointがCenter以外の場合にも対応する
+	 */
 	private final void move() {
 		x = xMoveMode.move(WIDTH, width, x, vx);
-		if (xMoveMode == GameCharacterMoveMode.DISPOSE_WITH_FADEOUT
+		if (xMoveMode == GameCharacterMoveMode.DESTROY_WITH_FADEOUT
 				&& (x + width / 2 < 0 || x - width / 2 > WIDTH)) {
 			destroy();
 		}
 
 		y = yMoveMode.move(HEIGHT, height, y, vy);
-		if (yMoveMode == GameCharacterMoveMode.DISPOSE_WITH_FADEOUT
+		if (yMoveMode == GameCharacterMoveMode.DESTROY_WITH_FADEOUT
 				&& (y + height / 2 < 0 || y - height / 2 > HEIGHT)) {
 			destroy();
 		}
@@ -99,7 +105,8 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 	}
 
 	@Override
-	protected final void destroyProcess() {
+	protected void destroyProcess() {
+		super.destroyProcess();
 		if (!canDisposeTexture()) {
 			return;
 		}
@@ -109,14 +116,11 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 		}
 	}
 
-	// オブジェクトとテクスチャが１：１の場合など、
-	// trueを返すことでテクスチャも破棄する
+	/**
+	 * trueを返すことによって、destroy時にテクスチャも同時に破棄する。
+	 * オブジェクトとテクスチャが１：１の場合などに利用。
+	 */
 	protected abstract boolean canDisposeTexture();
-
-	@Override
-	public boolean canDestroy() {
-		return true;
-	}
 
 	@Override
 	public Texture getTexture() {
@@ -332,12 +336,13 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 		Point2D targP1 = new Point2D.Float(target.getX() - target.getWidth()
 				/ 2, target.getY() + target.getHeight() / 2);
 		Point2D targP2 = new Point2D.Float((float) targP1.getX()
-				+ target.getWidth(), (float)targP1.getY());
-		Point2D targP3 = new Point2D.Float((float)targP1.getX(), (float)targP1.getY()
-				- target.getHeight());
+				+ target.getWidth(), (float) targP1.getY());
+		Point2D targP3 = new Point2D.Float((float) targP1.getX(),
+				(float) targP1.getY() - target.getHeight());
 
 		if (selfP2.getX() >= targP1.getX() && selfP1.getX() <= targP2.getX()) {
-			if (selfP3.getY() <= targP1.getY() && selfP1.getY() >= targP3.getY()) {
+			if (selfP3.getY() <= targP1.getY()
+					&& selfP1.getY() >= targP3.getY()) {
 				return true;
 			}
 		}
