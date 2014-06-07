@@ -27,7 +27,6 @@ public class EDFStageController extends GameScene {
 				.setY(CENTER_Y)
 				.setScale(0.5f)
 				.setColor(Color.blue.brighter());
-
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class EDFStageController extends GameScene {
 			endCaption.show();
 			break;
 		}
-		return true;
+		return !isPausing();
 	}
 
 	@Override
@@ -77,6 +76,7 @@ public class EDFStageController extends GameScene {
 	}
 
 	public boolean isPausing() {
+		inputProcess();// HACK ポーズ状態を抜けるため
 		return (stageState != StageState.PLAYING);
 	}
 

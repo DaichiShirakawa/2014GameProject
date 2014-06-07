@@ -5,11 +5,11 @@ import static common.Commons.*;
 import static java.lang.Math.*;
 import texture.Texture;
 import classes.character.shooting.ShootingEffectCharacter;
-import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingCharacter;
 import classes.scene.ShootingScene;
 
 public class BasicEffect extends ShootingEffectCharacter {
-	public BasicEffect(ShootingScene parentScene, ShootingObject source) {
+	public BasicEffect(ShootingScene parentScene, ShootingCharacter source) {
 		super(parentScene, source);
 		setScale(random(0.5f, 2f));
 		setColor(source.getColor());

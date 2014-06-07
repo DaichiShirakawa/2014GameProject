@@ -27,7 +27,7 @@ public class TitleScene extends GameScene {
 
 	public TitleScene() {
 		BackGroundColor.WHITE.set();
-		pressStartText = add(new TextCharacter("PRESS RETURN!"));
+		pressStartText = add(new TextCharacter("PRESS RETURN KEY!"));
 		pressStartText.setColor(Color.blue)
 				.setX(CENTER_X)
 				.setY(CENTER_Y)
@@ -46,5 +46,4 @@ public class TitleScene extends GameScene {
 		}
 		return true;
 	}
-
 }

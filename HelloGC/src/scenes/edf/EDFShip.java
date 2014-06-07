@@ -5,14 +5,16 @@ import io.Key;
 
 import java.awt.Color;
 
+import common.LR;
+
 import main.FPSManager;
 import scenes.edf.weapons.BasicWeapon;
 import texture.TextureLoader;
-import classes.character.shooting.RotateShootingCharacter;
+import classes.character.shooting.ShootingRotateCharacter;
 import classes.character.shooting.ShootingWeaponCharacter;
 import classes.scene.ShootingScene;
 
-public class EDFShip extends RotateShootingCharacter {
+public class EDFShip extends ShootingRotateCharacter {
 	// 戦艦テクスチャ
 	private static final String TEXTURE_PATH = IMAGE_FOLDER_STRING
 			+ "tokiIcon.png";
@@ -48,8 +50,12 @@ public class EDFShip extends RotateShootingCharacter {
 		setY(ELEVATION);
 		setWidth(SIZE);
 		setHeight(SIZE);
-		setTeam(TEAM.FRIEND_TEAM);
-		setElevation(ELEVATION);
+		setTeam(SHOOTING_TEAM.FRIEND_TEAM);
+		setOffsetY(ELEVATION);
+		setAngle(0);
+		
+		equipLeft(new BasicWeapon(getParentScene(), this, LR.LEFT));
+		equipRight(new BasicWeapon(getParentScene(), this, LR.RIGHT));
 	}
 
 	@Override
@@ -79,7 +85,7 @@ public class EDFShip extends RotateShootingCharacter {
 			return;
 		}
 		if (DASH.isPressing() && canDash()) {
-			moveStart(DASH_START_SPEED);
+			dashStart(DASH_START_SPEED);
 			return;
 		}
 		setAngle(getAngle() + ROTATE_SPEED);
@@ -90,7 +96,7 @@ public class EDFShip extends RotateShootingCharacter {
 			return;
 		}
 		if (DASH.isPressing() && canDash()) {
-			moveStart(-DASH_START_SPEED);
+			dashStart(-DASH_START_SPEED);
 			return;
 		}
 		setAngle(getAngle() - ROTATE_SPEED);
@@ -114,8 +120,8 @@ public class EDFShip extends RotateShootingCharacter {
 		return dashStartFrame + DASH_DELAY_FRAME <= FPSManager.totalFrame();
 	}
 
-	private void moveStart(float huga) {
-		dashSpeed = huga;
+	private void dashStart(float dashSpeed) {
+		this.dashSpeed = dashSpeed;
 		dashStartFrame = FPSManager.totalFrame();
 	}
 
@@ -123,14 +129,14 @@ public class EDFShip extends RotateShootingCharacter {
 		if (leftWeapon != null) {
 			leftWeapon.destroy();
 		}
-		leftWeapon = getParentScene().add(weapon);
+		leftWeapon = add(weapon);
 	}
 
 	public void equipRight(BasicWeapon weapon) {
 		if (rightWeapon != null) {
 			rightWeapon.destroy();
 		}
-		rightWeapon = getParentScene().add(weapon);
+		rightWeapon = add(weapon);
 	}
 
 	public ShootingWeaponCharacter getRightWeapon() {

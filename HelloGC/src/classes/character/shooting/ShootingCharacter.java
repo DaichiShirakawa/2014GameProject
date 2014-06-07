@@ -1,24 +1,28 @@
 package classes.character.shooting;
 
+import classes.character.GameCharacter;
+import classes.character.shooting.ShootingCharacterImpl.SHOOTING_TEAM;
 import classes.scene.ShootingScene;
 
-public abstract class ShootingCharacter extends ShootingObjectImpl {
+public interface ShootingCharacter extends GameCharacter {
 
-	public ShootingCharacter(ShootingScene scene, float power) {
-		super(scene, power);
-	}
+	SHOOTING_TEAM getTeam();
 
-	public ShootingCharacter(ShootingScene scene, float power, float hp) {
-		super(scene, power, hp);
-	}
+	void setTeam(SHOOTING_TEAM team);
+	
+	boolean isEnemyTeam(GameCharacter target);
 
-	@Override
-	public float damage(float damage) {
-		super.damage(damage);
-		if (zeroHP()) {
-			destroy();
-		}
-		return getHP();
-	}
+	ShootingScene getParentScene();
 
+	float getPower();
+
+	float getHP();
+
+	boolean zeroHP();
+
+	float damage(float damage);
+
+	void shoot(ShootingBulletCharacter bullet);
+
+	void hitEffectTo(ShootingCharacter target);
 }

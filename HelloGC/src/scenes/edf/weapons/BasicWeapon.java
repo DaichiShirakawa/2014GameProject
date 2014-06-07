@@ -4,9 +4,10 @@ import java.awt.Color;
 
 import texture.Texture;
 import texture.text.TextTextureMaker;
-import classes.character.shooting.ShootingCharacter;
+import classes.character.shooting.ShootingRotateCharacter;
 import classes.character.shooting.ShootingWeaponCharacter;
 import classes.scene.ShootingScene;
+
 import common.LR;
 
 public class BasicWeapon extends ShootingWeaponCharacter {
@@ -15,13 +16,12 @@ public class BasicWeapon extends ShootingWeaponCharacter {
 	public static final int MAX_CHARGE = 50;
 	public static final Texture WEAPON_TEXTURE = TextTextureMaker.createText("↑");
 
-	public BasicWeapon(ShootingScene scene, ShootingCharacter owner, LR equipLR) {
+	public BasicWeapon(ShootingScene scene, ShootingRotateCharacter owner, LR equipLR) {
 		super(scene, owner, equipLR);
 		setTexture(WEAPON_TEXTURE);
 		setHeight(20);
 		setWidth(10);
 		setColor(Color.white);
-		setTeam(owner.getTeam());
 	}
 
 	@Override

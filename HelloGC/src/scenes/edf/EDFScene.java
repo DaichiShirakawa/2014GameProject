@@ -19,6 +19,9 @@ public class EDFScene extends ShootingScene {
 		stages = add(new EDFStageController(this));
 		add(new EDFMoneyCaption(this));
 		add(new EDFWeaponCaption(mainCharacters));
+
+		// 開始画面を描写するために1フレームだけ進めておく
+		update();
 	}
 
 	public int getMoney() {
@@ -32,11 +35,11 @@ public class EDFScene extends ShootingScene {
 
 	@Override
 	public boolean updateProcess() {
-		if (checkPause()) {
+		if (isPausing()) {
 			stages.update();
 			return false;
 		}
-		if (checkGameover()) {
+		if (isGameover()) {
 			GameSceneManager.getInstance()
 					.gameover();
 			return false;
@@ -44,11 +47,11 @@ public class EDFScene extends ShootingScene {
 		return super.updateProcess();
 	}
 
-	private boolean checkPause() {
+	public boolean isPausing() {
 		return stages.isPausing();
 	}
 
-	private boolean checkGameover() {
+	private boolean isGameover() {
 		return !(mainCharacters.earthArrive());
 	}
 

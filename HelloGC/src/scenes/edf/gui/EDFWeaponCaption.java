@@ -3,7 +3,7 @@ package scenes.edf.gui;
 import java.awt.Color;
 
 import scenes.edf.EDFMainCharacterController;
-import classes.character.GameCharacterObjectImpl;
+import classes.character.GameCharacterImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
 import classes.character.shooting.ShootingWeaponCharacter;
@@ -11,7 +11,7 @@ import classes.character.shooting.ShootingWeaponCharacter;
 import common.Commons;
 import common.LR;
 
-public class EDFWeaponCaption extends GameCharacterObjectImpl {
+public class EDFWeaponCaption extends GameCharacterImpl {
 	EDFMainCharacterController scene;
 
 	private AnWeaponGUI leftGUI;
@@ -47,7 +47,7 @@ public class EDFWeaponCaption extends GameCharacterObjectImpl {
 	 * @author shirakawa
 	 * 
 	 */
-	private class AnWeaponGUI extends GameCharacterObjectImpl {
+	private class AnWeaponGUI extends GameCharacterImpl {
 		private ShootingWeaponCharacter weapon;
 		private int currentRemainBullet;
 
@@ -55,8 +55,6 @@ public class EDFWeaponCaption extends GameCharacterObjectImpl {
 		private TextCharacter bulletCountText;
 
 		public AnWeaponGUI(LR lr, ShootingWeaponCharacter weapon) {
-			setWeapon(weapon);
-
 			setX(Commons.CENTER_X + (165 * lr.signum()));
 			setY(40);
 
@@ -72,6 +70,8 @@ public class EDFWeaponCaption extends GameCharacterObjectImpl {
 					.setY(getY() - 25)
 					.setScale(0.3f)
 					.setColor(Color.white);
+
+			setWeapon(weapon);
 		}
 
 		private void setWeapon(ShootingWeaponCharacter weapon) {

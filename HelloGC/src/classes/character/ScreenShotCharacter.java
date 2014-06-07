@@ -3,7 +3,7 @@ package classes.character;
 import static common.Commons.*;
 import texture.TextureLoader;
 
-public class ScreenShotCharacter extends GameCharacterObjectImpl{
+public class ScreenShotCharacter extends GameCharacterImpl{
 
 	public ScreenShotCharacter() {
 		setTexture(TextureLoader.getScreenShot());

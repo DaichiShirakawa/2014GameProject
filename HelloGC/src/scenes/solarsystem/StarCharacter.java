@@ -7,11 +7,11 @@ import static org.lwjgl.opengl.GL11.*;
 import java.awt.Color;
 
 import classes.character.GameCharacter;
-import classes.character.GameCharacterObjectImpl;
+import classes.character.GameCharacterImpl;
 import texture.text.FontDef;
 import texture.text.TextTextureMaker;
 
-public class StarCharacter extends GameCharacterObjectImpl implements GameCharacter {
+public class StarCharacter extends GameCharacterImpl implements GameCharacter {
 	private static final int STAR_DEFAULT_SIZE = 20;
 
 	private StarCharacter parentStar = null;

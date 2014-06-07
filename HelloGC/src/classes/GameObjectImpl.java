@@ -22,13 +22,13 @@ public abstract class GameObjectImpl implements GameObject {
 
 	@Override
 	public final void update() {
+		addBookingObjects();
 		if (isDestroyed()) {
 			return;
 		}
 		if (!updateProcess()) {
 			return;
 		}
-		addBookingObjects();
 		inputProcess();
 		updateChildren();
 	}
@@ -67,12 +67,13 @@ public abstract class GameObjectImpl implements GameObject {
 				continue;
 			}
 
-			((GameObjectImpl) go).updateProcess();
+			((GameObjectImpl) go).update();
 		}
 	}
 
 	@Override
 	public final void render() {
+		addBookingObjects();
 		if (!isVisible()) {
 			return;
 		}
@@ -90,7 +91,7 @@ public abstract class GameObjectImpl implements GameObject {
 	 */
 	private final void renderchildren() {
 		for (GameObject go : children) {
-			((GameObjectImpl) go).renderProcess();
+			((GameObjectImpl) go).render();
 		}
 	}
 
@@ -101,8 +102,8 @@ public abstract class GameObjectImpl implements GameObject {
 
 	@Override
 	public final void destroy() {
-		destroyProcess();
 		addBookingObjects();
+		destroyProcess();
 		destroyChildren();
 	}
 

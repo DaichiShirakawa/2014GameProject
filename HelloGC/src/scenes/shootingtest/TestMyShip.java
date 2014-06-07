@@ -7,16 +7,16 @@ import java.awt.Color;
 
 import texture.TextureLoader;
 import classes.character.GameCharacterMoveMode;
-import classes.character.shooting.ShootingCharacter;
+import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
-public class MyShip extends ShootingCharacter {
+public class TestMyShip extends ShootingCharacterImpl {
 	private float speed = 2.5f;
 	private int size = 32;
 
-	public MyShip(ShootingScene scene) {
+	public TestMyShip(ShootingScene scene) {
 		super(scene, 0);
-		setTeam(TEAM.FRIEND_TEAM);
+		setTeam(SHOOTING_TEAM.FRIEND_TEAM);
 		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "tokiIcon.png"));
 		setWidth(size);

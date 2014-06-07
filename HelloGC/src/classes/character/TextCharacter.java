@@ -9,7 +9,7 @@ import texture.text.TextTextureMaker;
  * @author shirakawa
  * 
  */
-public class TextCharacter extends GameCharacterObjectImpl {
+public class TextCharacter extends GameCharacterImpl {
 	private FontDef fontDef = FontDef.DEFAULT;
 	private String currentText = "";
 	

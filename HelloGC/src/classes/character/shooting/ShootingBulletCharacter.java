@@ -4,13 +4,13 @@ import static java.lang.Math.*;
 import texture.Texture;
 import classes.scene.ShootingScene;
 
-public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
-	private ShootingObject shooter = null;
-	private ShootingObject target = null;
+public abstract class ShootingBulletCharacter extends ShootingCharacterImpl {
+	private ShootingCharacter shooter = null;
+	private ShootingCharacter target = null;
 	private float remainRange = 0;
 
 	public ShootingBulletCharacter(ShootingScene parentScene,
-			ShootingObject shooter, float power, float hp) {
+			ShootingCharacter shooter, float power, float hp) {
 		super(parentScene, power, hp);
 		this.shooter = shooter;
 		this.remainRange = getBulletRange();
@@ -23,7 +23,7 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 	}
 
 	public ShootingBulletCharacter(ShootingScene parentScene,
-			ShootingObject shooter, float power) {
+			ShootingCharacter shooter, float power) {
 		this(parentScene, shooter, power, 1);
 	}
 
@@ -31,7 +31,7 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 
 	abstract protected int getBulletSize();
 
-	public ShootingObject getParentCharacter() {
+	public ShootingCharacter getParentCharacter() {
 		return getShooter();
 	}
 
@@ -48,15 +48,15 @@ public abstract class ShootingBulletCharacter extends ShootingObjectImpl {
 		return 200;
 	}
 
-	protected ShootingObject getShooter() {
+	protected ShootingCharacter getShooter() {
 		return shooter;
 	}
 
-	public ShootingObject getTarget() {
+	public ShootingCharacter getTarget() {
 		return target;
 	}
 
-	protected void setTarget(ShootingObject target) {
+	protected void setTarget(ShootingCharacter target) {
 		this.target = target;
 	}
 

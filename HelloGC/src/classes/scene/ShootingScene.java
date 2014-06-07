@@ -3,7 +3,7 @@ package classes.scene;
 import java.util.List;
 
 import classes.GameObject;
-import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingCharacter;
 
 abstract public class ShootingScene extends GameScene {
 	@Override
@@ -18,13 +18,12 @@ abstract public class ShootingScene extends GameScene {
 		for (int i = 0; i < childrenList.size() - 1; i++) {
 			for (int j = i + 1; j < childrenList.size(); j++) {
 				try {
-					ShootingObject so1 = (ShootingObject) childrenList.get(i);
-					ShootingObject so2 = (ShootingObject) childrenList.get(j);
-					if(!so1.checkHit(so2)){
-						continue;
+					ShootingCharacter so1 = (ShootingCharacter) childrenList.get(i);
+					ShootingCharacter so2 = (ShootingCharacter) childrenList.get(j);
+					if(so1.checkHit(so2)){
+						so1.hitEffectTo(so2);
+						so2.hitEffectTo(so1);
 					}
-					so1.hitEffectTo(so2);
-					so2.hitEffectTo(so1);
 				} catch (ClassCastException e) {
 					continue;
 				}

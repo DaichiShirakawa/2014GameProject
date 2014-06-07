@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 import texture.Texture;
 import classes.GameObjectImpl;
 
-public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
+public abstract class GameCharacterImpl extends GameObjectImpl implements
 		GameCharacter {
 	private int destroyTimerFrame = -1;
 
@@ -35,7 +35,7 @@ public abstract class GameCharacterObjectImpl extends GameObjectImpl implements
 	private Color color;
 	private Texture texture;
 
-	protected GameCharacterObjectImpl() {
+	protected GameCharacterImpl() {
 		super();
 	}
 

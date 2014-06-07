@@ -5,10 +5,10 @@ import io.Key;
 
 import java.awt.Color;
 
-import classes.character.GameCharacterObjectImpl;
+import classes.character.GameCharacterImpl;
 import texture.TextureLoader;
 
-public class DotTestCharacter extends GameCharacterObjectImpl {
+public class DotTestCharacter extends GameCharacterImpl {
 	public DotTestCharacter() {
 		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "dotTokiIcon.png"));

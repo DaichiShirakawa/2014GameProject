@@ -11,19 +11,19 @@ import texture.Texture;
 import texture.TextureLoader;
 import classes.character.GameCharacterMoveMode;
 import classes.character.shooting.ShootingCharacter;
-import classes.character.shooting.ShootingObject;
+import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
-public class TestEnemyShip extends ShootingCharacter {
+public class TestEnemyShip extends ShootingCharacterImpl {
 	private int size = 32;
 	private float thita = 0;
-	private boolean damaging = false;
+	private int remainDamageFrame = 0;
 	private float dmgVibMove = 0;
 	private float dmgVibThita = 0;
 
 	public TestEnemyShip(ShootingScene scene) {
 		super(scene, 1);
-		setTeam(TEAM.ENEMY_TEAM);
+		setTeam(SHOOTING_TEAM.ENEMY_TEAM);
 		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "DotTokiIcon.png"));
 		setWidth(size);
@@ -46,32 +46,29 @@ public class TestEnemyShip extends ShootingCharacter {
 
 	@Override
 	public float damage(float damage) {
-		damaging = true;
+		remainDamageFrame = 30;
 		dmgVibMove = 5;
 		dmgVibThita = 0;
 		return super.damage(damage);
 	}
 
 	public void damageUpdate() {
-		if (!damaging) {
+		remainDamageFrame--;
+		if (remainDamageFrame <= 0) {
 			return;
-		}
-		
-		if (dmgVibMove < 0.5) {
-			damaging = false;
 		}
 		
 		dmgVibMove *= 0.95f;
 		dmgVibThita += 1;
 		setX(getX() + dmgVibMove * (float) sin(dmgVibThita));
 		
-		if (getDestroyTimerFrame() % (FPS / 4) == 0) {
+		if (remainDamageFrame % 10 == 0) {
 			getParentScene().add(new Effect(getParentScene(), this));
 		}
 	}
 
 	private class Effect extends BasicEffect {
-		protected Effect(ShootingScene parentScene, ShootingObject shootor) {
+		protected Effect(ShootingScene parentScene, ShootingCharacter shootor) {
 			super(parentScene, shootor);
 		}
 

@@ -6,8 +6,8 @@ import scenes.edf.weapons.BasicEffect;
 import texture.Texture;
 import texture.TextureLoader;
 import classes.character.shooting.ShootingBulletCharacter;
-import classes.character.shooting.ShootingObject;
-import classes.character.shooting.ShootingObjectImpl;
+import classes.character.shooting.ShootingCharacter;
+import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
 public class TestBullet extends ShootingBulletCharacter {
@@ -18,7 +18,7 @@ public class TestBullet extends ShootingBulletCharacter {
 			+ "flower.png");
 	private float ySpeed = 5;
 
-	public TestBullet(ShootingScene parentScene, ShootingObjectImpl shooter) {
+	public TestBullet(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(generateCosmosColor());
@@ -28,7 +28,7 @@ public class TestBullet extends ShootingBulletCharacter {
 	}
 
 	@Override
-	public void hitEffectTo(ShootingObject target) {
+	public void hitEffectTo(ShootingCharacter target) {
 		super.hitEffectTo(target);
 		this.setTarget(target);
 		shoot(new Effect(getParentScene(), target));
@@ -63,7 +63,7 @@ public class TestBullet extends ShootingBulletCharacter {
 	}
 
 	private class Effect extends BasicEffect {
-		protected Effect(ShootingScene parentScene, ShootingObject shootor) {
+		protected Effect(ShootingScene parentScene, ShootingCharacter shootor) {
 			super(parentScene, shootor);
 		}
 

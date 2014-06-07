@@ -2,11 +2,11 @@ package scenes.flowerstorm;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import classes.character.GameCharacterObjectImpl;
-import classes.character.GameCharacterMoveMode;
 import texture.Texture;
+import classes.character.GameCharacterImpl;
+import classes.character.GameCharacterMoveMode;
 
-public class FlowerCharacter extends GameCharacterObjectImpl {
+public class FlowerCharacter extends GameCharacterImpl {
 	private static final int DEFAULT_WIDTH = 64;
 	private static final int DEFAULT_HEIGHT = 64;
 	private float wind;
@@ -22,16 +22,19 @@ public class FlowerCharacter extends GameCharacterObjectImpl {
 		setAlpha(0.7f);
 		setColor(generateCosmosColor());
 		setMoveModeX(GameCharacterMoveMode.LOOP);
-		setMoveModeY(GameCharacterMoveMode.DESTROY_WITH_FADEOUT);
+		setMoveModeY(GameCharacterMoveMode.UNLIMITED);
 
 		setVx(random(-0.1f, 0.4f));
 		setVy(getScale() * 2);
 		setVAngle(4f);
 	}
-	
+
 	@Override
 	protected boolean updateProcess() {
 		setX(getX() + (wind * getScale()));
+		if (getY() > HEIGHT + getHeight() / 2) {
+			destroy();
+		}
 		return super.updateProcess();
 	}
 

@@ -8,9 +8,11 @@ import classes.GameObjectImpl;
  * @author shirakawa
  * 
  */
-public abstract class GameScene extends GameObjectImpl{
+public abstract class GameScene extends GameObjectImpl {
+	
 	@Override
 	protected final void renderProcess() {
-		//シーンは何も描写しない
+		// シーンそのものは何も描写しない
+		return;
 	}
 }

@@ -7,8 +7,8 @@ import java.awt.Color;
 import texture.Texture;
 import texture.text.TextTextureMaker;
 import classes.character.shooting.ShootingBulletCharacter;
-import classes.character.shooting.ShootingObject;
-import classes.character.shooting.ShootingObjectImpl;
+import classes.character.shooting.ShootingCharacter;
+import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
 public class BasicBullet extends ShootingBulletCharacter {
@@ -18,7 +18,7 @@ public class BasicBullet extends ShootingBulletCharacter {
 	private static final Texture TEXTURE = TextTextureMaker.createText("弾");
 	private static final float SPEED = 3;
 
-	public BasicBullet(ShootingScene parentScene, ShootingObjectImpl shooter) {
+	public BasicBullet(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(Color.white);
@@ -50,7 +50,7 @@ public class BasicBullet extends ShootingBulletCharacter {
 	}
 
 	@Override
-	public void hitEffectTo(ShootingObject target) {
+	public void hitEffectTo(ShootingCharacter target) {
 		super.hitEffectTo(target);
 		for (int i = 0; i < 2; i++) {
 			shoot(new Effect(getParentScene(), this));
@@ -58,7 +58,7 @@ public class BasicBullet extends ShootingBulletCharacter {
 	}
 
 	private class Effect extends BasicEffect {
-		public Effect(ShootingScene parentScene, ShootingObjectImpl shooter) {
+		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
 		}
 

@@ -4,56 +4,50 @@ import java.util.HashSet;
 import java.util.Set;
 
 import classes.character.GameCharacter;
-import classes.character.GameCharacterObjectImpl;
+import classes.character.GameCharacterImpl;
 import classes.scene.ShootingScene;
 
-public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
-		implements ShootingObject {
+public abstract class ShootingCharacterImpl extends GameCharacterImpl
+		implements ShootingCharacter {
 	private ShootingScene parentScene;
-	private TEAM team;
+	private SHOOTING_TEAM team;
 	private float power;
 	private float hp;
 	private boolean undead = false;
-	private Set<ShootingObject> hittedObjects = new HashSet<>();
+	private Set<ShootingCharacter> hittedObjects = new HashSet<>();
 
-	public enum TEAM {
-		FRIEND_TEAM,
-		ENEMY_TEAM,
-		NO_TEAM,
-	}
-
-	public ShootingObjectImpl(ShootingScene scene, float power) {
+	public ShootingCharacterImpl(ShootingScene scene, float power) {
 		this.parentScene = scene;
 		this.power = power;
 		this.undead = true;
 	}
 
-	public ShootingObjectImpl(ShootingScene scene, float power, float hp) {
+	public ShootingCharacterImpl(ShootingScene scene, float power, float hp) {
 		this.parentScene = scene;
 		this.power = power;
 		this.hp = hp;
 	}
 
 	@Override
-	public TEAM getTeam() {
+	public SHOOTING_TEAM getTeam() {
 		return team;
 	}
 
 	@Override
-	public void setTeam(TEAM division) {
+	public void setTeam(SHOOTING_TEAM division) {
 		this.team = division;
 	}
 
 	@Override
-	public boolean isEnemyForces(GameCharacter target) {
-		if (!(target instanceof ShootingCharacter)) {
+	public boolean isEnemyTeam(GameCharacter target) {
+		if (!(target instanceof ShootingCharacterImpl)) {
 			return false;
 		}
 		switch (getTeam()) {
 		case FRIEND_TEAM:
-			return ((ShootingObjectImpl) target).getTeam() == TEAM.ENEMY_TEAM;
+			return ((ShootingCharacterImpl) target).getTeam() == SHOOTING_TEAM.ENEMY_TEAM;
 		case ENEMY_TEAM:
-			return ((ShootingObjectImpl) target).getTeam() == TEAM.FRIEND_TEAM;
+			return ((ShootingCharacterImpl) target).getTeam() == SHOOTING_TEAM.FRIEND_TEAM;
 		default:
 			return false;
 		}
@@ -92,7 +86,10 @@ public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
 		if (hp < 0) {
 			hp = 0;
 		}
-		return hp;
+		if (zeroHP()) {
+			destroy();
+		}
+		return getHP();
 	}
 
 	@Override
@@ -108,19 +105,25 @@ public abstract class ShootingObjectImpl extends GameCharacterObjectImpl
 
 	@Override
 	public boolean checkHit(GameCharacter target) {
-		boolean notShootingCharacter = !(target instanceof ShootingCharacter);
-		boolean notEnemyForces = !isEnemyForces(target);
-		boolean notHit = !super.checkHit(target);
+		boolean notShootingCharacter = !(target instanceof ShootingCharacterImpl);
+		boolean notEnemyForces = !isEnemyTeam(target);
+		boolean noHit = !super.checkHit(target);
 		if (notShootingCharacter || notEnemyForces
-				|| hittedObjects.contains(target) || notHit) {
+				|| hittedObjects.contains(target) || noHit) {
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public void hitEffectTo(ShootingObject target) {
+	public void hitEffectTo(ShootingCharacter target) {
 		hittedObjects.add(target);
 		target.damage(getPower());
+	}
+
+	public enum SHOOTING_TEAM {
+		FRIEND_TEAM,
+		ENEMY_TEAM,
+		NO_TEAM,
 	}
 }

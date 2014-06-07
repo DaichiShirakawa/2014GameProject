@@ -5,10 +5,10 @@ import classes.scene.ShootingScene;
 public abstract class ShootingEffectCharacter extends ShootingBulletCharacter {
 
 	public ShootingEffectCharacter(ShootingScene parentScene,
-			ShootingObject shooter) {
+			ShootingCharacter shooter) {
 		super(parentScene, shooter, 0);
 		destroyAfter(getLifeTime());
-		setTeam(TEAM.NO_TEAM);
+		setTeam(SHOOTING_TEAM.NO_TEAM);
 	}
 
 	abstract protected float getLifeTime();
@@ -19,7 +19,7 @@ public abstract class ShootingEffectCharacter extends ShootingBulletCharacter {
 	}
 
 	@Override
-	public void hitEffectTo(ShootingObject target) {
+	public void hitEffectTo(ShootingCharacter target) {
 		return;
 	}
 }

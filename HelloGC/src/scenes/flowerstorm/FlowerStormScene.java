@@ -17,7 +17,7 @@ public class FlowerStormScene extends GameScene {
 
 	private static final String IMAGE_PATH = IMAGE_FOLDER_STRING
 			+ "dotTokiIcon.png";
-	private static Texture flowerTexture = TextureLoader.loadTexture(IMAGE_PATH);
+	private static final Texture FLOWER_TEXTURE = TextureLoader.loadTexture(IMAGE_PATH);
 
 	private static final int MIN_FLOWERS_PER_SECOND = 1;
 	private static final int MAX_FLOWERS_PER_SECOND = 60;
@@ -46,7 +46,7 @@ public class FlowerStormScene extends GameScene {
 
 	private void addFlowerIfNecessary() {
 		if (FPSManager.totalFrame() % (FPS / flowerBornPerSecond) == 0) {
-			add(new FlowerCharacter(flowerTexture));
+			add(new FlowerCharacter(FLOWER_TEXTURE));
 		}
 	}
 
