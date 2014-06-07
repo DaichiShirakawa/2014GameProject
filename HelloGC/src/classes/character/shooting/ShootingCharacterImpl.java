@@ -105,11 +105,14 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl
 
 	@Override
 	public boolean checkHit(GameCharacter target) {
-		boolean notShootingCharacter = !(target instanceof ShootingCharacterImpl);
+		boolean notShootingCharacter = !(target instanceof ShootingCharacter);
 		boolean notEnemyForces = !isEnemyTeam(target);
-		boolean noHit = !super.checkHit(target);
 		if (notShootingCharacter || notEnemyForces
-				|| hittedObjects.contains(target) || noHit) {
+				|| hittedObjects.contains(target)) {
+			return false;
+		}
+		boolean noHit = !super.checkHit(target);
+		if(noHit) {
 			return false;
 		}
 		return true;

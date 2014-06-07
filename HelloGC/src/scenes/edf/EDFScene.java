@@ -4,6 +4,7 @@ import io.Key;
 import main.GameSceneManager;
 import scenes.edf.gui.EDFMoneyCaption;
 import scenes.edf.gui.EDFWeaponCaption;
+import classes.character.shooting.ShootingCharacter;
 import classes.scene.ShootingScene;
 
 import common.CommonMethod.BackGroundColor;
@@ -15,13 +16,15 @@ public class EDFScene extends ShootingScene {
 
 	public EDFScene() {
 		BackGroundColor.BLACK.set();
-		mainCharacters = add(new EDFMainCharacterController());
+		mainCharacters = add(new EDFMainCharacterController(this));
 		stages = add(new EDFStageController(this));
 		add(new EDFMoneyCaption(this));
 		add(new EDFWeaponCaption(mainCharacters));
-
-		// 開始画面を描写するために1フレームだけ進めておく
-		update();
+	}
+	
+	public ShootingCharacter addCharacter(ShootingCharacter character) {
+		mainCharacters.add(character);
+		return character;
 	}
 
 	public int getMoney() {
@@ -35,11 +38,7 @@ public class EDFScene extends ShootingScene {
 
 	@Override
 	public boolean updateProcess() {
-		if (isPausing()) {
-			stages.update();
-			return false;
-		}
-		if (isGameover()) {
+		if (isGameOver()) {
 			GameSceneManager.getInstance()
 					.gameover();
 			return false;
@@ -51,8 +50,12 @@ public class EDFScene extends ShootingScene {
 		return stages.isPausing();
 	}
 
-	private boolean isGameover() {
+	public boolean isGameOver() {
 		return !(mainCharacters.earthArrive());
+	}
+	
+	public boolean isBreakTime() {
+		return stages.isBreakTime();
 	}
 
 	@Override

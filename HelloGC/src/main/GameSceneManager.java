@@ -57,7 +57,6 @@ public class GameSceneManager extends GameScene {
 
 	public void gameover() {
 		changeSceneIfNotNull(new GameOverScene(currentScene));
-		currentScene = new GameOverScene(currentScene);
 	}
 
 	public enum SceneCollection {

@@ -8,6 +8,7 @@ public abstract class ShootingRotateCharacter extends ShootingCharacterImpl {
 	private float offsetY;
 	private float vOffsetY;
 	private float offsetX;
+	private float vOffsetX;
 
 	public ShootingRotateCharacter(ShootingScene scene, float power) {
 		super(scene, power);
@@ -20,6 +21,7 @@ public abstract class ShootingRotateCharacter extends ShootingCharacterImpl {
 	@Override
 	protected boolean updateProcess() {
 		setOffsetY(getOffsetY() + getVOffsetY());
+		setOffsetX(getOffsetX() + getVOffsetX());
 		return super.updateProcess();
 	}
 
@@ -61,4 +63,13 @@ public abstract class ShootingRotateCharacter extends ShootingCharacterImpl {
 	public void setOffsetX(float offsetX) {
 		this.offsetX = offsetX;
 	}
+
+	public float getVOffsetX() {
+		return vOffsetX;
+	}
+
+	public void setVOffsetX(float vOffsetX) {
+		this.vOffsetX = vOffsetX;
+	}
+	
 }

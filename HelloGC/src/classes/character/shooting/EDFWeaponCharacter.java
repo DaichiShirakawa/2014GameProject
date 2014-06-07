@@ -1,16 +1,16 @@
 package classes.character.shooting;
 
+import scenes.edf.EDFScene;
 import scenes.edf.weapons.BasicBullet;
 import classes.scene.ShootingScene;
-
 import common.LR;
 
-public abstract class ShootingWeaponCharacter extends ShootingRotateCharacter {
+public abstract class EDFWeaponCharacter extends ShootingRotateCharacter {
 	private ShootingRotateCharacter owner;
 	private int remainShootDelayFrame;
 	private int remainBullet;
 
-	public ShootingWeaponCharacter(ShootingScene scene,
+	public EDFWeaponCharacter(ShootingScene scene,
 			ShootingRotateCharacter owner, LR equipLR) {
 		super(scene, 0f);
 		this.owner = owner;
@@ -24,7 +24,6 @@ public abstract class ShootingWeaponCharacter extends ShootingRotateCharacter {
 	@Override
 	public boolean updateProcess() {
 		setAngle(owner.getAngle());
-
 		remainShootDelayFrame--;
 		return super.updateProcess();
 	}
@@ -35,7 +34,7 @@ public abstract class ShootingWeaponCharacter extends ShootingRotateCharacter {
 		}
 		remainBullet--;
 		remainShootDelayFrame = getShootDelayFrame();
-		getParentScene().add(new BasicBullet(getParentScene(), this));
+		((EDFScene)getParentScene()).addCharacter(new BasicBullet(getParentScene(), this));
 	}
 
 	abstract protected float getDistanceFromOwner();

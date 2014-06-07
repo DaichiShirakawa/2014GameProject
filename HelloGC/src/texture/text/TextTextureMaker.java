@@ -36,10 +36,14 @@ public class TextTextureMaker {
 
 	public static Texture create(String str, Color color, FontDef fontDef) {
 		Font font = FontCollector.getFont(fontDef);
-		float width = (fontDef.size / 2) * getByteLength(str);
-		float height = fontDef.size;
-
-		return createText(str, color, font, width, height);
+		String[] lines = str.split("\n");
+		float width = 0;
+		for (String line : lines) {
+			// 縦横比が半角は2:1、全角は1:1の前提
+			width = Math.max((fontDef.size / 2) * getByteLength(line), width);
+		}
+		float lineHeight = fontDef.size;
+		return createText(lines, color, font, width, lineHeight);
 	}
 
 	private static float getByteLength(String str) {
@@ -51,13 +55,13 @@ public class TextTextureMaker {
 		return -1;
 	}
 
-	private static Texture createText(String str, Color color, Font font,
-			float width, float height) {
+	private static Texture createText(String[] lines, Color color, Font font,
+			float width, float lineHeight) {
 		BufferedImage image = null;
 		Graphics2D g = null;
 		try {
-			image = TextureLoader.createImageData((int) width,
-					(int) height);
+			image = TextureLoader.createImageData((int) width, (int) lineHeight
+					* lines.length);
 
 			g = image.createGraphics();
 			g.setFont(font);
@@ -65,7 +69,13 @@ public class TextTextureMaker {
 					RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setColor(color);
 
-			g.drawString(str, 0, (int) height - 4);
+			int y = -4;
+			for (String line : lines) {
+				y += lineHeight;
+				float x = width - ((lineHeight / 2) * getByteLength(line));
+				x /= 2;
+				g.drawString(line, x, y);
+			}
 
 			return TextureLoader.loadTexture(image);
 		} catch (IOException e) {

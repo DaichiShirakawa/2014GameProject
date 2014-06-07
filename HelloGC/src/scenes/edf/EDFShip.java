@@ -5,14 +5,13 @@ import io.Key;
 
 import java.awt.Color;
 
-import common.LR;
-
 import main.FPSManager;
 import scenes.edf.weapons.BasicWeapon;
 import texture.TextureLoader;
+import classes.character.shooting.EDFWeaponCharacter;
 import classes.character.shooting.ShootingRotateCharacter;
-import classes.character.shooting.ShootingWeaponCharacter;
-import classes.scene.ShootingScene;
+
+import common.LR;
 
 public class EDFShip extends ShootingRotateCharacter {
 	// 戦艦テクスチャ
@@ -40,10 +39,10 @@ public class EDFShip extends ShootingRotateCharacter {
 
 	// 武器
 	public static final float WEAPON_DISTANCE = 8; // 本体から武器までの距離
-	private ShootingWeaponCharacter leftWeapon;
-	private ShootingWeaponCharacter rightWeapon;
+	private EDFWeaponCharacter leftWeapon;
+	private EDFWeaponCharacter rightWeapon;
 
-	public EDFShip(ShootingScene scene) {
+	public EDFShip(EDFScene scene) {
 		super(scene, 0);
 		setTexture(TextureLoader.loadTexture(TEXTURE_PATH));
 		setColor(new Color(0f, 0.8f, 1f));
@@ -65,18 +64,19 @@ public class EDFShip extends ShootingRotateCharacter {
 	}
 
 	private void processDash() {
-		setAngle(getAngle() + dashSpeed);
-		dashSpeed -= (dashSpeed * 0.1) + Math.signum(dashSpeed) * 0.1;
+		dashSpeed -= (dashSpeed + Math.signum(dashSpeed)) * 0.1;
 		if (Math.abs(dashSpeed) < 0.1) {
 			dashSpeed = 0;
+			return;
 		}
+		setAngle(getAngle() + dashSpeed);
 	}
 
 	@Override
 	public void inputProcess() {
 		processLeftMove();
 		processRightMove();
-		rocessBackToEarth();
+		processBackToEarth();
 		processShoot();
 	}
 
@@ -102,12 +102,16 @@ public class EDFShip extends ShootingRotateCharacter {
 		setAngle(getAngle() - ROTATE_SPEED);
 	}
 
-	private void rocessBackToEarth() {
+	private void processBackToEarth() {
 		if (BACK_TO_EARTH.isPressed()) {
+			//TODO
 		}
 	}
 
 	private void processShoot() {
+		if(((EDFScene)getParentScene()).isBreakTime()) {
+			return;
+		}
 		if (LEFT_WEAPON.isPressing() && leftWeapon != null) {
 			leftWeapon.shoot();
 		}
@@ -139,11 +143,11 @@ public class EDFShip extends ShootingRotateCharacter {
 		rightWeapon = add(weapon);
 	}
 
-	public ShootingWeaponCharacter getRightWeapon() {
+	public EDFWeaponCharacter getRightWeapon() {
 		return rightWeapon;
 	}
 
-	public ShootingWeaponCharacter getLeftWeapon() {
+	public EDFWeaponCharacter getLeftWeapon() {
 		return leftWeapon;
 	}
 }

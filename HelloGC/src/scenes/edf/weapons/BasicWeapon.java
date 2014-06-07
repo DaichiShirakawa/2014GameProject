@@ -5,12 +5,12 @@ import java.awt.Color;
 import texture.Texture;
 import texture.text.TextTextureMaker;
 import classes.character.shooting.ShootingRotateCharacter;
-import classes.character.shooting.ShootingWeaponCharacter;
+import classes.character.shooting.EDFWeaponCharacter;
 import classes.scene.ShootingScene;
 
 import common.LR;
 
-public class BasicWeapon extends ShootingWeaponCharacter {
+public class BasicWeapon extends EDFWeaponCharacter {
 	static final float DISTANCE_FROM_OWNER = 8;
 	static final int SHOOT_DELAY_FRAME = 18;
 	public static final int MAX_CHARGE = 50;

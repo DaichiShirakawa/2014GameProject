@@ -44,6 +44,6 @@ public class TitleScene extends GameScene {
 			GameSceneManager.getInstance()
 					.changeSceneIfNotNull(nextScene);
 		}
-		return true;
+		return false;
 	}
 }

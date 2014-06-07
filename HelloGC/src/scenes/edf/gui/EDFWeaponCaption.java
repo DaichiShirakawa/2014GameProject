@@ -6,7 +6,7 @@ import scenes.edf.EDFMainCharacterController;
 import classes.character.GameCharacterImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
-import classes.character.shooting.ShootingWeaponCharacter;
+import classes.character.shooting.EDFWeaponCharacter;
 
 import common.Commons;
 import common.LR;
@@ -48,13 +48,13 @@ public class EDFWeaponCaption extends GameCharacterImpl {
 	 * 
 	 */
 	private class AnWeaponGUI extends GameCharacterImpl {
-		private ShootingWeaponCharacter weapon;
+		private EDFWeaponCharacter weapon;
 		private int currentRemainBullet;
 
 		private SimpleCharacter weaponView;
 		private TextCharacter bulletCountText;
 
-		public AnWeaponGUI(LR lr, ShootingWeaponCharacter weapon) {
+		public AnWeaponGUI(LR lr, EDFWeaponCharacter weapon) {
 			setX(Commons.CENTER_X + (165 * lr.signum()));
 			setY(40);
 
@@ -74,14 +74,14 @@ public class EDFWeaponCaption extends GameCharacterImpl {
 			setWeapon(weapon);
 		}
 
-		private void setWeapon(ShootingWeaponCharacter weapon) {
+		private void setWeapon(EDFWeaponCharacter weapon) {
 			this.weapon = weapon;
 			weaponView.setTexture(weapon.getTexture());
 			currentRemainBullet = weapon.getRemainBullet();
 			bulletCountText.updateText(getBulletCountText(weapon));
 		}
 
-		private String getBulletCountText(ShootingWeaponCharacter weapon) {
+		private String getBulletCountText(EDFWeaponCharacter weapon) {
 			return weapon.getRemainBullet() + " / " + weapon.getMaxCharge();
 		}
 
