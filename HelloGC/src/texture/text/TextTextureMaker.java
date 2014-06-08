@@ -69,50 +69,13 @@ public class TextTextureMaker {
 					RenderingHints.VALUE_ANTIALIAS_ON);
 			g.setColor(color);
 
-			int y = -4;
+			int y = 0;
 			for (String line : lines) {
-				y += lineHeight;
+				y += lineHeight - 4;
 				float x = width - ((lineHeight / 2) * getByteLength(line));
 				x /= 2;
 				g.drawString(line, x, y);
 			}
-
-			return TextureLoader.loadTexture(image);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (g != null) {
-				g.dispose();
-			}
-			if (image != null) {
-				image.flush();
-			}
-		}
-		return null;
-	}
-
-	@Deprecated
-	public static Texture createTextTexture(String str, int width, int height,
-			Color color) {
-		BufferedImage image = null;
-		Graphics2D g = null;
-		Font font = FontCollector.getFont(FontDef.MSGOTHIC_32);
-
-		try {
-			image = TextureLoader.createImageData(width, height);
-
-			// 透明色で塗りつぶし、BufferedImage を初期化する
-			g = image.createGraphics();
-			g.setColor(new Color(0f, 0f, 0f, 0f));
-			g.fillRect(0, 0, width, height);
-
-			// 外部フォントを使う準備をする
-			g.setFont(font);
-			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-			g.setColor(color);
-
-			g.drawString(str, 0, height - 3);
 
 			return TextureLoader.loadTexture(image);
 		} catch (IOException e) {

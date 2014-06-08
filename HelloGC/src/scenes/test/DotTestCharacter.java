@@ -20,7 +20,7 @@ public class DotTestCharacter extends GameCharacterImpl {
 	}
 
 	@Override
-	public void inputProcess() {
+	public boolean inputProcess() {
 		if (Key.UP.isPressed()) {
 			setScale(getScale() * 2);
 		}
@@ -33,6 +33,7 @@ public class DotTestCharacter extends GameCharacterImpl {
 		if (Key.RIGHT.isPressed()) {
 			setAngle(getAngle() - 5f);
 		}
+		return super.inputProcess();
 	}
 
 	@Override

@@ -31,11 +31,12 @@ public class GameOverScene extends GameScene {
 	}
 
 	@Override
-	public void inputProcess() {
+	public boolean inputProcess() {
 		if (Key.RETURN.isPressed()) {
 			GameSceneManager.getInstance()
-					.reset();
+					.gameReset();
 		}
+		return super.inputProcess();
 	}
 
 	@Override

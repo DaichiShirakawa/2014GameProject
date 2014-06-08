@@ -4,15 +4,16 @@ import io.Key;
 import main.GameSceneManager;
 import scenes.edf.gui.EDFMoneyCaption;
 import scenes.edf.gui.EDFWeaponCaption;
+import scenes.edf.stage.EDFStageController;
 import classes.character.shooting.ShootingCharacter;
 import classes.scene.ShootingScene;
-
 import common.CommonMethod.BackGroundColor;
 
 public class EDFScene extends ShootingScene {
 	private int money = 0;
 	private EDFMainCharacterController mainCharacters;
 	private EDFStageController stages;
+	private boolean pausing = false;
 
 	public EDFScene() {
 		BackGroundColor.BLACK.set();
@@ -21,7 +22,7 @@ public class EDFScene extends ShootingScene {
 		add(new EDFMoneyCaption(this));
 		add(new EDFWeaponCaption(mainCharacters));
 	}
-	
+
 	public ShootingCharacter addCharacter(ShootingCharacter character) {
 		mainCharacters.add(character);
 		return character;
@@ -43,30 +44,44 @@ public class EDFScene extends ShootingScene {
 					.gameover();
 			return false;
 		}
+		if (isPausing()) {
+			inputProcess();
+			return false;
+		}
 		return super.updateProcess();
 	}
 
+	public boolean isPlaying() {
+		return stages.isPlaying();
+	}
+
+	public boolean isBreakTime() {
+		return stages.isBreakTime();
+	}
+
 	public boolean isPausing() {
-		return stages.isPausing();
+		return pausing;
 	}
 
 	public boolean isGameOver() {
 		return !(mainCharacters.earthArrive());
 	}
-	
-	public boolean isBreakTime() {
-		return stages.isBreakTime();
-	}
 
 	@Override
-	public void inputProcess() {
-		/**
-		 * TODO ゲームオーバーテスト用。提出時削除すべし
-		 */
+	public boolean inputProcess() {
+		// TODO ゲームオーバーテスト用。提出時削除すべし
 		if (Key.O.isPressed()) {
 			GameSceneManager.getInstance()
 					.gameover();
 		}
+
+		// TODO ポーズ中キャプションがほしい
+		if (Key.P.isPressed()) {
+			if (isPlaying()) {
+				pausing = !pausing;
+			}
+		}
+		return super.inputProcess();
 	}
 
 }

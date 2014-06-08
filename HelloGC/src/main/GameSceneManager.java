@@ -4,7 +4,7 @@ import io.Key;
 import scenes.edf.EDFScene;
 import scenes.flowerstorm.FlowerStormScene;
 import scenes.gameover.GameOverScene;
-import scenes.shootingtest.ShootingTestScene;
+import scenes.shootingtest.TestShootingScene;
 import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
 import scenes.title.TitleScene;
@@ -51,7 +51,7 @@ public class GameSceneManager extends GameScene {
 		changeSceneIfNotNull(nextscene.newInstance());
 	}
 
-	public void reset() {
+	public void gameReset() {
 		changeSceneIfNotNull(new TitleScene());
 	}
 
@@ -64,8 +64,8 @@ public class GameSceneManager extends GameScene {
 		TEST(Key.F1, TestScene.class),
 		FLOWER_STORM(Key.F2, FlowerStormScene.class),
 		SOLAR_SYSTEM(Key.F3, SolarSystemScene.class),
-		SHOOTING_TEST(Key.F4, ShootingTestScene.class),
-		EDF(Key.F5, EDFScene.class);
+		SHOOTING_TEST(Key.F4, TestShootingScene.class),
+		EDF(Key.NULL, EDFScene.class), ;
 
 		private final Key trigger;
 		private Class<? extends GameScene> sceneClass;

@@ -73,14 +73,16 @@ public class EDFShip extends ShootingRotateCharacter {
 	}
 
 	@Override
-	public void inputProcess() {
-		processLeftMove();
-		processRightMove();
-		processBackToEarth();
-		processShoot();
+	public boolean inputProcess() {
+		leftMoveProcess();
+		rightMoveProcess();
+		backToEarthProcess();
+		shootProcess();
+		
+		return super.inputProcess();
 	}
 
-	private void processLeftMove() {
+	private void leftMoveProcess() {
 		if (!LEFT_MOVE.isPressing()) {
 			return;
 		}
@@ -91,7 +93,7 @@ public class EDFShip extends ShootingRotateCharacter {
 		setAngle(getAngle() + ROTATE_SPEED);
 	}
 
-	private void processRightMove() {
+	private void rightMoveProcess() {
 		if (!RIGHT_MOVE.isPressing()) {
 			return;
 		}
@@ -102,13 +104,13 @@ public class EDFShip extends ShootingRotateCharacter {
 		setAngle(getAngle() - ROTATE_SPEED);
 	}
 
-	private void processBackToEarth() {
+	private void backToEarthProcess() {
 		if (BACK_TO_EARTH.isPressed()) {
 			//TODO
 		}
 	}
 
-	private void processShoot() {
+	private void shootProcess() {
 		if(((EDFScene)getParentScene()).isBreakTime()) {
 			return;
 		}

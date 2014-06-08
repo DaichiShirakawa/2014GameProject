@@ -140,7 +140,8 @@ public enum Key {
 	RWIN(220),
 	APPS(221),
 	POWER(222),
-	SLEEP(223);
+	SLEEP(223), 
+	NULL(0);
 
 	// HACK 整数の線形性を前提としたstate定数。もう少し賢い方法がありそうだ
 	protected static final int STATE_RELEASED = -2; // 離された瞬間

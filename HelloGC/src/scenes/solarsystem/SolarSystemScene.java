@@ -26,6 +26,12 @@ public class SolarSystemScene extends GameScene {
 
 	public SolarSystemScene() {
 		BackGroundColor.BLACK.set();
+		
+		add(new TextCharacter("input: ↑,↓,→,←,SPACE")).setScale(0.3f)
+		.setBasePont(GameCharacterBasePoint.LEFTBOTTOM)
+		.setX(5)
+		.setY(5)
+		.setColor(Color.white);
 
 		StarCharacter parentStar;
 		StarCharacter sun = new StarCharacter(null, "太", 1f, Color.orange, 0,
@@ -128,7 +134,7 @@ public class SolarSystemScene extends GameScene {
 	}
 
 	@Override
-	public void inputProcess() {
+	public boolean inputProcess() {
 		if (Key.UP.getPressingFrameCount() % INPUT_INTERVAL == 0) {
 			speedScale++;
 		}
@@ -147,6 +153,7 @@ public class SolarSystemScene extends GameScene {
 		if (Key.S.isPressed()) {
 			add(new ShootingStarCharacter());
 		}
+		return super.inputProcess();
 	}
 
 	private String getStateString() {

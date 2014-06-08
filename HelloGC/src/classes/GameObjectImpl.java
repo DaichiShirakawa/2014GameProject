@@ -29,7 +29,9 @@ public abstract class GameObjectImpl implements GameObject {
 		if (!updateProcess()) {
 			return;
 		}
-		inputProcess();
+		if (!inputProcess()) {
+			return;
+		}
 		updateChildren();
 	}
 
@@ -42,18 +44,20 @@ public abstract class GameObjectImpl implements GameObject {
 	}
 
 	/**
-	 * update中に呼ばれる入力処理。
-	 * 必要に応じてオーバーライドする。
-	 */
-	protected void inputProcess() {
-	}
-
-	/**
 	 * 自身のメイン処理を記述する。
-	 * falseを返せば入力処理や子のアップデートは行われない。
+	 * falseを返せば入力処理と子のアップデートは行われない。
 	 * ポーズ処理など、一時的に止めたい場合にfalseを返す。
 	 */
 	abstract protected boolean updateProcess();
+
+	/**
+	 * update中に呼ばれる入力処理。
+	 * 必要に応じてオーバーライドする。
+	 * falseを返せば子のアップデートは行われない。
+	 */
+	protected boolean inputProcess() {
+		return true;
+	}
 
 	/**
 	 * 子オブジェクトのメイン処理を呼ぶ
@@ -131,6 +135,10 @@ public abstract class GameObjectImpl implements GameObject {
 
 	@Override
 	public final <T extends GameObject> T add(T go) {
+		if (go == null) {
+			System.out.println("add(null)の実行");
+			return go;
+		}
 		bookingObjects.add(go);
 		return go;
 	}
