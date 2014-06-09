@@ -4,6 +4,12 @@ import scenes.edf.characters.EDFCharacterController;
 import classes.character.GameCharacterImpl;
 import common.LR;
 
+/**
+ * 左右両方の武器状態を表示するGUI
+ * 
+ * @author shirakawa
+ *
+ */
 public class EDFWeaponCaption extends GameCharacterImpl {
 	EDFCharacterController scene;
 

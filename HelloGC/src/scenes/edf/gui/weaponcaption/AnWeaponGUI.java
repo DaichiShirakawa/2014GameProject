@@ -6,11 +6,15 @@ import scenes.edf.weapons.EDFWeaponBase;
 import classes.character.GameCharacterImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
+
 import common.Commons;
 import common.LR;
 
 /**
- * 片側の武器GUI
+ * 武器単体GUI
+ * 
+ * @author shirakawa
+ * 
  */
 class AnWeaponGUI extends GameCharacterImpl {
 	private EDFWeaponBase weapon;
@@ -35,10 +39,11 @@ class AnWeaponGUI extends GameCharacterImpl {
 				.setY(getY() - 25)
 				.setScale(0.3f)
 				.setColor(Color.white);
+		add(new DelayBar(this));
 
 		setWeapon(weapon);
 	}
-	
+
 	public EDFWeaponBase getWeapon() {
 		return weapon;
 	}
@@ -51,7 +56,7 @@ class AnWeaponGUI extends GameCharacterImpl {
 	}
 
 	private String getBulletCountText(EDFWeaponBase weapon) {
-		return weapon.getRemainBullet() + " / " + weapon.getMaxCharge();
+		return weapon.getRemainBullet() + " / " + weapon.getMaxBullet();
 	}
 
 	@Override

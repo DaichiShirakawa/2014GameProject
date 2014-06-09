@@ -17,7 +17,7 @@ public abstract class EDFWeaponBase extends ShootingRotateCharacter {
 			LR equipLR, Class<? extends EDFBulletBase> bulletClass) {
 		super(scene, 0f);
 		this.owner = owner;
-		this.remainBullet = getMaxCharge();
+		this.remainBullet = getMaxBullet();
 		this.bulletClass = bulletClass;
 		setTeam(owner.getTeam());
 		setOffsetY(owner.getOffsetY());
@@ -64,10 +64,14 @@ public abstract class EDFWeaponBase extends ShootingRotateCharacter {
 
 	abstract protected int getShootDelayFrame();
 
-	abstract public int getMaxCharge();
+	abstract public int getMaxBullet();
 
 	public int getRemainBullet() {
 		return remainBullet;
+	}
+	
+	public int getMaxDelayFrame() {
+		return getShootDelayFrame();
 	}
 	
 	public int getRemainDelayFrame() {

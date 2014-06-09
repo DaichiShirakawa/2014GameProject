@@ -34,7 +34,7 @@ public class EDFBasicWeapon extends EDFWeaponBase {
 	}
 
 	@Override
-	public int getMaxCharge() {
+	public int getMaxBullet() {
 		return MAX_CHARGE;
 	}
 }
