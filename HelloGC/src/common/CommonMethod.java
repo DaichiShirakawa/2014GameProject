@@ -27,6 +27,16 @@ public final class CommonMethod {
 	}
 
 	/**
+	 * 確率でtrueになる関数
+	 * 
+	 * @param odds
+	 * @return odds%の確率でtrue
+	 */
+	public static boolean persentOf(float odds) {
+		return random(0, 100) <= odds;
+	}
+
+	/**
 	 * 背景デフォルト色を指定
 	 */
 	public enum BackGroundColor {

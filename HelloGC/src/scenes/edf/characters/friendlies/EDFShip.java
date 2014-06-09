@@ -1,4 +1,4 @@
-package scenes.edf;
+package scenes.edf.characters.friendlies;
 
 import static common.Commons.*;
 import io.Key;
@@ -6,11 +6,13 @@ import io.Key;
 import java.awt.Color;
 
 import main.FPSManager;
-import scenes.edf.weapons.BasicWeapon;
+import scenes.edf.EDFScene;
+import scenes.edf.weapons.EDFWeaponBase;
+import scenes.edf.weapons.basic.EDFBasicWeapon;
+import scenes.edf.weapons.sniper.EDFSnipeWeapon;
 import texture.TextureLoader;
-import classes.character.shooting.EDFWeaponCharacter;
+import classes.character.CircleCharacter;
 import classes.character.shooting.ShootingRotateCharacter;
-
 import common.LR;
 
 public class EDFShip extends ShootingRotateCharacter {
@@ -19,7 +21,7 @@ public class EDFShip extends ShootingRotateCharacter {
 			+ "tokiIcon.png";
 
 	// 基礎パラメータ
-	private static final float ELEVATION = 30; // 画面中心点から戦艦までの半径
+	private static final int ELEVATION = 40; // 画面中心点から戦艦までの半径
 	private static final float ROTATE_SPEED = 0.75f;
 	private static final int SIZE = 16;
 
@@ -39,8 +41,8 @@ public class EDFShip extends ShootingRotateCharacter {
 
 	// 武器
 	public static final float WEAPON_DISTANCE = 8; // 本体から武器までの距離
-	private EDFWeaponCharacter leftWeapon;
-	private EDFWeaponCharacter rightWeapon;
+	private EDFWeaponBase leftWeapon;
+	private EDFWeaponBase rightWeapon;
 
 	public EDFShip(EDFScene scene) {
 		super(scene, 0);
@@ -49,12 +51,15 @@ public class EDFShip extends ShootingRotateCharacter {
 		setY(ELEVATION);
 		setWidth(SIZE);
 		setHeight(SIZE);
-		setTeam(SHOOTING_TEAM.FRIEND_TEAM);
+		setTeam(ShootingTeam.FRIEND_TEAM);
 		setOffsetY(ELEVATION);
 		setAngle(0);
-		
-		equipLeft(new BasicWeapon(getParentScene(), this, LR.LEFT));
-		equipRight(new BasicWeapon(getParentScene(), this, LR.RIGHT));
+
+		equipLeft(new EDFSnipeWeapon(scene, this, LR.LEFT));
+		equipRight(new EDFBasicWeapon(scene, this, LR.RIGHT));
+
+		add(new CircleCharacter(ELEVATION * 2, ELEVATION * 2)).setAlpha(0.5f)
+				.setColor(new Color(0f, 1f, 0.8f));
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class EDFShip extends ShootingRotateCharacter {
 		rightMoveProcess();
 		backToEarthProcess();
 		shootProcess();
-		
+
 		return super.inputProcess();
 	}
 
@@ -106,12 +111,12 @@ public class EDFShip extends ShootingRotateCharacter {
 
 	private void backToEarthProcess() {
 		if (BACK_TO_EARTH.isPressed()) {
-			//TODO
+			// TODO
 		}
 	}
 
 	private void shootProcess() {
-		if(((EDFScene)getParentScene()).isBreakTime()) {
+		if (((EDFScene) getParentScene()).isBreakTime()) {
 			return;
 		}
 		if (LEFT_WEAPON.isPressing() && leftWeapon != null) {
@@ -131,25 +136,25 @@ public class EDFShip extends ShootingRotateCharacter {
 		dashStartFrame = FPSManager.totalFrame();
 	}
 
-	public void equipLeft(BasicWeapon weapon) {
+	public void equipLeft(EDFWeaponBase weapon) {
 		if (leftWeapon != null) {
 			leftWeapon.destroy();
 		}
 		leftWeapon = add(weapon);
 	}
 
-	public void equipRight(BasicWeapon weapon) {
+	public void equipRight(EDFWeaponBase weapon) {
 		if (rightWeapon != null) {
 			rightWeapon.destroy();
 		}
 		rightWeapon = add(weapon);
 	}
 
-	public EDFWeaponCharacter getRightWeapon() {
+	public EDFWeaponBase getRightWeapon() {
 		return rightWeapon;
 	}
 
-	public EDFWeaponCharacter getLeftWeapon() {
+	public EDFWeaponBase getLeftWeapon() {
 		return leftWeapon;
 	}
 }

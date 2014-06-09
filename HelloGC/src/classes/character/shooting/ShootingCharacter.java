@@ -1,14 +1,14 @@
 package classes.character.shooting;
 
 import classes.character.GameCharacter;
-import classes.character.shooting.ShootingCharacterImpl.SHOOTING_TEAM;
+import classes.character.shooting.ShootingCharacterImpl.ShootingTeam;
 import classes.scene.ShootingScene;
 
 public interface ShootingCharacter extends GameCharacter {
 
-	SHOOTING_TEAM getTeam();
+	ShootingTeam getTeam();
 
-	void setTeam(SHOOTING_TEAM team);
+	void setTeam(ShootingTeam team);
 	
 	boolean isEnemyTeam(GameCharacter target);
 

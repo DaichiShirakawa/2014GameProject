@@ -1,16 +1,18 @@
-package scenes.edf;
+package scenes.edf.characters;
 
-import classes.character.shooting.EDFWeaponCharacter;
 import classes.scene.ShootingScene;
-
+import scenes.edf.EDFScene;
+import scenes.edf.characters.friendlies.EDFEarth;
+import scenes.edf.characters.friendlies.EDFShip;
+import scenes.edf.weapons.EDFWeaponBase;
 import common.CommonMethod.BackGroundColor;
 
-public class EDFMainCharacterController extends ShootingScene {
+public class EDFCharacterController extends ShootingScene {
 	EDFScene scene;
 	EDFEarth earth;
 	EDFShip ship;
 
-	public EDFMainCharacterController(EDFScene scene) {
+	public EDFCharacterController(EDFScene scene) {
 		BackGroundColor.BLACK.set();
 		this.scene = scene;
 		this.earth = add(new EDFEarth(scene));
@@ -22,11 +24,11 @@ public class EDFMainCharacterController extends ShootingScene {
 		return super.updateProcess();
 	}
 
-	public EDFWeaponCharacter getRightWeapon() {
+	public EDFWeaponBase getRightWeapon() {
 		return ship.getRightWeapon();
 	}
 
-	public EDFWeaponCharacter getLeftWeapon() {
+	public EDFWeaponBase getLeftWeapon() {
 		return ship.getLeftWeapon();
 	}
 

@@ -14,7 +14,6 @@ import classes.GameObject;
 import classes.character.GameCharacterBasePoint;
 import classes.character.TextCharacter;
 import classes.scene.GameScene;
-
 import common.CommonMethod;
 import common.CommonMethod.BackGroundColor;
 

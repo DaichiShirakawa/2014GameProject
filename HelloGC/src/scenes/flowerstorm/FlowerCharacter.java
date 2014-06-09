@@ -24,8 +24,8 @@ public class FlowerCharacter extends GameCharacterImpl {
 		setMoveModeX(GameCharacterMoveMode.LOOP);
 		setMoveModeY(GameCharacterMoveMode.UNLIMITED);
 
-		setVx(random(-0.1f, 0.4f));
-		setVy(getScale() * 2);
+		setVX(random(-0.1f, 0.4f));
+		setVY(getScale() * 2);
 		setVAngle(4f);
 	}
 

@@ -1,32 +1,36 @@
-package scenes.edf.weapons;
+package scenes.edf.weapons.sniper;
 
 import static common.CommonMethod.*;
 
 import java.awt.Color;
 
+import scenes.edf.EDFScene;
+import scenes.edf.weapons.EDFBulletBase;
 import texture.Texture;
 import texture.text.TextTextureMaker;
-import classes.character.shooting.ShootingBulletCharacter;
+import classes.character.shooting.BasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
-public class BasicBullet extends ShootingBulletCharacter {
-	private static final int BULLET_POWER = 1;
-	private static final int BULLET_SIZE = 8;
-	private static final int BULLET_RANGE = 200;
-	private static final Texture TEXTURE = TextTextureMaker.createText("弾");
-	private static final float SPEED = 3;
+public class EDFSnipeBullet extends EDFBulletBase {
+	private static final int BULLET_POWER = 3;
+	private static final int BULLET_HP = 5;
+	private static final int BULLET_SIZE = 4;
+	private static final int BULLET_RANGE = 400;
+	private static final Texture TEXTURE = TextTextureMaker.createText("▲");
+	private static final float SPEED = 15;
 
-	public BasicBullet(ShootingScene parentScene, ShootingCharacterImpl shooter) {
-		super(parentScene, shooter, BULLET_POWER);
+	public EDFSnipeBullet(EDFScene parentScene, ShootingCharacter shooter) {
+		super(parentScene, shooter, BULLET_POWER, BULLET_HP);
 
 		setColor(Color.white);
 
 		double theta = Math.toRadians(-getShooter().getAngle());
-		setVx(SPEED * (float) Math.sin(theta));
-		setVy(SPEED * (float) Math.cos(theta));
-		setVAngle(12);
+		setVX(SPEED * (float) Math.sin(theta));
+		setVY(SPEED * (float) Math.cos(theta));
+		setHeight(getHeight() * 4);
+		setAngle(shooter.getAngle());
 	}
 
 	@Override

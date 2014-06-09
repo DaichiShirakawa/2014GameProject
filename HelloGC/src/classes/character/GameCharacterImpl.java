@@ -172,7 +172,7 @@ public abstract class GameCharacterImpl extends GameObjectImpl implements
 	}
 
 	@Override
-	public GameCharacter setVx(float vx) {
+	public GameCharacter setVX(float vx) {
 		this.vx = vx;
 		return this;
 	}
@@ -183,7 +183,7 @@ public abstract class GameCharacterImpl extends GameObjectImpl implements
 	}
 
 	@Override
-	public GameCharacter setVy(float vy) {
+	public GameCharacter setVY(float vy) {
 		this.vy = vy;
 		return this;
 	}

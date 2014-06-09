@@ -1,12 +1,10 @@
-package scenes.edf.weapons;
+package classes.character.shooting;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
 import static java.lang.Math.*;
-import texture.Texture;
-import classes.character.shooting.ShootingEffectCharacter;
-import classes.character.shooting.ShootingCharacter;
 import classes.scene.ShootingScene;
+import texture.Texture;
 
 public class BasicEffect extends ShootingEffectCharacter {
 	public BasicEffect(ShootingScene parentScene, ShootingCharacter source) {
@@ -15,8 +13,8 @@ public class BasicEffect extends ShootingEffectCharacter {
 		setColor(source.getColor());
 
 		float tmp = RANDOM.nextInt(360);
-		setVx(3 * (float) sin(tmp) * random(0.2f, 1f));
-		setVy(3 * (float) cos(tmp) * random(0.2f, 1f));
+		setVX(3 * (float) sin(tmp) * random(0.2f, 1f));
+		setVY(3 * (float) cos(tmp) * random(0.2f, 1f));
 		setAngle(tmp);
 	}
 
@@ -37,8 +35,8 @@ public class BasicEffect extends ShootingEffectCharacter {
 
 	@Override
 	public boolean updateProcess() {
-		setVx(getVX() * 0.95f);
-		setVy(getVY() * 0.95f);
+		setVX(getVX() * 0.95f);
+		setVY(getVY() * 0.95f);
 		return super.updateProcess();
 	}
 

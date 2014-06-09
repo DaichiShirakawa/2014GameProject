@@ -2,9 +2,9 @@ package scenes.shootingtest;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import scenes.edf.weapons.BasicEffect;
 import texture.Texture;
 import texture.TextureLoader;
+import classes.character.shooting.BasicEffect;
 import classes.character.shooting.ShootingBulletCharacter;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
@@ -22,8 +22,8 @@ public class TestBullet extends ShootingBulletCharacter {
 		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(generateCosmosColor());
-		setVx(random(-0.5f, 0.5f));
-		setVy(ySpeed);
+		setVX(random(-0.5f, 0.5f));
+		setVY(ySpeed);
 		setVAngle(12);
 	}
 
@@ -69,8 +69,8 @@ public class TestBullet extends ShootingBulletCharacter {
 
 		@Override
 		public boolean updateProcess() {
-			setVx(getVX() * 0.95f);
-			setVy(getVY() * 0.95f);
+			setVX(getVX() * 0.95f);
+			setVY(getVY() * 0.95f);
 			return super.updateProcess();
 		}
 

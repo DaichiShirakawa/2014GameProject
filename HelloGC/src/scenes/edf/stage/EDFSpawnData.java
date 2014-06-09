@@ -2,24 +2,23 @@ package scenes.edf.stage;
 
 import java.lang.reflect.InvocationTargetException;
 
-import scenes.edf.enemies.EDFEnemy;
 import classes.scene.ShootingScene;
-
+import scenes.edf.characters.enemies.EDFEnemyBase;
 import common.LR;
 
 /**
  * 敵の発生タイミングと発生場所の定義
  * 
  * @author shirakawa
- *
+ * 
  */
-public class SpawnData {
-	private Class<? extends EDFEnemy> enemyClass;
+public class EDFSpawnData {
+	private Class<? extends EDFEnemyBase> enemyClass;
 	private long spawnFrame;
 	private float angle;
 	private LR rotateLR;
 
-	public SpawnData(Class<? extends EDFEnemy> enemyClass, long spawnFrame,
+	public EDFSpawnData(Class<? extends EDFEnemyBase> enemyClass, long spawnFrame,
 			float angle, LR rotateLR) {
 		this.enemyClass = enemyClass;
 		this.spawnFrame = spawnFrame;
@@ -27,7 +26,7 @@ public class SpawnData {
 		this.rotateLR = rotateLR;
 	}
 
-	public EDFEnemy spawnTo(ShootingScene parentScene) {
+	public EDFEnemyBase spawnTo(ShootingScene parentScene) {
 		try {
 			return enemyClass.getConstructor(ShootingScene.class, float.class,
 					LR.class)

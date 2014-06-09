@@ -1,4 +1,4 @@
-package scenes.edf.gui;
+package scenes.edf.gui.moneycaption;
 
 import static common.Commons.*;
 

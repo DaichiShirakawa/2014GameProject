@@ -134,7 +134,7 @@ public abstract class GameObjectImpl implements GameObject {
 	}
 
 	@Override
-	public final <T extends GameObject> T add(T go) {
+	public <T extends GameObject> T add(T go) {
 		if (go == null) {
 			System.out.println("add(null)の実行");
 			return go;

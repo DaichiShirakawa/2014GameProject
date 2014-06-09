@@ -4,13 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 
 import scenes.edf.EDFScene;
 
-enum StageDef {
+enum EDFStageDef {
 	STAGE_01(EDFStage1.class),
 	STAGE_02(EDFStage2.class), 
 	CLEAR(null);
 	private Class<? extends EDFStageBase> stageClass;
 
-	private StageDef(Class<? extends EDFStageBase> stageClass) {
+	private EDFStageDef(Class<? extends EDFStageBase> stageClass) {
 		this.stageClass = stageClass;
 	}
 
@@ -31,8 +31,8 @@ enum StageDef {
 		return null;
 	}
 
-	private static StageDef currentStage = null;
-	private static final StageDef FIRST_STAGE = STAGE_01;
+	private static EDFStageDef currentStage = null;
+	private static final EDFStageDef FIRST_STAGE = STAGE_01;
 
 	public static EDFStageBase getNextStage(EDFScene scene) {
 		if (currentStage == null) {

@@ -1,5 +1,6 @@
 package main;
 
+import classes.scene.GameScene;
 import io.Key;
 import scenes.edf.EDFScene;
 import scenes.flowerstorm.FlowerStormScene;
@@ -8,7 +9,6 @@ import scenes.shootingtest.TestShootingScene;
 import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
 import scenes.title.TitleScene;
-import classes.scene.GameScene;
 
 /**
  * 各シーンの切り替えを担当するシングルトン

@@ -6,10 +6,10 @@ import static java.lang.Math.*;
 
 import java.awt.Color;
 
-import scenes.edf.weapons.BasicEffect;
 import texture.Texture;
 import texture.TextureLoader;
 import classes.character.GameCharacterMoveMode;
+import classes.character.shooting.BasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
@@ -23,7 +23,7 @@ public class TestEnemyShip extends ShootingCharacterImpl {
 
 	public TestEnemyShip(ShootingScene scene) {
 		super(scene, 1);
-		setTeam(SHOOTING_TEAM.ENEMY_TEAM);
+		setTeam(ShootingTeam.ENEMY_TEAM);
 		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "DotTokiIcon.png"));
 		setWidth(size);
@@ -74,8 +74,8 @@ public class TestEnemyShip extends ShootingCharacterImpl {
 
 		@Override
 		public boolean updateProcess() {
-			setVx(getVX() * 0.95f);
-			setVy(getVY() * 0.95f);
+			setVX(getVX() * 0.95f);
+			setVY(getVY() * 0.95f);
 			return super.updateProcess();
 		}
 

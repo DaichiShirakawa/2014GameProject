@@ -19,8 +19,8 @@ public class EDFStageController extends GameScene {
 
 	public EDFStageController(EDFScene scene) {
 		this.scene = scene;
-		StageDef.reset();
-		currentStage = add(StageDef.getNextStage(scene));
+		EDFStageDef.reset();
+		currentStage = add(EDFStageDef.getNextStage(scene));
 		startText = add(new TextCharacter(getReadyText()));
 		clearText = add(new TextCharacter("STAGE CLEAR\n" + "press enter"));
 		startText.setX(CENTER_X)
@@ -34,7 +34,7 @@ public class EDFStageController extends GameScene {
 	}
 
 	private String getReadyText() {
-		return StageDef.getStageName() + " READY?\n" + "press enter";
+		return EDFStageDef.getStageName() + " READY?\n" + "press enter";
 	}
 
 	@Override
@@ -48,12 +48,16 @@ public class EDFStageController extends GameScene {
 			startText.hide();
 			clearText.hide();
 			if (currentStage.isClear()) {
-				nextStage();
-				if (currentStage == null) {
-					stageState = StageState.ALL_CLEAR;
-				} else {
-					stageState = StageState.CLEAR;
-				}
+				stageState = StageState.PRE_CLEAR;
+			}
+			break;
+		case PRE_CLEAR:
+			scene.clearEnemies();
+			nextStage();
+			if (currentStage == null) {
+				stageState = StageState.ALL_CLEAR;
+			} else {
+				stageState = StageState.CLEAR;
 			}
 			break;
 		case CLEAR:
@@ -92,8 +96,8 @@ public class EDFStageController extends GameScene {
 
 	private void nextStage() {
 		currentStage.destroy();
-		currentStage = add(StageDef.getNextStage(scene));
-		if (StageDef.allClear()) {
+		currentStage = add(EDFStageDef.getNextStage(scene));
+		if (EDFStageDef.allClear()) {
 			clearText.updateText("GAME CLEAR!\n" + "congratulations!");
 			return;
 		}
@@ -103,6 +107,7 @@ public class EDFStageController extends GameScene {
 	private enum StageState {
 		READY,
 		PLAYING,
+		PRE_CLEAR,
 		CLEAR,
 		ALL_CLEAR,
 	}
@@ -116,4 +121,14 @@ public class EDFStageController extends GameScene {
 		return (stageState == StageState.PLAYING);
 	}
 
+	/**
+	 * 強制クリア
+	 */
+	public void doClear() {
+		if (stageState != StageState.PLAYING) {
+			return;
+		}
+
+		stageState = StageState.PRE_CLEAR;
+	}
 }

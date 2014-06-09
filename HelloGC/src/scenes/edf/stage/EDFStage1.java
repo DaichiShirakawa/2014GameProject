@@ -1,7 +1,8 @@
 package scenes.edf.stage;
 
 import scenes.edf.EDFScene;
-import scenes.edf.enemies.EDFEnemy;
+import scenes.edf.characters.enemies.EDFEnemyStandard;
+import scenes.edf.characters.enemies.EDFEnemyToki;
 import common.LR;
 
 public class EDFStage1 extends EDFStageBase {
@@ -12,20 +13,31 @@ public class EDFStage1 extends EDFStageBase {
 
 	@Override
 	protected void createSpawns() {
-		int frame = 60;
+		int frame = 0;
 		float angle = 0;
-		addSpawn(EDFEnemy.class, frame, angle, LR.LEFT);
-		addSpawn(EDFEnemy.class, frame, angle, LR.RIGHT);
-		frame += 120;
-		addSpawn(EDFEnemy.class, frame, angle, LR.LEFT);
-		addSpawn(EDFEnemy.class, frame, angle, LR.RIGHT);
-		frame += 120;
-		angle += 180;
-		addSpawn(EDFEnemy.class, frame, angle, LR.LEFT);
-		addSpawn(EDFEnemy.class, frame, angle, LR.RIGHT);
-		frame += 120;
-		addSpawn(EDFEnemy.class, frame, angle, LR.LEFT);
-		addSpawn(EDFEnemy.class, frame, angle, LR.RIGHT);
+		addSpawn(EDFEnemyToki.class, frame, angle, LR.LEFT);
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
+		frame += 60;
+		angle += 45;
+		addSpawn(EDFEnemyStandard.class, frame, angle, LR.LEFT);
 	}
 
 }

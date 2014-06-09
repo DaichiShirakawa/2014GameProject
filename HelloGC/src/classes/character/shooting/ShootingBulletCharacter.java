@@ -2,6 +2,7 @@ package classes.character.shooting;
 
 import static java.lang.Math.*;
 import texture.Texture;
+import classes.character.DamagePopupCharacter;
 import classes.scene.ShootingScene;
 
 public abstract class ShootingBulletCharacter extends ShootingCharacterImpl {
@@ -58,6 +59,15 @@ public abstract class ShootingBulletCharacter extends ShootingCharacterImpl {
 
 	protected void setTarget(ShootingCharacter target) {
 		this.target = target;
+	}
+
+	@Override
+	public void hitEffectTo(ShootingCharacter target) {
+		if (!(target instanceof ShootingBulletCharacter)) {
+			getParentScene().add(
+					new DamagePopupCharacter(target, (int) getPower()));
+		}
+		super.hitEffectTo(target);
 	}
 
 	@Override

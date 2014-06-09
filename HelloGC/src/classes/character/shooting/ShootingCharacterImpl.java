@@ -7,10 +7,10 @@ import classes.character.GameCharacter;
 import classes.character.GameCharacterImpl;
 import classes.scene.ShootingScene;
 
-public abstract class ShootingCharacterImpl extends GameCharacterImpl
-		implements ShootingCharacter {
+public abstract class ShootingCharacterImpl extends GameCharacterImpl implements
+		ShootingCharacter {
 	private ShootingScene parentScene;
-	private SHOOTING_TEAM team;
+	private ShootingTeam team;
 	private float power;
 	private float hp;
 	private boolean undead = false;
@@ -29,12 +29,12 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl
 	}
 
 	@Override
-	public SHOOTING_TEAM getTeam() {
+	public ShootingTeam getTeam() {
 		return team;
 	}
 
 	@Override
-	public void setTeam(SHOOTING_TEAM division) {
+	public void setTeam(ShootingTeam division) {
 		this.team = division;
 	}
 
@@ -45,9 +45,9 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl
 		}
 		switch (getTeam()) {
 		case FRIEND_TEAM:
-			return ((ShootingCharacterImpl) target).getTeam() == SHOOTING_TEAM.ENEMY_TEAM;
+			return ((ShootingCharacterImpl) target).getTeam() == ShootingTeam.ENEMY_TEAM;
 		case ENEMY_TEAM:
-			return ((ShootingCharacterImpl) target).getTeam() == SHOOTING_TEAM.FRIEND_TEAM;
+			return ((ShootingCharacterImpl) target).getTeam() == ShootingTeam.FRIEND_TEAM;
 		default:
 			return false;
 		}
@@ -112,7 +112,7 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl
 			return false;
 		}
 		boolean noHit = !super.checkHit(target);
-		if(noHit) {
+		if (noHit) {
 			return false;
 		}
 		return true;
@@ -124,7 +124,7 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl
 		target.damage(getPower());
 	}
 
-	public enum SHOOTING_TEAM {
+	public enum ShootingTeam {
 		FRIEND_TEAM,
 		ENEMY_TEAM,
 		NO_TEAM,

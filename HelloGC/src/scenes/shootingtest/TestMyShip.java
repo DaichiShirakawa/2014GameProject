@@ -16,7 +16,7 @@ public class TestMyShip extends ShootingCharacterImpl {
 
 	public TestMyShip(ShootingScene scene) {
 		super(scene, 0);
-		setTeam(SHOOTING_TEAM.FRIEND_TEAM);
+		setTeam(ShootingTeam.FRIEND_TEAM);
 		setTexture(TextureLoader.loadTexture(IMAGE_FOLDER_STRING
 				+ "tokiIcon.png"));
 		setWidth(size);
@@ -30,19 +30,19 @@ public class TestMyShip extends ShootingCharacterImpl {
 
 	@Override
 	public boolean updateProcess() {
-		setVy(0);
-		setVx(0);
+		setVY(0);
+		setVX(0);
 		if (Key.UP.isPressing()) {
-			setVy(speed);
+			setVY(speed);
 		}
 		if (Key.DOWN.isPressing()) {
-			setVy(-speed);
+			setVY(-speed);
 		}
 		if (Key.LEFT.isPressing()) {
-			setVx(-speed);
+			setVX(-speed);
 		}
 		if (Key.RIGHT.isPressing()) {
-			setVx(speed);
+			setVX(speed);
 		}
 		if (Key.SPACE.getPressingFrameCount() % 5 == 0) {
 			shoot(new TestBullet(getParentScene(), this));

@@ -17,8 +17,8 @@ public class ShootingStarCharacter extends GameCharacterImpl {
 		setTexture(TextureLoader.loadTexture(IMAGE_PATH));
 		setX(WIDTH);
 		setY(HEIGHT);
-		setVx(-3);
-		setVy(-2);
+		setVX(-3);
+		setVY(-2);
 		setWidth(SIZE);
 		setHeight(SIZE);
 		setMoveModeX(GameCharacterMoveMode.DESTROY_WITH_FADEOUT);

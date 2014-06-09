@@ -8,7 +8,7 @@ public abstract class ShootingEffectCharacter extends ShootingBulletCharacter {
 			ShootingCharacter shooter) {
 		super(parentScene, shooter, 0);
 		destroyAfter(getLifeTime());
-		setTeam(SHOOTING_TEAM.NO_TEAM);
+		setTeam(ShootingTeam.NO_TEAM);
 	}
 
 	abstract protected float getLifeTime();

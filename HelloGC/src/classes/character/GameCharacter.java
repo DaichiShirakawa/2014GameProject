@@ -30,11 +30,11 @@ public interface GameCharacter extends GameObject {
 
 	float getVX();
 
-	GameCharacter setVx(float vx);
+	GameCharacter setVX(float vx);
 
 	float getVY();
 
-	GameCharacter setVy(float vy);
+	GameCharacter setVY(float vy);
 
 	int getWidth();
 
