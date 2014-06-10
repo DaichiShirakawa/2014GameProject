@@ -1,6 +1,12 @@
 package common;
 
 
+/**
+ * 左右を扱いたいときのための定義
+ * 
+ * @author shirakawa
+ *
+ */
 public enum LR {
 	LEFT(-1),
 	RIGHT(1);

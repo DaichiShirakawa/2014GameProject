@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * ゲームオブジェクトの実装クラス
+ * 
  * ひとつのオブジェクトは、自分を含めた複数の子オブジェクトを所有できる。
  * updateやrenderは自身およびすべての子に対して行われる。
  * 自分がdestroyされた時、すべての子オブジェクトもdestroyされる。

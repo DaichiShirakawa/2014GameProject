@@ -3,7 +3,7 @@ package classes.scene;
 import classes.GameObjectImpl;
 
 /**
- * シーン
+ * ゲームシーンの基底クラス
  * 
  * @author shirakawa
  * 

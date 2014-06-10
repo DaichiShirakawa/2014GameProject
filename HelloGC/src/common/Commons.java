@@ -15,16 +15,12 @@ public final class Commons {
 		// 隠蔽
 	}
 
-	public static final String PRODUCT_TITLE = "ブラウニーズ様 就職活動応募作品";
+	public static final String PRODUCT_TITLE = "Toki Shooting - 就職活動応募作品";
 	public static final String LWJGL_NATIVE_PROPERTY_NAME = "org.lwjgl.librarypath";
 
 	/**
 	 * ウィンドウ・描写領域
 	 */
-	// public static final int WINDOW_WIDTH = 1200;
-	// public static final int WINDOW_HEIGHT = 900;
-	// public static final int WIDTH = 400;
-	// public static final int HEIGHT = 300;
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 800;
 	public static final int WIDTH = 400;
@@ -43,8 +39,8 @@ public final class Commons {
 	public static final String RESOURCE_FOLDER_STRING = "./resources/";
 	public static final String IMAGE_FOLDER_STRING = RESOURCE_FOLDER_STRING
 			+ "image/";
-	public static final String NAOKO_FOLDER_STRING = IMAGE_FOLDER_STRING
-			+ "naoko/";
+	public static final String TOKISHOOTING_FOLDER_STRING = IMAGE_FOLDER_STRING
+			+ "tokishooting/";
 	public static final String WINDOWS_NATIVE_FOLDER_STRING = "./native/windows";
 	public static final String FONT_MSGOTHIC_FILEPATH = RESOURCE_FOLDER_STRING
 			+ "font/MSGOTHIC.TTC";

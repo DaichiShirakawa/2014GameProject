@@ -4,7 +4,7 @@ import texture.text.FontDef;
 import texture.text.TextTextureMaker;
 
 /**
- * テキストテクスチャのみを持つシンプルなキャラクター
+ * テキストテクスチャのみを持つキャラクター
  * 
  * @author shirakawa
  * 

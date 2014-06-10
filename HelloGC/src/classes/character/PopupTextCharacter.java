@@ -1,6 +1,12 @@
 package classes.character;
 
 
+/**
+ * 渡された文字をtargetの地点からポップアップする。ダメージ表現などに。
+ * 
+ * @author shirakawa
+ *
+ */
 public class PopupTextCharacter extends TextCharacter {
 	private static final int AGE_SECONDS = 1;
 	public PopupTextCharacter(GameCharacter target, String text) {

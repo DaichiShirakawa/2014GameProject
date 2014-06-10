@@ -7,7 +7,7 @@ import io.Key;
 import java.awt.Color;
 
 import main.FPSManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.characters.TSCharacterController;
 import scenes.tokishooting.characters.friendlies.earth.TSBasionBase;
 import scenes.tokishooting.weapons.TSWeaponBase;
@@ -18,8 +18,14 @@ import classes.character.PopupTextCharacter;
 import classes.character.shooting.ShootingRotateCharacter;
 import common.LR;
 
+/**
+ * 自機キャラクター
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSShip extends ShootingRotateCharacter {
-	// 戦艦テクスチャ
+	// 自機テクスチャ
 	private static final String TEXTURE_PATH = IMAGE_FOLDER_STRING
 			+ "tokiIcon.png";
 
@@ -54,7 +60,7 @@ public class TSShip extends ShootingRotateCharacter {
 
 	TSCharacterController characterController;
 
-	public TSShip(TSScene scene, TSCharacterController characterController) {
+	public TSShip(TokiShootingScene scene, TSCharacterController characterController) {
 		super(scene, 0);
 		this.characterController = characterController;
 		setTexture(TextureLoader.loadTexture(TEXTURE_PATH));
@@ -188,7 +194,7 @@ public class TSShip extends ShootingRotateCharacter {
 	}
 
 	private void shootInput() {
-		if (((TSScene) getParentScene()).isBreakTime()) {
+		if (((TokiShootingScene) getParentScene()).isBreakTime()) {
 			return;
 		}
 		if (LEFT_WEAPON.isPressing() && leftWeapon != null) {

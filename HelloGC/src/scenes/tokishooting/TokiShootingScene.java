@@ -19,7 +19,14 @@ import classes.character.shooting.ShootingCharacterImpl.ShootingTeam;
 import classes.scene.ShootingScene;
 import common.CommonMethod.BackGroundColor;
 
-public class TSScene extends ShootingScene {
+/**
+ * Toki Shooting の基点クラス。
+ * Toki Shooting ゲーム内のオブジェクトはすべてこのクラスから派生してゆく。
+ * 
+ * @author shirakawa
+ *
+ */
+public class TokiShootingScene extends ShootingScene {
 	private int money = 100;
 	private TSCharacterController characters;
 	private TSStageController stages;
@@ -28,7 +35,7 @@ public class TSScene extends ShootingScene {
 	private int cautionFrame;
 	private TextCharacter pauseCaption;
 
-	public TSScene() {
+	public TokiShootingScene() {
 		BackGroundColor.DARK_BLUE.set();
 		
 		characters = add(new TSCharacterController(this));
@@ -109,13 +116,7 @@ public class TSScene extends ShootingScene {
 
 	@Override
 	public boolean inputProcess() {
-		// TODO テスト用強制ゲームオーバー。
-		if (Key.O.isPressed()) {
-			GameSceneManager.getInstance()
-					.gameover();
-		}
-
-		// TODO テスト用強制クリア。
+		// テスト用強制クリア。
 		if (Key.A.isPressed()) {
 			stages.doClear();
 		}

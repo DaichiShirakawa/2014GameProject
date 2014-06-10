@@ -7,12 +7,18 @@ import java.awt.Color;
 
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.scene.ShootingScene;
 
-class SmokeEffect extends BasicEffect {
-	private static final Texture SMOKETEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+/**
+ * ボム弾やボム命中時に発生する煙エフェクト
+ * 
+ * @author shirakawa
+ *
+ */
+class SmokeEffect extends ShootingBasicEffect {
+	private static final Texture SMOKETEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "smoke.png");
 	private boolean reverse;
 

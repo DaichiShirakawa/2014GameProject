@@ -1,11 +1,11 @@
 package scenes.tokishooting.stage;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import common.LR;
 
 class Stage3 extends StageBase {
 
-	public Stage3(TSScene parentScene) {
+	public Stage3(TokiShootingScene parentScene) {
 		super(parentScene);
 	}
 

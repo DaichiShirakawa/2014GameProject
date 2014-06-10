@@ -5,24 +5,30 @@ import static common.Commons.*;
 
 import java.awt.Color;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * 通常武器
+ * 
+ * @author shirakawa
+ *
+ */
 class NormalBullet extends TSBulletBase {
 	private static final int BULLET_POWER = 1;
 	private static final int BULLET_SIZE = 8;
 	private static final int BULLET_RANGE = 200;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-apple.png");
-	private static final Texture EFFECT_TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-appleChild.png");
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING + "bullet-apple.png");
+	private static final Texture EFFECT_TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING + "bullet-appleChild.png");
 	private static final float SPEED = 3;
 
-	public NormalBullet(TSScene parentScene, ShootingCharacter shooter) {
+	public NormalBullet(TokiShootingScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(Color.white);
@@ -61,7 +67,7 @@ class NormalBullet extends TSBulletBase {
 		}
 	}
 
-	private class Effect extends BasicEffect {
+	private class Effect extends ShootingBasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
 			setTexture(EFFECT_TEXTURE);

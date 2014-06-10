@@ -6,8 +6,14 @@ import static java.lang.Math.*;
 import classes.scene.ShootingScene;
 import texture.Texture;
 
-public class BasicEffect extends ShootingEffectCharacter {
-	public BasicEffect(ShootingScene parentScene, ShootingCharacter source) {
+/**
+ * sourceの座標から、sourceのテクスチャのエフェクトがランダムな大きさで飛び散る。
+ * 
+ * @author shirakawa
+ * 
+ */
+public class ShootingBasicEffect extends ShootingEffectCharacter {
+	public ShootingBasicEffect(ShootingScene parentScene, ShootingCharacter source) {
 		super(parentScene, source);
 		setScale(random(0.5f, 2f));
 		setColor(source.getColor());

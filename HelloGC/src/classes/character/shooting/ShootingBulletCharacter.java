@@ -5,6 +5,13 @@ import texture.Texture;
 import classes.character.DamagePopupCharacter;
 import classes.scene.ShootingScene;
 
+/**
+ * シューティング用
+ * 弾丸キャラクター基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class ShootingBulletCharacter extends ShootingCharacterImpl {
 	private ShootingCharacter shooter = null;
 	private ShootingCharacter target = null;

@@ -1,5 +1,11 @@
 package classes.character;
 
+/**
+ * キャラクターのどの位置を座標の基点として扱うかの定義
+ * 
+ * @author shirakawa
+ *
+ */
 public enum GameCharacterBasePoint {
 	CENTER {
 		@Override

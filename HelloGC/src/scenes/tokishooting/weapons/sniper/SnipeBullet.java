@@ -2,24 +2,30 @@ package scenes.tokishooting.weapons.sniper;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * スナイパー弾
+ * 
+ * @author shirakawa
+ *
+ */
 class SnipeBullet extends TSBulletBase {
 	private static final int BULLET_POWER = 3;
 	private static final int BULLET_HP = 5;
 	private static final int BULLET_SIZE = 4;
 	private static final int BULLET_RANGE = 400;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-tikuwa.png");
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING + "bullet-tikuwa.png");
 	private static final float SPEED = 15;
 
-	public SnipeBullet(TSScene parentScene, ShootingCharacter shooter) {
+	public SnipeBullet(TokiShootingScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER, BULLET_HP);
 
 		double theta = Math.toRadians(-getShooter().getAngle());
@@ -57,7 +63,7 @@ class SnipeBullet extends TSBulletBase {
 		}
 	}
 
-	private class Effect extends BasicEffect {
+	private class Effect extends ShootingBasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
 			setScale(random(1f, 3f));

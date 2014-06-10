@@ -6,11 +6,17 @@ import classes.character.GameCharacter;
 import classes.character.GameCharacterMoveMode;
 import classes.scene.ShootingScene;
 
+/**
+ * 画面中心を基点として、円を描いて回転する動きを持つキャラクターの基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class ShootingRotateCharacter extends ShootingCharacterImpl {
-	// 自キャラから見て、この補正値の距離だけ前後に進む。
+	// 自身から見て、この補正値の距離だけ前後に進む。
 	private float offsetY;
 	private float vOffsetY;
-	// 自キャラから見て、この補正値の距離だけ横に進む。
+	// 自身から見て、この補正値の距離だけ横に進む。
 	private float offsetX;
 	private float vOffsetX;
 	private DamageVibrator damageVibrator = new DamageVibrator();

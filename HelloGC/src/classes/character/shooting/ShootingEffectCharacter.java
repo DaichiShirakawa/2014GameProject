@@ -2,6 +2,12 @@ package classes.character.shooting;
 
 import classes.scene.ShootingScene;
 
+/**
+ * ダメージ等で発生するエフェクトの基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class ShootingEffectCharacter extends ShootingBulletCharacter {
 
 	public ShootingEffectCharacter(ShootingScene parentScene,

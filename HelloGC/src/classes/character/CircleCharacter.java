@@ -11,6 +11,12 @@ import java.io.IOException;
 
 import texture.TextureLoader;
 
+/**
+ * 塗りつぶしていない円のテクスチャを持つキャラクター
+ * 
+ * @author shirakawa
+ *
+ */
 public class CircleCharacter extends GameCharacterImpl {
 
 	public CircleCharacter(int width, int height) {

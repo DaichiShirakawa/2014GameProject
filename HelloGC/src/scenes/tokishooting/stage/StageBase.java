@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.characters.enemies.TSEnemyBase;
 import scenes.tokishooting.characters.enemies.TSEnemyBoss;
 import scenes.tokishooting.characters.enemies.TSEnemyRotate;
@@ -14,13 +14,19 @@ import classes.GameObjectImpl;
 import classes.character.shooting.ShootingCharacter;
 import common.LR;
 
+/**
+ * ステージの基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 abstract class StageBase extends GameObjectImpl {
-	private TSScene scene;
+	private TokiShootingScene scene;
 	private long stageFrame = 0;
 	private List<SpawnData> spawns = new LinkedList<>();
 	private List<ShootingCharacter> spawnedEnemies = new LinkedList<>();
 
-	public StageBase(TSScene parentScene) {
+	public StageBase(TokiShootingScene parentScene) {
 		this.scene = parentScene;
 		createSpawns();
 	}

@@ -8,9 +8,9 @@ import java.awt.Color;
 import main.FPSManager;
 import main.GameSceneManager;
 import main.GameSceneManager.SceneCollection;
-import classes.character.GameCharacterBasePoint;
 import classes.character.TextCharacter;
 import classes.scene.GameScene;
+
 import common.CommonMethod.BackGroundColor;
 
 /**
@@ -35,13 +35,6 @@ public class TitleScene extends GameScene {
 				.setX(CENTER_X)
 				.setY(CENTER_Y)
 				.setScale(0.5f);
-
-		add(new TextCharacter("F1~F4: テストシーン\n" 
-							+ "ESC: ゲームリセット")).setScale(0.3f)
-				.setBasePont(GameCharacterBasePoint.LEFTBOTTOM)
-				.setX(5)
-				.setY(5)
-				.setColor(Color.black);
 	}
 
 	@Override

@@ -4,7 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * ループで扱うオブジェクトの基底インターフェース
+ * ゲームオブジェクトの基底インターフェース。
+ * ゲームに登場するすべてのオブジェクトはこのインターフェースを利用する。
  * 
  * @author shirakawa
  * 

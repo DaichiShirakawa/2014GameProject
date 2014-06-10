@@ -1,7 +1,7 @@
 package classes.character;
 
 /**
- * キャラクターの移動モードを定義
+ * キャラクターの移動モードの定義
  * 
  * @author shirakawa
  * 

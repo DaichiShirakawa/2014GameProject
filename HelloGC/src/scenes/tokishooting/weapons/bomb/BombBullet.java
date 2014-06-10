@@ -2,21 +2,27 @@ package scenes.tokishooting.weapons.bomb;
 
 import static common.Commons.*;
 import main.FPSManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import texture.Texture;
 import texture.TextureLoader;
 import classes.character.shooting.ShootingCharacter;
 
+/**
+ * ボム弾
+ * 
+ * @author shirakawa
+ *
+ */
 class BombBullet extends TSBulletBase {
 	private static final int BULLET_POWER = 0;
 	private static final int BULLET_HP = 1;
 	private static final int BULLET_SIZE = 20;
 	private static final int BULLET_RANGE = 400;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-suika.png");
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING + "bullet-suika.png");
 	private static final float SPEED = 0.7f;
 
-	public BombBullet(TSScene parentScene, ShootingCharacter shooter) {
+	public BombBullet(TokiShootingScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER, BULLET_HP);
 
 		double theta = Math.toRadians(-getShooter().getAngle());

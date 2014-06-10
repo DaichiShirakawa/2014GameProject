@@ -10,11 +10,17 @@ import classes.scene.ShootingScene;
 
 import common.LR;
 
+/**
+ * 回転軌道でせまってくる敵
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSEnemyRotate extends TSEnemyBase {
 	private static final int POWER = 1;
 	private static final int HP = 1;
 	private static final int SIZE = 25;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "ika.png");
 	private static final float ROTATE_SPEED = 0.2f;
 	private static final float FALL_SPEED = 0.2f;

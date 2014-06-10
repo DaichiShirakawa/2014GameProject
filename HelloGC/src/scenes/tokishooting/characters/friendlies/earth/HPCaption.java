@@ -6,6 +6,12 @@ import java.awt.Color;
 
 import classes.character.TextCharacter;
 
+/**
+ * 地球のHP表示
+ * 
+ * @author shirakawa
+ *
+ */
 class HPCaption extends TextCharacter {
 	private TSEarth earth;
 

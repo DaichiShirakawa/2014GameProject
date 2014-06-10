@@ -4,13 +4,19 @@ import static common.Commons.*;
 
 import java.awt.Color;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import classes.character.TextCharacter;
 
+/**
+ * 所持金を表示
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSMoneyCaption extends TextCharacter {
-	TSScene scene;
+	TokiShootingScene scene;
 
-	public TSMoneyCaption(TSScene edfScene) {
+	public TSMoneyCaption(TokiShootingScene edfScene) {
 		super(getCaption(edfScene.getMoney()));
 		this.scene = edfScene;
 		setScale(0.4f);

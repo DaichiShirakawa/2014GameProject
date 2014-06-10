@@ -2,6 +2,12 @@ package classes.character;
 
 import java.awt.Color;
 
+/**
+ * ダメージポップアップ用キャラクター
+ * 
+ * @author shirakawa
+ *
+ */
 public class DamagePopupCharacter extends PopupTextCharacter{
 	private static final int CHANGE_COLOR_SPAN = 10;
 

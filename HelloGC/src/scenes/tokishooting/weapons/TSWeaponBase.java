@@ -1,10 +1,16 @@
 package scenes.tokishooting.weapons;
 
 import main.FPSManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import classes.character.shooting.ShootingRotateCharacter;
 import common.LR;
 
+/**
+ * 武器の基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class TSWeaponBase extends ShootingRotateCharacter {
 	private ShootingRotateCharacter owner;
 	private int remainShootDelayFrame;
@@ -14,7 +20,7 @@ public abstract class TSWeaponBase extends ShootingRotateCharacter {
 	// 元値に対する弾丸の売却レート
 	private static final float SELL_RATE = (2f / 3f);
 
-	public TSWeaponBase(TSScene scene, ShootingRotateCharacter owner,
+	public TSWeaponBase(TokiShootingScene scene, ShootingRotateCharacter owner,
 			LR equipLR) {
 		super(scene, 0f);
 		this.owner = owner;
@@ -26,8 +32,8 @@ public abstract class TSWeaponBase extends ShootingRotateCharacter {
 	}
 
 	@Override
-	public TSScene getParentScene() {
-		return (TSScene) super.getParentScene();
+	public TokiShootingScene getParentScene() {
+		return (TokiShootingScene) super.getParentScene();
 	}
 
 	@Override

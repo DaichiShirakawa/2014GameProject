@@ -4,7 +4,7 @@ import io.Key;
 
 import java.lang.reflect.InvocationTargetException;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.characters.friendlies.ship.TSShip;
 import scenes.tokishooting.weapons.TSWeaponBase;
 import classes.character.shooting.ShootingRotateCharacter;
@@ -55,8 +55,8 @@ public abstract class TSBasionBase extends ShootingRotateCharacter {
 	}
 
 	@Override
-	public TSScene getParentScene() {
-		return (TSScene) (super.getParentScene());
+	public TokiShootingScene getParentScene() {
+		return (TokiShootingScene) (super.getParentScene());
 	}
 
 	protected final void changeWeapon(TSShip ship, LR lr) {
@@ -66,7 +66,7 @@ public abstract class TSBasionBase extends ShootingRotateCharacter {
 		}
 		try {
 			TSWeaponBase weapon = getWeaponClass().getConstructor(
-					TSScene.class, ShootingRotateCharacter.class, LR.class)
+					TokiShootingScene.class, ShootingRotateCharacter.class, LR.class)
 					.newInstance(getParentScene(), ship, lr);
 			getParentScene().addMoney(ship.getWeapon(lr).getSellValue());
 			ship.equip(weapon, lr);

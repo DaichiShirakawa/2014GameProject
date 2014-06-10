@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 
 /**
  * FPSの制御および計算を管理するシングルトン
- * 現在のフレーム数（ex.0-60）や
+ * 現在のフレーム周期（ex.FPS60なら0～59）や
  * ゲーム開始からの経過フレーム数も取得できる
  * 
  * @author shirakawa

@@ -1,7 +1,7 @@
 package scenes.tokishooting.weapons.bomb;
 
 import static common.Commons.*;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import scenes.tokishooting.weapons.TSWeaponBase;
 import texture.Texture;
@@ -9,15 +9,21 @@ import texture.TextureLoader;
 import classes.character.shooting.ShootingRotateCharacter;
 import common.LR;
 
+/**
+ * ボムを発射する武器
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSBombWeapon extends TSWeaponBase {
 	static final float DISTANCE_FROM_OWNER = 12;
 	static final int SHOOT_DELAY_FRAME = 120;
 	public static final int MAX_CHARGE = 10;
-	public static final Texture WEAPON_TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+	public static final Texture WEAPON_TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "weapon-suika.png");
 	private static final int RELOAD_COST = 10;
 
-	public TSBombWeapon(TSScene scene, ShootingRotateCharacter owner,
+	public TSBombWeapon(TokiShootingScene scene, ShootingRotateCharacter owner,
 			LR equipLR) {
 		super(scene, owner, equipLR);
 		setTexture(WEAPON_TEXTURE);

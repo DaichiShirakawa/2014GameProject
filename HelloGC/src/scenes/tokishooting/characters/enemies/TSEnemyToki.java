@@ -7,13 +7,19 @@ import java.awt.Color;
 
 import classes.scene.ShootingScene;
 import main.FPSManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.enemies.TSNormalEnemyBullet;
 import texture.Texture;
 import texture.TextureLoader;
 import common.Commons;
 import common.LR;
 
+/**
+ * 中ボス敵
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSEnemyToki extends TSEnemyBase {
 	private static final int POWER = 1;
 	private static final int HP = 10;
@@ -37,7 +43,7 @@ public class TSEnemyToki extends TSEnemyBase {
 		}
 		// ランダムで射撃
 		if ((FPSManager.totalFrame() % 60 == 0) && persentOf(15)) {
-			((TSScene) getParentScene()).add(new TSNormalEnemyBullet(
+			((TokiShootingScene) getParentScene()).add(new TSNormalEnemyBullet(
 					getParentScene(), this));
 		}
 		return super.updateProcess();

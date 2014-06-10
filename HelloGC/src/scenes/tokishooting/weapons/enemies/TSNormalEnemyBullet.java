@@ -5,15 +5,21 @@ import static common.Commons.*;
 
 import java.awt.Color;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * 中ボスが発射する敵弾
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSNormalEnemyBullet extends TSBulletBase{
 	private static final int BULLET_POWER = 1;
 	private static final int BULLET_SIZE = 20;
@@ -22,7 +28,7 @@ public class TSNormalEnemyBullet extends TSBulletBase{
 			+ "dotTokiIcon.png");
 	private static final float SPEED = 0.2f;
 
-	public TSNormalEnemyBullet(TSScene parentScene,
+	public TSNormalEnemyBullet(TokiShootingScene parentScene,
 			ShootingCharacterImpl shooter) {
 		super(parentScene, shooter, BULLET_POWER);
 
@@ -71,7 +77,7 @@ public class TSNormalEnemyBullet extends TSBulletBase{
 		}
 	}
 
-	private class Effect extends BasicEffect {
+	private class Effect extends ShootingBasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
 		}

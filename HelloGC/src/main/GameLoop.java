@@ -5,6 +5,12 @@ import io.Key;
 
 import org.lwjgl.opengl.Display;
 
+/**
+ * すべてのゲームオブジェクトの処理はこのループから始まる。
+ * 
+ * @author shirakawa
+ *
+ */
 class GameLoop implements Runnable {
 	private GameSceneManager sceneManager;
 

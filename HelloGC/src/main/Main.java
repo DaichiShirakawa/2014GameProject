@@ -12,7 +12,7 @@ import org.lwjgl.opengl.DisplayMode;
 import texture.AlphaBlend;
 
 /**
- * 作品集プログラムの起動点
+ * プログラムの起動点
  * 
  * @author shirakawa
  * @since 2014/05/26

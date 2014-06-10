@@ -11,6 +11,12 @@ import classes.character.ScreenShotCharacter;
 import classes.character.TextCharacter;
 import classes.scene.GameScene;
 
+/**
+ * 呼ばれた時点のスクリーンショットを撮って「GAME OVER」メッセージを表示するシーン。
+ * 
+ * @author shirakawa
+ * 
+ */
 public class GameOverScene extends GameScene {
 	TextCharacter gameoverText;
 

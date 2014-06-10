@@ -9,10 +9,16 @@ import texture.TextureLoader;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * 画面中央の地球
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSEarth extends ShootingCharacterImpl {
 	private static final int SIZE = 35;
 	private static final float JITEN = 0.1f;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "earth.png");
 
 	public TSEarth(ShootingScene scene) {

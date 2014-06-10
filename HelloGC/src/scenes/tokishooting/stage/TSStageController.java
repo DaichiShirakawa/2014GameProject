@@ -6,18 +6,24 @@ import io.Key;
 import java.awt.Color;
 
 import main.GameSceneManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import classes.character.TextCharacter;
 import classes.scene.GameScene;
 
+/**
+ * ステージの遷移を管理するクラス
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSStageController extends GameScene {
-	private TSScene scene;
+	private TokiShootingScene scene;
 	private TextCharacter startText;
 	private TextCharacter clearText;
 	private StageState stageState = StageState.READY;
 	private StageBase currentStage;
 
-	public TSStageController(TSScene scene) {
+	public TSStageController(TokiShootingScene scene) {
 		this.scene = scene;
 		StageDef.reset();
 		currentStage = add(StageDef.getNextStage(scene));

@@ -8,7 +8,7 @@ import java.awt.Color;
 import texture.Texture;
 
 /**
- * 汎用関数集約
+ * 汎用関数集約クラス
  * 
  * @author shirakawa
  * 

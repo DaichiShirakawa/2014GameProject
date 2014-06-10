@@ -5,13 +5,19 @@ import static common.Commons.*;
 import java.awt.Color;
 
 import main.FPSManager;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import texture.Texture;
 import texture.TextureLoader;
 import classes.scene.ShootingScene;
 import common.Commons;
 import common.LR;
 
+/**
+ * ボス敵
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSEnemyBoss extends TSEnemyBase {
 	private static final int POWER = 1;
 	private static final int HP = 120;
@@ -35,7 +41,7 @@ public class TSEnemyBoss extends TSEnemyBase {
 		}
 		// 定期的に中ボスを生み出す
 		if (FPSManager.totalFrame() % 900 == 0) {
-			((TSScene) getParentScene()).add(new TSEnemyToki(
+			((TokiShootingScene) getParentScene()).add(new TSEnemyToki(
 					getParentScene(), getAngle(), LR.RIGHT));
 		}
 		return super.updateProcess();

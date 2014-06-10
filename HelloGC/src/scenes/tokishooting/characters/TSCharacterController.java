@@ -4,7 +4,7 @@ import static common.CommonMethod.*;
 
 import java.util.Iterator;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.characters.friendlies.earth.TSBasionBase;
 import scenes.tokishooting.characters.friendlies.earth.TSEarth;
 import scenes.tokishooting.characters.friendlies.ship.TSShip;
@@ -13,12 +13,18 @@ import classes.GameObject;
 import classes.scene.ShootingScene;
 import common.LR;
 
+/**
+ * 自軍、敵軍、弾丸はこのクラスで管理される。
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSCharacterController extends ShootingScene {
-	TSScene scene;
+	TokiShootingScene scene;
 	TSEarth earth;
 	TSShip ship;
 
-	public TSCharacterController(TSScene scene) {
+	public TSCharacterController(TokiShootingScene scene) {
 		this.scene = scene;
 		this.earth = add(new TSEarth(scene));
 		this.ship = add(new TSShip(scene, this));

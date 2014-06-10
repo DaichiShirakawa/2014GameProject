@@ -4,7 +4,7 @@ import static common.Commons.*;
 
 import java.awt.Color;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import scenes.tokishooting.weapons.TSWeaponBase;
 import texture.Texture;
@@ -14,16 +14,22 @@ import classes.character.shooting.ShootingRotateCharacter;
 import classes.scene.ShootingScene;
 import common.LR;
 
+/**
+ * スナイパー武器。レーザーサイトつき／貫通で便利
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSSnipeWeapon extends TSWeaponBase {
 	static final float DISTANCE_FROM_OWNER = 8;
 	static final int SHOOT_DELAY_FRAME = 60;
 	public static final int MAX_CHARGE = 20;
-	private static final Texture WEAPON_TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+	private static final Texture WEAPON_TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "weapon-tikuwa.png");
 	public static final Texture SNIPE_SITE_TEXTURE = TextTextureMaker.createText("|");
 	private static final int RELOAD_COST = 5;
 
-	public TSSnipeWeapon(TSScene scene, ShootingRotateCharacter owner,
+	public TSSnipeWeapon(TokiShootingScene scene, ShootingRotateCharacter owner,
 			LR equipLR) {
 		super(scene, owner, equipLR);
 		setTexture(WEAPON_TEXTURE);

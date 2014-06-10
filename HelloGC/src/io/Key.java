@@ -7,6 +7,8 @@ import org.lwjgl.input.Keyboard;
  * キーごとに押した瞬間／離した瞬間および、
  * 連続で押され続けているフレーム数を取得できる。
  * キーのvalueは org.lwjgl.input.Keyboard に準拠
+ * 
+ * @author shirakawa
  */
 public enum Key {
 	ESCAPE(1),

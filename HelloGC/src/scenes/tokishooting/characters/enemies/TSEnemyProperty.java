@@ -2,6 +2,12 @@ package scenes.tokishooting.characters.enemies;
 
 import texture.Texture;
 
+/**
+ * 敵の状態を集約する構造体クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public class TSEnemyProperty {
 	public final int power;
 	public final int hp;

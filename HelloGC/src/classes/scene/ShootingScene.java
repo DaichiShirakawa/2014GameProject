@@ -5,6 +5,12 @@ import java.util.List;
 import classes.GameObject;
 import classes.character.shooting.ShootingCharacter;
 
+/**
+ * シューティング用基底シーン
+ * 
+ * @author shirakawa
+ *
+ */
 abstract public class ShootingScene extends GameScene {
 	@Override
 	public boolean updateProcess() {

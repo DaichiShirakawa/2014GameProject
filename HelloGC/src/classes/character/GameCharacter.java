@@ -6,7 +6,7 @@ import classes.GameObject;
 import texture.Texture;
 
 /**
- * キャラクターの挙動を定義
+ * ゲームキャラクターの基底インターフェース
  * 
  * @author shirakawa
  * 

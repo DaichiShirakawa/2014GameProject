@@ -4,16 +4,22 @@ import static common.Commons.*;
 
 import java.awt.Color;
 
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.characters.friendlies.earth.TSEarth;
 import scenes.tokishooting.characters.friendlies.ship.TSShip;
 import classes.character.DamagePopupCharacter;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingRotateCharacter;
 import classes.scene.ShootingScene;
 import common.LR;
 
+/**
+ * 敵キャラの基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class TSEnemyBase extends ShootingRotateCharacter {
 
 	TSEnemyProperty property;
@@ -40,15 +46,15 @@ public abstract class TSEnemyBase extends ShootingRotateCharacter {
 	protected abstract Color createColor();
 
 	@Override
-	public TSScene getParentScene() {
-		return (TSScene) super.getParentScene();
+	public TokiShootingScene getParentScene() {
+		return (TokiShootingScene) super.getParentScene();
 	}
 
 	@Override
 	protected void destroyProcess() {
 		super.destroyProcess();
 		for (int i = 0; i < 5; i++) {
-			getParentScene().add(new BasicEffect(getParentScene(), this));
+			getParentScene().add(new ShootingBasicEffect(getParentScene(), this));
 		}
 	}
 

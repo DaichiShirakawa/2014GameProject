@@ -4,6 +4,12 @@ import classes.character.GameCharacter;
 import classes.character.shooting.ShootingCharacterImpl.ShootingTeam;
 import classes.scene.ShootingScene;
 
+/**
+ * シューティングキャラクターの基底クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public interface ShootingCharacter extends GameCharacter {
 
 	ShootingTeam getTeam();

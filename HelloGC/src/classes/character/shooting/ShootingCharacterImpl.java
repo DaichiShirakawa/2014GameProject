@@ -7,6 +7,12 @@ import classes.character.GameCharacter;
 import classes.character.GameCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * シューティングキャラクターの実装クラス
+ * 
+ * @author shirakawa
+ *
+ */
 public abstract class ShootingCharacterImpl extends GameCharacterImpl implements
 		ShootingCharacter {
 	private ShootingScene parentScene;

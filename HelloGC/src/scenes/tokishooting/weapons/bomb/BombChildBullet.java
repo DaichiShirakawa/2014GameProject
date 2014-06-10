@@ -2,26 +2,32 @@ package scenes.tokishooting.weapons.bomb;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
-import scenes.tokishooting.TSScene;
+import scenes.tokishooting.TokiShootingScene;
 import scenes.tokishooting.weapons.TSBulletBase;
 import texture.Texture;
 import texture.TextureLoader;
-import classes.character.shooting.BasicEffect;
+import classes.character.shooting.ShootingBasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
+/**
+ * ボム着弾時に飛び散る貫通弾
+ * 
+ * @author shirakawa
+ *
+ */
 class BombChildBullet extends TSBulletBase {
 	private static final int BULLET_POWER = 1;
 	private static final int BULLET_HP = 5;
 	private static final int BULLET_SIZE = 8;
 	private static final int BULLET_RANGE = 100;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+	private static final Texture TEXTURE = TextureLoader.loadTexture(TOKISHOOTING_FOLDER_STRING
 			+ "bullet-suikaChild.png");
 	private static final float SPEED = 2.5f;
 	private boolean smokeUsed = false;
 
-	public BombChildBullet(TSScene parentScene, ShootingCharacter shooter) {
+	public BombChildBullet(TokiShootingScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER, BULLET_HP);
 
 		double theta = Math.toRadians(random(0, 360));
@@ -72,7 +78,7 @@ class BombChildBullet extends TSBulletBase {
 		}
 	}
 
-	private class Effect extends BasicEffect {
+	private class Effect extends ShootingBasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
 			setScale(random(1f, 1.5f));
