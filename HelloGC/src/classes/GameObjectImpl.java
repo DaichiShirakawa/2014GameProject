@@ -16,6 +16,7 @@ public abstract class GameObjectImpl implements GameObject {
 	private List<GameObject> children = new LinkedList<>();
 	// childrenのイテレート中にaddさせないため、addしたオブジェクトを一時保管する
 	private List<GameObject> bookingObjects = new LinkedList<>();
+	private int bookingFrame = 0;
 
 	private boolean destroyed = false;
 	private boolean visible = true;
@@ -39,8 +40,25 @@ public abstract class GameObjectImpl implements GameObject {
 	 * 一時保管したオブジェクトを正式に子として迎える
 	 */
 	protected final void addBookingObjects() {
-		children.addAll(bookingObjects);
-		bookingObjects.clear();
+		for (Iterator<GameObject> ite = bookingObjects.iterator(); ite.hasNext();) {
+			GameObjectImpl go = (GameObjectImpl) ite.next();
+			if (go.canCreation()) {
+				children.add(go);
+				ite.remove();
+			}
+		}
+	}
+
+	/**
+	 * 予約フレームが0になればchildとして追加可能。
+	 */
+	private boolean canCreation() {
+		if (bookingFrame == 0) {
+			return true;
+		} else {
+			bookingFrame--;
+			return false;
+		}
 	}
 
 	/**
@@ -141,6 +159,12 @@ public abstract class GameObjectImpl implements GameObject {
 		}
 		bookingObjects.add(go);
 		return go;
+	}
+
+	@Override
+	public GameObject booking(int bookingFrame) {
+		this.bookingFrame = bookingFrame;
+		return this;
 	}
 
 	@Override

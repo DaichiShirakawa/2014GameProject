@@ -63,7 +63,7 @@ public abstract class ShootingBulletCharacter extends ShootingCharacterImpl {
 
 	@Override
 	public void hitEffectTo(ShootingCharacter target) {
-		if (!(target instanceof ShootingBulletCharacter)) {
+		if ((0 < getPower()) && !(target instanceof ShootingBulletCharacter)) {
 			getParentScene().add(
 					new DamagePopupCharacter(target, (int) getPower()));
 		}

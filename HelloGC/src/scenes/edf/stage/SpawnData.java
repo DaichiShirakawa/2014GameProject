@@ -12,13 +12,13 @@ import common.LR;
  * @author shirakawa
  * 
  */
-public class EDFSpawnData {
+class SpawnData {
 	private Class<? extends EDFEnemyBase> enemyClass;
 	private long spawnFrame;
 	private float angle;
 	private LR rotateLR;
 
-	public EDFSpawnData(Class<? extends EDFEnemyBase> enemyClass, long spawnFrame,
+	public SpawnData(Class<? extends EDFEnemyBase> enemyClass, long spawnFrame,
 			float angle, LR rotateLR) {
 		this.enemyClass = enemyClass;
 		this.spawnFrame = spawnFrame;

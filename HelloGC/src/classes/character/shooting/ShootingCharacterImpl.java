@@ -98,9 +98,9 @@ public abstract class ShootingCharacterImpl extends GameCharacterImpl implements
 	}
 
 	@Override
-	public void shoot(ShootingBulletCharacter bullet) {
+	public ShootingBulletCharacter shoot(ShootingBulletCharacter bullet) {
 		bullet.setParentScene(parentScene);
-		parentScene.add(bullet);
+		return parentScene.add(bullet);
 	}
 
 	@Override

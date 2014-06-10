@@ -41,7 +41,8 @@ public final class CommonMethod {
 	 */
 	public enum BackGroundColor {
 		WHITE(1f, 1f, 1f, 1f),
-		BLACK(0f, 0f, 0f, 1f);
+		BLACK(0f, 0f, 0f, 1f),
+		DARK_BLUE(0f, 0f, 0.2f, 1f),;
 
 		private final float red;
 		private final float green;
@@ -123,5 +124,16 @@ public final class CommonMethod {
 		b *= rand;
 
 		return new Color(r, g, b);
+	}
+
+	/**
+	 * 受け取ったangleを 0 <= angle < 360 に正規化して返す
+	 */
+	public static float toAbsoluteAngle(float angle) {
+		angle %= 360;
+		if (angle < 0) {
+			angle += 360;
+		}
+		return angle;
 	}
 }

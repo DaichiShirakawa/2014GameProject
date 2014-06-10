@@ -15,7 +15,7 @@ import classes.character.TextCharacter;
  * 
  */
 class DelayBar extends TextCharacter {
-	//
+	//HACK テクスチャをいっぱい用意するイケてない方法。
 	private static final List<Texture> textureList = new ArrayList<>();
 	static {
 		textureList.add(null);
@@ -31,9 +31,9 @@ class DelayBar extends TextCharacter {
 		textureList.add(TextTextureMaker.createText("■■■■■■■■■■"));
 	}
 
-	private AnWeaponGUI parent;
+	private OddWeaponGUI parent;
 
-	public DelayBar(AnWeaponGUI parent) {
+	public DelayBar(OddWeaponGUI parent) {
 		super();
 		this.parent = parent;
 		setBasePont(GameCharacterBasePoint.LEFTBOTTOM);
@@ -47,7 +47,7 @@ class DelayBar extends TextCharacter {
 		int remain = (int) ((float) parent.getWeapon()
 				.getRemainDelayFrame() / (float) parent.getWeapon()
 				.getMaxDelayFrame() * 10);
-		if (remain <= 0) {
+		if (remain <= 0 || textureList.size() <= remain) {
 			hide();
 		} else {
 			show();

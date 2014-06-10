@@ -1,32 +1,55 @@
 package scenes.edf;
 
+import static common.Commons.*;
 import io.Key;
 
+import java.awt.Color;
 import java.util.Iterator;
 
 import main.GameSceneManager;
 import scenes.edf.characters.EDFCharacterController;
 import scenes.edf.gui.moneycaption.EDFMoneyCaption;
-import scenes.edf.gui.weaponcaption.EDFWeaponCaption;
+import scenes.edf.gui.weaponcaption.EDFWeaponGUI;
 import scenes.edf.stage.EDFStageController;
 import classes.GameObject;
+import classes.character.PopupTextCharacter;
+import classes.character.TextCharacter;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl.ShootingTeam;
 import classes.scene.ShootingScene;
+
 import common.CommonMethod.BackGroundColor;
 
 public class EDFScene extends ShootingScene {
-	private int money = 0;
+	private int money = 100;
 	private EDFCharacterController characters;
 	private EDFStageController stages;
 	private boolean pausing = false;
+	private TextCharacter cautionCaption;
+	private int cautionFrame;
+	private TextCharacter pauseCaption;
 
 	public EDFScene() {
-		BackGroundColor.BLACK.set();
+		BackGroundColor.DARK_BLUE.set();
+		
 		characters = add(new EDFCharacterController(this));
 		stages = add(new EDFStageController(this));
 		add(new EDFMoneyCaption(this));
-		add(new EDFWeaponCaption(characters));
+		add(new EDFWeaponGUI(characters));
+
+		cautionCaption = add(new TextCharacter());
+		cautionCaption.setScale(0.4f)
+				.setColor(new Color(1f, 0.3f, 0f))
+				.setX(CENTER_X)
+				.setY(CENTER_Y - 70)
+				.hide();
+
+		pauseCaption = add(new TextCharacter("PAUSE"));
+		pauseCaption.setScale(0.4f)
+				.setColor(Color.green)
+				.setX(CENTER_X)
+				.setY(CENTER_Y + 70)
+				.hide();
 	}
 
 	/**
@@ -46,6 +69,8 @@ public class EDFScene extends ShootingScene {
 	}
 
 	public int addMoney(int value) {
+		String str = (value < 0) ? "-$" : "$";
+		add(new PopupTextCharacter(characters.getShip(), str + Math.abs(value)).setColor(Color.yellow));
 		money += value;
 		return money;
 	}
@@ -60,6 +85,9 @@ public class EDFScene extends ShootingScene {
 		if (isPausing()) {
 			inputProcess();
 			return false;
+		}
+		if (cautionFrame-- <= 0) {
+			cautionCaption.hide();
 		}
 		return super.updateProcess();
 	}
@@ -93,9 +121,9 @@ public class EDFScene extends ShootingScene {
 			stages.doClear();
 		}
 
-		// TODO ポーズ中キャプションがほしい
 		if (Key.P.isPressed()) {
 			if (isPlaying()) {
+				pauseCaption.toggleVisible();
 				pausing = !pausing;
 			}
 		}
@@ -114,5 +142,14 @@ public class EDFScene extends ShootingScene {
 				ite.remove();
 			}
 		}
+	}
+
+	/**
+	 * 弾切れや金欠の場合、一定時間目立つメッセージを表示できる
+	 */
+	public void showCaution(String text) {
+		cautionCaption.updateText(text);
+		cautionCaption.show();
+		cautionFrame = 45;
 	}
 }

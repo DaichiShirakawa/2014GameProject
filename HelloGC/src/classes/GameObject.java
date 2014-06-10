@@ -42,6 +42,11 @@ public interface GameObject {
 	 * 子オブジェクトを追加する
 	 */
 	<T extends GameObject> T add(T go);
+	
+	/**
+	 * bookingFrameが経過するまで正式に子オブジェクトとしないよう予約する。
+	 */
+	GameObject booking(int bookingFrame);
 
 	/**
 	 * 子オブジェクトのイテレータを返す。
@@ -70,4 +75,5 @@ public interface GameObject {
 	 * 可視状態を切り替える
 	 */
 	GameObject toggleVisible();
+
 }

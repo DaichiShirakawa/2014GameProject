@@ -22,7 +22,7 @@ public interface ShootingCharacter extends GameCharacter {
 
 	float damage(float damage);
 
-	void shoot(ShootingBulletCharacter bullet);
+	ShootingBulletCharacter shoot(ShootingBulletCharacter bullet);
 
 	void hitEffectTo(ShootingCharacter target);
 }

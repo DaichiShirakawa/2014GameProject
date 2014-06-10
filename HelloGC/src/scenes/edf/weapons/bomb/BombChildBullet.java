@@ -1,36 +1,47 @@
-package scenes.edf.weapons.sniper;
+package scenes.edf.weapons.bomb;
 
 import static common.CommonMethod.*;
-
-import java.awt.Color;
-
+import static common.Commons.*;
 import scenes.edf.EDFScene;
 import scenes.edf.weapons.EDFBulletBase;
 import texture.Texture;
-import texture.text.TextTextureMaker;
+import texture.TextureLoader;
 import classes.character.shooting.BasicEffect;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
-public class EDFSnipeBullet extends EDFBulletBase {
-	private static final int BULLET_POWER = 3;
+class BombChildBullet extends EDFBulletBase {
+	private static final int BULLET_POWER = 1;
 	private static final int BULLET_HP = 5;
-	private static final int BULLET_SIZE = 4;
-	private static final int BULLET_RANGE = 400;
-	private static final Texture TEXTURE = TextTextureMaker.createText("▲");
-	private static final float SPEED = 15;
+	private static final int BULLET_SIZE = 8;
+	private static final int BULLET_RANGE = 100;
+	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING
+			+ "bullet-suikaChild.png");
+	private static final float SPEED = 2.5f;
+	private boolean smokeUsed = false;
 
-	public EDFSnipeBullet(EDFScene parentScene, ShootingCharacter shooter) {
+	public BombChildBullet(EDFScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER, BULLET_HP);
 
-		setColor(Color.white);
-
-		double theta = Math.toRadians(-getShooter().getAngle());
+		double theta = Math.toRadians(random(0, 360));
 		setVX(SPEED * (float) Math.sin(theta));
 		setVY(SPEED * (float) Math.cos(theta));
-		setHeight(getHeight() * 4);
-		setAngle(shooter.getAngle());
+		setScale(random(1, 3));
+		setVScale(-0.07f);
+		setVAngle(1);
+	}
+
+	@Override
+	public boolean updateProcess() {
+		if (!smokeUsed && getScale() <= 0.3f) {
+			smokeUsed = true;
+			getParentScene().add(new SmokeEffect(getParentScene(), this, false));
+		}
+		if (getScale() <= 0.1f) {
+			destroy();
+		}
+		return super.updateProcess();
 	}
 
 	@Override
@@ -64,6 +75,7 @@ public class EDFSnipeBullet extends EDFBulletBase {
 	private class Effect extends BasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
+			setScale(random(1f, 1.5f));
 		}
 
 		@Override

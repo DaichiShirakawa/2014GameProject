@@ -14,7 +14,7 @@ public abstract class EDFBulletBase extends ShootingBulletCharacter {
 
 	public EDFBulletBase(EDFScene parentScene, ShootingCharacter shooter,
 			float power, float hp) {
-		super(parentScene, shooter, power);
+		super(parentScene, shooter, power, hp);
 	}
 
 	@Override

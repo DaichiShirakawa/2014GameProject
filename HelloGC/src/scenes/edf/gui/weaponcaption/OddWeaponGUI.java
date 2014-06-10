@@ -2,11 +2,12 @@ package scenes.edf.gui.weaponcaption;
 
 import java.awt.Color;
 
+import scenes.edf.characters.friendlies.earth.EDFBasionBase;
+import scenes.edf.characters.friendlies.ship.EDFShip;
 import scenes.edf.weapons.EDFWeaponBase;
 import classes.character.GameCharacterImpl;
 import classes.character.SimpleCharacter;
 import classes.character.TextCharacter;
-
 import common.Commons;
 import common.LR;
 
@@ -16,16 +17,18 @@ import common.LR;
  * @author shirakawa
  * 
  */
-class AnWeaponGUI extends GameCharacterImpl {
+class OddWeaponGUI extends GameCharacterImpl {
+	private EDFShip ship;
 	private EDFWeaponBase weapon;
-	private int currentRemainBullet;
-
 	private SimpleCharacter weaponView;
 	private TextCharacter bulletCountText;
+	private TextCharacter costText;
 
-	public AnWeaponGUI(LR lr, EDFWeaponBase weapon) {
+	public OddWeaponGUI(EDFShip ship, EDFWeaponBase weapon, LR lr) {
 		setX(Commons.CENTER_X + (165 * lr.signum()));
 		setY(40);
+
+		this.ship = ship;
 
 		weaponView = add(new SimpleCharacter());
 		weaponView.setX(getX())
@@ -39,6 +42,14 @@ class AnWeaponGUI extends GameCharacterImpl {
 				.setY(getY() - 25)
 				.setScale(0.3f)
 				.setColor(Color.white);
+
+		costText = add(new TextCharacter());
+		costText.setX(getX() - 10 * lr.signum())
+				.setY(getY() + 30)
+				.setScale(0.3f)
+				.setColor(Color.yellow)
+				.hide();
+
 		add(new DelayBar(this));
 
 		setWeapon(weapon);
@@ -51,7 +62,6 @@ class AnWeaponGUI extends GameCharacterImpl {
 	public void setWeapon(EDFWeaponBase weapon) {
 		this.weapon = weapon;
 		weaponView.setTexture(weapon.getTexture());
-		currentRemainBullet = weapon.getRemainBullet();
 		bulletCountText.updateText(getBulletCountText(weapon));
 	}
 
@@ -61,12 +71,26 @@ class AnWeaponGUI extends GameCharacterImpl {
 
 	@Override
 	public boolean updateProcess() {
-		if (currentRemainBullet == weapon.getRemainBullet()) {
-			return true;
-		}
 		bulletCountText.updateText(getBulletCountText(weapon));
-		currentRemainBullet = weapon.getRemainBullet();
+		costCheckProcess();
 		return true;
+	}
+
+	private void costCheckProcess() {
+		EDFBasionBase basion = ship.getBackingBasion();
+		if (basion == null) {
+			costText.hide();
+			return;
+		}
+		costText.show();
+
+		// 現在持っている武器と着陸した基地が同じなら、弾丸購入コストを表示する。
+		// 武器が違うなら、交換（弾丸売却）で得られる金額を表示する。
+		if (weapon.getClass() == basion.getWeaponClass()) {
+			costText.updateText("装填費:" + weapon.getReloadCost());
+		} else {
+			costText.updateText("売却額:" + weapon.getSellValue());
+		}
 	}
 
 	@Override

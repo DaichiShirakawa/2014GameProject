@@ -1,0 +1,71 @@
+package scenes.edf.stage;
+
+import common.LR;
+
+import scenes.edf.EDFScene;
+
+class Stage5 extends StageBase {
+
+	public Stage5(EDFScene parentScene) {
+		super(parentScene);
+	}
+
+	@Override
+	protected void createSpawns() {
+		int frame = 0;
+		float angle = 0;
+		LR lr = LR.RIGHT;
+
+		rotateSpawn(frame += 60, angle = 0, lr);
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+		rotateSpawn(frame += 45, angle += 15, lr.toggle());
+
+		standardSpawn(frame += 600, angle = 0);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+		standardSpawn(frame += 90, angle += 15);
+	}
+	
+	
+
+}

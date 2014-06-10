@@ -5,12 +5,14 @@ import static common.Commons.*;
 import java.awt.Color;
 
 import scenes.edf.EDFScene;
+import scenes.edf.characters.friendlies.earth.EDFEarth;
+import scenes.edf.characters.friendlies.ship.EDFShip;
 import classes.character.DamagePopupCharacter;
 import classes.character.shooting.BasicEffect;
-import classes.character.shooting.ShootingBulletCharacter;
 import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingRotateCharacter;
 import classes.scene.ShootingScene;
+
 import common.LR;
 
 public abstract class EDFEnemyBase extends ShootingRotateCharacter {
@@ -57,7 +59,10 @@ public abstract class EDFEnemyBase extends ShootingRotateCharacter {
 
 	@Override
 	public void hitEffectTo(ShootingCharacter target) {
-		if (!(target instanceof ShootingBulletCharacter)) {
+		if(target instanceof EDFShip) {
+			return;
+		}
+		if ((0 < getPower()) && (target instanceof EDFEarth)) {
 			getParentScene().add(
 					new DamagePopupCharacter(target, (int) getPower()));
 		}

@@ -5,7 +5,6 @@ import static common.Commons.*;
 import java.awt.Color;
 
 import scenes.edf.EDFScene;
-import classes.character.GameCharacterBasePoint;
 import classes.character.TextCharacter;
 
 public class EDFMoneyCaption extends TextCharacter {
@@ -14,10 +13,9 @@ public class EDFMoneyCaption extends TextCharacter {
 	public EDFMoneyCaption(EDFScene edfScene) {
 		super(getCaption(edfScene.getMoney()));
 		this.scene = edfScene;
-		setBasePont(GameCharacterBasePoint.LEFTTOP);
 		setScale(0.4f);
-		setX(5);
-		setY(HEIGHT - 5);
+		setX(CENTER_X);
+		setY(30);
 		setColor(Color.orange.brighter());
 	}
 

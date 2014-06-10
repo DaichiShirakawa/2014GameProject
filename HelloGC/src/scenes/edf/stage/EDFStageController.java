@@ -15,12 +15,12 @@ public class EDFStageController extends GameScene {
 	private TextCharacter startText;
 	private TextCharacter clearText;
 	private StageState stageState = StageState.READY;
-	private EDFStageBase currentStage;
+	private StageBase currentStage;
 
 	public EDFStageController(EDFScene scene) {
 		this.scene = scene;
-		EDFStageDef.reset();
-		currentStage = add(EDFStageDef.getNextStage(scene));
+		StageDef.reset();
+		currentStage = add(StageDef.getNextStage(scene));
 		startText = add(new TextCharacter(getReadyText()));
 		clearText = add(new TextCharacter("STAGE CLEAR\n" + "press enter"));
 		startText.setX(CENTER_X)
@@ -34,7 +34,8 @@ public class EDFStageController extends GameScene {
 	}
 
 	private String getReadyText() {
-		return EDFStageDef.getStageName() + " READY?\n" + "press enter";
+		return StageDef.getStageName() + "  " + StageDef.getStageDescript()
+				+ "\n" + "press enter";
 	}
 
 	@Override
@@ -96,9 +97,9 @@ public class EDFStageController extends GameScene {
 
 	private void nextStage() {
 		currentStage.destroy();
-		currentStage = add(EDFStageDef.getNextStage(scene));
-		if (EDFStageDef.allClear()) {
-			clearText.updateText("GAME CLEAR!\n" + "congratulations!");
+		currentStage = add(StageDef.getNextStage(scene));
+		if (StageDef.allClear()) {
+			clearText.updateText("GAME CLEAR!\n" + "おめでとう!");
 			return;
 		}
 		startText.updateText(getReadyText());

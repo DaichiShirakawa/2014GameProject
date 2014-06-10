@@ -12,10 +12,14 @@ public class BasicEffect extends ShootingEffectCharacter {
 		setScale(random(0.5f, 2f));
 		setColor(source.getColor());
 
+		setAngle(RANDOM.nextInt(360));
+		setMoveSpeeds();
+	}
+
+	protected void setMoveSpeeds() {
 		float tmp = RANDOM.nextInt(360);
 		setVX(3 * (float) sin(tmp) * random(0.2f, 1f));
 		setVY(3 * (float) cos(tmp) * random(0.2f, 1f));
-		setAngle(tmp);
 	}
 
 	@Override

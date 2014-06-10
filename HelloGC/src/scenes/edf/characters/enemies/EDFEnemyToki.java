@@ -8,7 +8,7 @@ import java.awt.Color;
 import classes.scene.ShootingScene;
 import main.FPSManager;
 import scenes.edf.EDFScene;
-import scenes.edf.weapons.basic.EDFBasicEnemyBullet;
+import scenes.edf.weapons.enemies.EDFNormalEnemyBullet;
 import texture.Texture;
 import texture.TextureLoader;
 import common.Commons;
@@ -35,9 +35,9 @@ public class EDFEnemyToki extends EDFEnemyBase {
 		if (getOffsetY() < (WIDTH / 2) - SIZE) {
 			setVOffsetY(getVOffsetY() * 0.95f);
 		}
-		// 5秒に1回の期待値で射撃
-		if ((FPSManager.totalFrame() % 60 == 0) && persentOf(30)) {
-			((EDFScene) getParentScene()).add(new EDFBasicEnemyBullet(
+		// ランダムで射撃
+		if ((FPSManager.totalFrame() % 60 == 0) && persentOf(15)) {
+			((EDFScene) getParentScene()).add(new EDFNormalEnemyBullet(
 					getParentScene(), this));
 		}
 		return super.updateProcess();

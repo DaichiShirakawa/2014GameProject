@@ -1,19 +1,20 @@
 package scenes.edf.characters.enemies;
 
-import static common.CommonMethod.*;
+import static common.Commons.*;
 
 import java.awt.Color;
 
-import classes.scene.ShootingScene;
 import texture.Texture;
-import texture.text.TextTextureMaker;
+import texture.TextureLoader;
+import classes.scene.ShootingScene;
+
 import common.LR;
 
 public class EDFEnemyStandard extends EDFEnemyBase {
 	private static final int POWER = 1;
-	private static final int HP = 1;
+	private static final int HP = 3;
 	private static final int SIZE = 20;
-	private static final Texture TEXTURE = TextTextureMaker.createText("†");
+	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "fish.png");
 	private static final float ROTATE_SPEED = 0;
 	private static final float FALL_SPEED = 0.3f;
 	private static final int MONEY = 5;
@@ -26,6 +27,6 @@ public class EDFEnemyStandard extends EDFEnemyBase {
 
 	@Override
 	protected Color createColor() {
-		return new Color(random(0.5f, 0.7f), random(0.5f, 0.7f), random(0.7f, 1f));
+		return null;
 	}
 }

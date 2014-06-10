@@ -1,4 +1,4 @@
-package scenes.edf.weapons.basic;
+package scenes.edf.weapons.normal;
 
 import static common.CommonMethod.*;
 import static common.Commons.*;
@@ -14,25 +14,23 @@ import classes.character.shooting.ShootingCharacter;
 import classes.character.shooting.ShootingCharacterImpl;
 import classes.scene.ShootingScene;
 
-public class EDFBasicEnemyBullet extends EDFBulletBase{
+class NormalBullet extends EDFBulletBase {
 	private static final int BULLET_POWER = 1;
-	private static final int BULLET_SIZE = 20;
-	private static final int BULLET_RANGE = 300;
-	private static final Texture TEXTURE = TextureLoader.loadTexture(IMAGE_FOLDER_STRING
-			+ "dotTokiIcon.png");
-	private static final float SPEED = 0.2f;
+	private static final int BULLET_SIZE = 8;
+	private static final int BULLET_RANGE = 200;
+	private static final Texture TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-apple.png");
+	private static final Texture EFFECT_TEXTURE = TextureLoader.loadTexture(NAOKO_FOLDER_STRING + "bullet-appleChild.png");
+	private static final float SPEED = 3;
 
-	public EDFBasicEnemyBullet(EDFScene parentScene,
-			ShootingCharacterImpl shooter) {
+	public NormalBullet(EDFScene parentScene, ShootingCharacter shooter) {
 		super(parentScene, shooter, BULLET_POWER);
 
 		setColor(Color.white);
 
-		double theta = Math.toRadians(getShooter().getAngle() - 180);
-		setVX(SPEED * (float) Math.sin(-theta));
-		setVY(SPEED * (float) Math.cos(-theta));
-		setVAngle(3);
-		setColor(Color.orange);
+		double theta = Math.toRadians(-getShooter().getAngle());
+		setVX(SPEED * (float) Math.sin(theta));
+		setVY(SPEED * (float) Math.cos(theta));
+		setVAngle(12);
 	}
 
 	@Override
@@ -54,19 +52,11 @@ public class EDFBasicEnemyBullet extends EDFBulletBase{
 	public float getPower() {
 		return BULLET_POWER;
 	}
-	
-	@Override
-	public float damage(float damage) {
-		for (int i = 0; i < 2; i++) {
-			shoot(new Effect(getParentScene(), this));
-		}
-		return super.damage(damage);
-	}
 
 	@Override
 	public void hitEffectTo(ShootingCharacter target) {
 		super.hitEffectTo(target);
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 4; i++) {
 			shoot(new Effect(getParentScene(), this));
 		}
 	}
@@ -74,6 +64,7 @@ public class EDFBasicEnemyBullet extends EDFBulletBase{
 	private class Effect extends BasicEffect {
 		public Effect(ShootingScene parentScene, ShootingCharacterImpl shooter) {
 			super(parentScene, shooter);
+			setTexture(EFFECT_TEXTURE);
 		}
 
 		@Override
