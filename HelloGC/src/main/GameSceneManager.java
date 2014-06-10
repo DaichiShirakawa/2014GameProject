@@ -2,13 +2,13 @@ package main;
 
 import classes.scene.GameScene;
 import io.Key;
-import scenes.edf.EDFScene;
 import scenes.flowerstorm.FlowerStormScene;
 import scenes.gameover.GameOverScene;
 import scenes.shootingtest.TestShootingScene;
 import scenes.solarsystem.SolarSystemScene;
 import scenes.test.TestScene;
 import scenes.title.TitleScene;
+import scenes.tokishooting.TSScene;
 
 /**
  * 各シーンの切り替えを担当するシングルトン
@@ -65,7 +65,7 @@ public class GameSceneManager extends GameScene {
 		FLOWER_STORM(Key.F2, FlowerStormScene.class),
 		SOLAR_SYSTEM(Key.F3, SolarSystemScene.class),
 		SHOOTING_TEST(Key.F4, TestShootingScene.class),
-		EDF(Key.NULL, EDFScene.class), ;
+		EDF(Key.NULL, TSScene.class), ;
 
 		private final Key trigger;
 		private Class<? extends GameScene> sceneClass;
