@@ -27,7 +27,7 @@ public final class CommonMethod {
 	}
 
 	/**
-	 * 確率でtrueになる関数
+	 * 百分率でtrueになる関数
 	 * 
 	 * @param odds
 	 * @return odds%の確率でtrue
@@ -95,7 +95,7 @@ public final class CommonMethod {
 	 */
 	public static void setGlColor4f(final Color color, final float alpha) {
 		if (color == null) {
-			glColor4f(1, 1, 1, 1);
+			glColor4f(1, 1, 1, alpha);
 			return;
 		}
 		glColor4f(color.getRed() / 255f, color.getGreen() / 255f,
@@ -127,7 +127,8 @@ public final class CommonMethod {
 	}
 
 	/**
-	 * 受け取ったangleを 0 <= angle < 360 に正規化して返す
+	 * 受け取ったangleを 0 <= angle < 360 に正規化して返す<br>
+	* (ex: in>out) 361>1, 360>0, -1>359
 	 */
 	public static float toAbsoluteAngle(float angle) {
 		angle %= 360;
